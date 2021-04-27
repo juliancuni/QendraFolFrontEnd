@@ -13,7 +13,8 @@
     "lint": "ng lint",
     "modernizr": "modernizr -c modernizr-config.json -d src/modernizr.js",
     "webdriver-manager-update": "node ./node_modules/protractor/bin/webdriver-manager update",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "gen_openapi": "ng-openapi-gen --input http://localhost:5000/swagger/v1/swagger.json --output src/app/shared/sdk"
   },
   "dependencies": {
     "@agm/core": "1.1.0",
