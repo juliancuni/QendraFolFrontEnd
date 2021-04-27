@@ -26,7 +26,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 // import { FlotDirective } from './directives/flot/flot.directive';
 // import { SparklineDirective } from './directives/sparkline/sparkline.directive';
 // import { EasypiechartDirective } from './directives/easypiechart/easypiechart.directive';
-// import { ColorsService } from './colors/colors.service';
+import { ColorsService } from './colors/colors.service';
+import { ApiModule } from './sdk/api.module';
 // import { CheckallDirective } from './directives/checkall/checkall.directive';
 // import { VectormapDirective } from './directives/vectormap/vectormap.directive';
 // import { NowDirective } from './directives/now/now.directive';
@@ -58,9 +59,10 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     // PopoverModule.forRoot(),
     // TypeaheadModule.forRoot(),
     // ToastrModule.forRoot(),
+    ApiModule.forRoot({rootUrl: "https://localhost:5001"})
   ],
   providers: [
-    // ColorsService
+    ColorsService
   ],
   declarations: [
     // FlotDirective,
