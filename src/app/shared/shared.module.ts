@@ -34,6 +34,14 @@ import { ApiModule } from './sdk/api.module';
 // import { ScrollableDirective } from './directives/scrollable/scrollable.directive';
 // import { JqcloudDirective } from './directives/jqcloud/jqcloud.directive';
 
+
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../../environments/environment';
+import { reducers, metaReducers } from '../store';
+import { EffectsModule } from '@ngrx/effects';
+// import { AuthEffects } from './store/effects/auth.effects';
+
 // https://angular.io/styleguide#!#04-10
 @NgModule({
   imports: [
@@ -59,7 +67,11 @@ import { ApiModule } from './sdk/api.module';
     // PopoverModule.forRoot(),
     // TypeaheadModule.forRoot(),
     // ToastrModule.forRoot(),
-    ApiModule.forRoot({rootUrl: "https://localhost:5001"})
+    ApiModule.forRoot({rootUrl: "https://localhost:5001"}),
+    StoreModule.forRoot(reducers, { metaReducers, runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true } }),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    EffectsModule.forRoot([]),
   ],
   providers: [
     ColorsService
