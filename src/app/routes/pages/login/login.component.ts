@@ -2,8 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { SettingsService } from '../../../core/settings/settings.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginDto } from 'src/app/shared/sdk/models';
-import { AuthService } from 'src/app/shared/services/auth.service';
+// import { AuthService } from 'src/app/shared/services/auth.service';
 import { Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { AppState } from 'src/app/store';
+import { Observable } from 'rxjs';
+import { loginPage } from 'src/app/store/actions/auth.actions';
 
 @Component({
     selector: 'app-login',
@@ -12,10 +16,10 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+    login$: Observable<LoginDto>;
     valForm: FormGroup;
-    loginDto: LoginDto;
 
-    constructor(public settings: SettingsService, fb: FormBuilder, private _authService: AuthService, private _router: Router) {
+    constructor(public settings: SettingsService, fb: FormBuilder, private _store: Store<AppState>) {
 
         this.valForm = fb.group({
             'username': ['root', Validators.required],
@@ -24,22 +28,17 @@ export class LoginComponent implements OnInit {
 
     }
 
-    submitForm($ev, value: any) {
+    submitForm($ev, value: LoginDto) {
         $ev.preventDefault();
         for (let c in this.valForm.controls) {
             this.valForm.controls[c].markAsTouched();
         }
         if (this.valForm.valid) {
-            this.loginDto = value;
-            this._authService.login(this.loginDto).subscribe(
-                (loggedIn: boolean) => { return; },
-                (err) => { console.log(err) },
-                () => { this._router.navigateByUrl('home') });
+            this._store.dispatch(loginPage({ login: value }));
         }
     }
 
     ngOnInit() {
-
     }
 
 }

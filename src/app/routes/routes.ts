@@ -20,6 +20,9 @@ export const routes: Routes = [
             { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) }
         ]
     },
+    // {
+    //     path: 'auth', children: [{ path: '', loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule) }]
+    // }
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'recover', component: RecoverComponent },

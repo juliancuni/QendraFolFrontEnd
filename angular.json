@@ -106,10 +106,6 @@
             "scripts": [
               "src/app/core/wrapper/wrapper.js",
               "src/app/core/preloader/preloader.js"
-            ],
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
             ]
           }
         },
@@ -139,6 +135,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ng2angle"
+    }
+  },
+  "defaultProject": "ng2angle",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
