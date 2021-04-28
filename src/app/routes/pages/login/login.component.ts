@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { AppState } from 'src/app/store';
 import { Observable } from 'rxjs';
-import { loginPage } from 'src/app/store/actions/auth.actions';
+import * as fromAuthActions from 'src/app/store/actions/auth.actions';
 
 @Component({
     selector: 'app-login',
@@ -17,6 +17,7 @@ import { loginPage } from 'src/app/store/actions/auth.actions';
 export class LoginComponent implements OnInit {
 
     login$: Observable<LoginDto>;
+    isAuthenticated$: Observable<boolean>;
     valForm: FormGroup;
 
     constructor(public settings: SettingsService, fb: FormBuilder, private _store: Store<AppState>) {
@@ -28,17 +29,22 @@ export class LoginComponent implements OnInit {
 
     }
 
-    submitForm($ev, value: LoginDto) {
+    login($ev, value: LoginDto) {
         $ev.preventDefault();
         for (let c in this.valForm.controls) {
             this.valForm.controls[c].markAsTouched();
         }
         if (this.valForm.valid) {
-            this._store.dispatch(loginPage({ login: value }));
+            this._store.dispatch(fromAuthActions.loginPage({ login: value }));
         }
     }
 
+    logout() {
+        this._store.dispatch(fromAuthActions.logout());
+    }
+
     ngOnInit() {
+        this.isAuthenticated$ = this._store.select((state) => state.auth.isAuthenticated);
     }
 
 }

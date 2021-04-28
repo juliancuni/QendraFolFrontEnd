@@ -40,6 +40,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../../environments/environment';
 import { reducers, metaReducers } from '../store';
 import { EffectsModule } from '@ngrx/effects';
+import { AppEffects } from '../store/effects/app.effects';
+import { RouteEffects } from '../store/effects/route.effects';
 // import { AuthEffects } from './store/effects/auth.effects';
 
 // https://angular.io/styleguide#!#04-10
@@ -71,7 +73,7 @@ import { EffectsModule } from '@ngrx/effects';
     StoreModule.forRoot(reducers, { metaReducers, runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true } }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([AppEffects, RouteEffects]),
   ],
   providers: [
     ColorsService

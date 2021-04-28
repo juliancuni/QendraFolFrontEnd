@@ -5,6 +5,9 @@ import { EMPTY, of } from 'rxjs';
 
 import * as AuthActions from '../actions/auth.actions';
 import { AccountService } from 'src/app/shared/sdk/services';
+import { AppState } from '..';
+import { State, Store } from '@ngrx/store';
+import { AuthState } from '../reducers/auth.reducer';
 
 
 
@@ -22,13 +25,18 @@ export class AuthEffects {
     );
   });
 
-  loginSuccess$ = createEffect(
+  addUserToLocalStorage$ = createEffect(
     () => this.actions$.pipe(
       ofType(AuthActions.loginSuccess),
       tap((action) => localStorage.setItem('user', JSON.stringify(action.user)))), { dispatch: false }
   );
 
+  removeUserToLocalStorage$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(AuthActions.logout),
+      tap(() => localStorage.removeItem('user'))), { dispatch: false }
+  );
 
-  constructor(private actions$: Actions, private _accountService: AccountService) { }
+  constructor(private actions$: Actions, private _accountService: AccountService, private _store: Store<AppState>) { }
 
 }

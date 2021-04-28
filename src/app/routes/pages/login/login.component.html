@@ -7,10 +7,10 @@
                     <img class="block-center rounded" src="assets/img/logo.png" alt="Image" />
                 </a>
             </div>
-            <div class="card-body">
+            <div class="card-body" *ngIf="!(isAuthenticated$ | async)">
                 <p class="text-center py-2">SIGN IN TO CONTINUE.</p>
                 <form [formGroup]="valForm" class="form-validate mb-3" role="form" name="loginForm" novalidate=""
-                    (submit)="submitForm($event, valForm.value)">
+                    (submit)="login($event, valForm.value)">
                     <div class="form-group">
                         <div class="input-group with-focus">
                             <input class="form-control border-right-0" id="exampleInputUsername1" type="text"
@@ -57,6 +57,10 @@
                 <p class="pt-3 text-center">Need to Signup?</p>
                 <a class="btn btn-block btn-secondary" [routerLink]="'/register'">Register Now</a>
             </div>
+            <div *ngIf="isAuthenticated$ | async">
+                <button class="btn btn-block btn-primary mt-3" type="button" (click)="logout()">Logout</button>
+            </div>
+
         </div>
         <!-- END card-->
         <div class="p-3 text-center">

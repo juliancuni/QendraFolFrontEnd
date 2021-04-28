@@ -8,10 +8,28 @@ export const loginPage = createAction(
 
 export const loginSuccess = createAction(
   '[Auth Effects] Login Success',
-  props<{user: UserDto}>()
+  props<{ user: UserDto }>()
 );
 
 export const loginFailure = createAction(
   '[Auth Effects] Login Failure',
-  props<{error: any}>()
+  props<{ error: any }>()
+);
+
+export const logout = createAction(
+  '[Header Component] Logout'
 )
+
+export const logoutSuccess = createAction(
+  '[Auth Effect] Logout Success'
+)
+
+export const logoutFailure = createAction(
+  '[Header Component] Logout',
+  props<{ error: any }>()
+)
+
+export const browserReload = createAction(
+  '[App Component] Browser Reload',
+  props<{ user: UserDto }>()
+);

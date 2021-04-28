@@ -1,6 +1,10 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-
 import { SettingsService } from './core/settings/settings.service';
+
+import { AppState } from 'src/app/store';
+import * as fromAuthActions from 'src/app/store/actions/auth.actions';
+import * as fromRouteActions from 'src/app/store/actions/route.actions';
+import { Store } from '@ngrx/store';
 
 @Component({
     selector: 'app-root',
@@ -20,9 +24,20 @@ export class AppComponent implements OnInit {
     @HostBinding('class.aside-toggled') get asideToggled() { return this.settings.getLayoutSetting('asideToggled'); };
     @HostBinding('class.aside-collapsed-text') get isCollapsedText() { return this.settings.getLayoutSetting('isCollapsedText'); };
 
-    constructor(public settings: SettingsService) { }
+    constructor(public settings: SettingsService, private _store: Store<AppState>) { }
 
     ngOnInit() {
+        try {
+            const user = localStorage.getItem('user');
+            if (user) {
+                this._store.dispatch(fromAuthActions.browserReload({ user: JSON.parse(user) }));
+            } else {
+                this._store.dispatch(fromRouteActions.goToLogin());
+            }
+        } catch (err) {
+            this._store.dispatch(fromRouteActions.goToLogin());
+        }
+
         // prevent empty links to reload the page
         document.addEventListener('click', e => {
             const target = e.target as HTMLElement;

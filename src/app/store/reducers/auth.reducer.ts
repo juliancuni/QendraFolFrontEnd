@@ -6,22 +6,36 @@ export const authFeatureKey = 'auth';
 
 export interface AuthState {
   user: UserDto,
+  isAuthenticated: boolean,
   error: any
 }
 
 export const initialState: AuthState = {
   user: null,
+  isAuthenticated: false,
   error: null,
 };
 
 
 export const reducer = createReducer(
   initialState,
-  on(AuthActions.loginSuccess, (state, action) => {
-    return { ...state, user: action.user, error: null }
+  on(AuthActions.loginSuccess, AuthActions.browserReload, (state, action) => {
+    return { ...state, user: action.user, isAuthenticated: true, error: null }
   }),
   on(AuthActions.loginFailure, (state, action) => {
+    return { ...state, user: null, isAuthenticated: false, error: action.error }
+  }),
+  on(AuthActions.logoutSuccess, (state) => {
+    return { ...state, user: null, isAuthenticated: false, error: null }
+  }),
+  on(AuthActions.logoutFailure, (state, action) => {
     return { ...state, user: null, error: action.error }
+  }),
+  on(AuthActions.logout, (state, action) => {
+    return { ...state, user: null, isAuthenticated: false, error: null }
+  }),
+  on(AuthActions.browserReload, (state, action) => {
+    return { ...state, user: action.user }
   })
 );
 
