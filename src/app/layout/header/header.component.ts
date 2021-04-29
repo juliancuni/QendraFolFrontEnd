@@ -39,11 +39,11 @@ export class HeaderComponent implements OnInit {
         }
 
         // Switch fullscreen icon indicator
-        const el = this.fsbutton.nativeElement.firstElementChild;
-        screenfull.on('change', () => {
-            if (el)
-                el.className = screenfull.isFullscreen ? 'fa fa-compress' : 'fa fa-expand';
-        });
+        // const el = this.fsbutton.nativeElement.firstElementChild;
+        // screenfull.on('change', () => {
+        //     if (el)
+        //         el.className = screenfull.isFullscreen ? 'fa fa-compress' : 'fa fa-expand';
+        // });
 
         this.router = this.injector.get(Router);
 

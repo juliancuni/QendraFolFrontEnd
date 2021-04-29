@@ -2,7 +2,7 @@
     <div class="block-center mt-4 wd-xl">
         <!-- START card-->
         <div class="card card-flat">
-            <div class="card-header text-center bg-dark">
+            <div class="card-header text-center bg-primary">
                 <a href="#">
                     <img class="block-center rounded" src="assets/img/logo.png" alt="Image" />
                 </a>
@@ -18,7 +18,7 @@
                                 formControlName="username" required="" />
                             <div class="input-group-append">
                                 <span class="input-group-text text-muted bg-transparent border-left-0">
-                                    <em class="fa fa-envelope"></em>
+                                    <em class="fa fa-user"></em>
                                 </span>
                             </div>
                         </div>
@@ -57,8 +57,11 @@
                 <p class="pt-3 text-center">Need to Signup?</p>
                 <a class="btn btn-block btn-secondary" [routerLink]="'/register'">Register Now</a>
             </div>
-            <div *ngIf="isAuthenticated$ | async">
-                <button class="btn btn-block btn-primary mt-3" type="button" (click)="logout()">Logout</button>
+            <div *ngIf="isAuthenticated$ | async"  class="card-body">
+                <p class="text-center py-2">Jeni loguar tashmë.</p>
+                <p class="text-center py-2">Kliko Home, ose Logout.</p>
+                <a class="btn btn-block btn-success mt-3" [routerLink]="'/home'">Home</a>
+                <button class="btn btn-block btn-secondary mt-3" type="button" (click)="logout()">Logout</button>
             </div>
 
         </div>
