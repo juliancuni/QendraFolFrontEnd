@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { LoginDto, UserDto } from 'src/app/shared/sdk/models';
+import { HttpErrors } from '../../shared/entities/http.errors';
 
 export const loginPage = createAction(
   '[Login Component] Login',
@@ -13,7 +14,7 @@ export const loginSuccess = createAction(
 
 export const loginFailure = createAction(
   '[Auth Effects] Login Failure',
-  props<{ error: any }>()
+  props<{ error: HttpErrors }>()
 );
 
 export const logout = createAction(

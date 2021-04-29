@@ -8,6 +8,8 @@ import { select, Store } from '@ngrx/store';
 import { AppState } from 'src/app/store';
 import { Observable } from 'rxjs';
 import * as fromAuthActions from 'src/app/store/actions/auth.actions';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrors } from 'src/app/shared/entities/http.errors';
 
 @Component({
     selector: 'app-login',
@@ -17,10 +19,11 @@ import * as fromAuthActions from 'src/app/store/actions/auth.actions';
 export class LoginComponent implements OnInit {
 
     login$: Observable<LoginDto>;
+    error$: Observable<HttpErrors>
     isAuthenticated$: Observable<boolean>;
     valForm: FormGroup;
 
-    constructor(public settings: SettingsService, fb: FormBuilder, private _store: Store<AppState>) {
+    constructor(public settings: SettingsService, fb: FormBuilder, private _store: Store<AppState>, private _toastr: ToastrService) {
 
         this.valForm = fb.group({
             'username': ['root', Validators.required],
@@ -45,6 +48,7 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         this.isAuthenticated$ = this._store.select((state) => state.auth.isAuthenticated);
+        this.error$ = this._store.select((state) => state.auth.error);
     }
 
 }

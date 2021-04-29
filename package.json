@@ -39,6 +39,7 @@
     "moment": "^2.29.1",
     "ngx-bootstrap": "^6.2.0",
     "ngx-custom-validators": "^8.0.0",
+    "ngx-toastr": "^13.2.1",
     "popper.js": "^1.16.1",
     "rxjs": "^6.6.7",
     "rxjs-compat": "^6.6.7",

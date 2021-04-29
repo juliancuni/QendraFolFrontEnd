@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-// import { ToastrModule } from 'ngx-toastr';
+import { ToastrModule } from 'ngx-toastr';
 
 // import { AccordionModule } from 'ngx-bootstrap/accordion';
 // import { AlertModule } from 'ngx-bootstrap/alert';
@@ -68,7 +68,7 @@ import { RouteEffects } from '../store/effects/route.effects';
     // TooltipModule.forRoot(),
     // PopoverModule.forRoot(),
     // TypeaheadModule.forRoot(),
-    // ToastrModule.forRoot(),
+    ToastrModule.forRoot(),
     ApiModule.forRoot({rootUrl: "https://localhost:5001"}),
     StoreModule.forRoot(reducers, { metaReducers, runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true } }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
@@ -111,7 +111,7 @@ import { RouteEffects } from '../store/effects/route.effects';
     // TooltipModule,
     // PopoverModule,
     // TypeaheadModule,
-    // ToastrModule,
+    ToastrModule,
     // FlotDirective,
     // SparklineDirective,
     // EasypiechartDirective,

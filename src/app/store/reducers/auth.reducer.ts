@@ -1,13 +1,14 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { LoginDto, UserDto } from 'src/app/shared/sdk/models';
 import * as AuthActions from '../actions/auth.actions';
+import { HttpErrors } from '../../shared/entities/http.errors';
 
 export const authFeatureKey = 'auth';
 
 export interface AuthState {
   user: UserDto,
   isAuthenticated: boolean,
-  error: any
+  error: HttpErrors
 }
 
 export const initialState: AuthState = {

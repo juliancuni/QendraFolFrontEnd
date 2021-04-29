@@ -6,7 +6,7 @@ const Home = {
 };
 
 const headingMain = {
-    text: 'Main Navigation',
+    text: '------',
     heading: true
 };
 

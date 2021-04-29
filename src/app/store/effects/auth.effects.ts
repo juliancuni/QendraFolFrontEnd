@@ -8,6 +8,8 @@ import { AccountService } from 'src/app/shared/sdk/services';
 import { AppState } from '..';
 import { State, Store } from '@ngrx/store';
 import { AuthState } from '../reducers/auth.reducer';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrors } from 'src/app/shared/entities/http.errors';
 
 
 
@@ -19,11 +21,23 @@ export class AuthEffects {
       ofType(AuthActions.loginPage),
       concatMap((action) =>
         this._accountService.apiAccountLoginPost$Json({ body: action.login }).pipe(
-          map(user => AuthActions.loginSuccess({ user })),
-          catchError(error => of(AuthActions.loginFailure({ error }))))
+          map(user => {
+            return AuthActions.loginSuccess({ user })
+          }),
+          catchError(error => {
+            console.log(error)
+            return of(AuthActions.loginFailure({ error }))
+          }))
       )
     );
   });
+
+  showToasterOnLoginFailure$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.loginFailure),
+      tap((error: any) => this._toastr.error(error.error.error, error.error.status.toString()))
+    )
+  }, {dispatch: false})
 
   addUserToLocalStorage$ = createEffect(
     () => this.actions$.pipe(
@@ -37,6 +51,6 @@ export class AuthEffects {
       tap(() => localStorage.removeItem('user'))), { dispatch: false }
   );
 
-  constructor(private actions$: Actions, private _accountService: AccountService, private _store: Store<AppState>) { }
+  constructor(private actions$: Actions, private _accountService: AccountService, private _store: Store<AppState>, private _toastr: ToastrService) { }
 
 }
