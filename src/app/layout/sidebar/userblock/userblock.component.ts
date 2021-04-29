@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { UserDto } from 'src/app/shared/sdk/models';
+import { AppState } from 'src/app/store';
 
 import { UserblockService } from './userblock.service';
 
@@ -8,15 +12,12 @@ import { UserblockService } from './userblock.service';
     styleUrls: ['./userblock.component.scss']
 })
 export class UserblockComponent implements OnInit {
-    user: any;
-    constructor(public userblockService: UserblockService) {
-
-        this.user = {
-            picture: 'assets/img/user.png'
-        };
+    user$: Observable<UserDto>;
+    constructor(public userblockService: UserblockService, private _store: Store<AppState>) {
     }
 
     ngOnInit() {
+        this.user$ = this._store.select(state => state.auth.user);
     }
 
     userBlockIsVisible() {
