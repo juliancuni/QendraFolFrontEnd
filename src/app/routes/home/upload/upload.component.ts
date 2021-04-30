@@ -12,7 +12,7 @@ export class UploadComponent implements OnInit {
   public fileOver = false;
   public loading = false;
   public fileName: string;
-  public jsonOldCeshtje = {};
+  public jsonOldCeshtje = null;
   constructor() {
 
   }
@@ -68,6 +68,7 @@ export class UploadComponent implements OnInit {
       }
       this.jsonOldCeshtje['headers'] = headerJson;
       this.loading = false;
+      console.log(this.jsonOldCeshtje);
     } 
   }
 

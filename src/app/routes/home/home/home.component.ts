@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FileUploadService } from 'src/app/shared/sdk/services';
-// import * as XLSX from 'xlsx';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { BsModalService, BsModalRef, ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
     selector: 'app-home',
@@ -8,8 +7,16 @@ import { FileUploadService } from 'src/app/shared/sdk/services';
     styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+    @ViewChild('importXCLS', { static: false }) importXCLS: ModalDirective;
+    constructor(private modalService: BsModalService) {
+    }
 
-    constructor(private _fileApi: FileUploadService) {
+    openModal() {
+        this.importXCLS.show();
+    }
+
+    closeModal() {
+        this.importXCLS.hide();
     }
 
     ngOnInit() {
