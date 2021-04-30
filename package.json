@@ -37,6 +37,7 @@
     "lodash": "^4.17.21",
     "modernizr": "^3.11.7",
     "moment": "^2.29.1",
+    "ng2-file-upload": "^1.4.0",
     "ngx-bootstrap": "^6.2.0",
     "ngx-custom-validators": "^8.0.0",
     "ngx-toastr": "^13.2.1",

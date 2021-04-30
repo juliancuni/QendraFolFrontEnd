@@ -11,7 +11,7 @@ import { ToastrModule } from 'ngx-toastr';
 // import { CarouselModule } from 'ngx-bootstrap/carousel';
 // import { CollapseModule } from 'ngx-bootstrap/collapse';
 // import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-// import { ModalModule } from 'ngx-bootstrap/modal';
+import { ModalModule } from 'ngx-bootstrap/modal';
 // import { PaginationModule } from 'ngx-bootstrap/pagination';
 // import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 // import { RatingModule } from 'ngx-bootstrap/rating';
@@ -59,7 +59,7 @@ import { RouteEffects } from '../store/effects/route.effects';
     // DatepickerModule.forRoot(),
     // BsDatepickerModule.forRoot(),
     // BsDropdownModule.forRoot(),
-    // ModalModule.forRoot(),
+    ModalModule.forRoot(),
     // PaginationModule.forRoot(),
     // ProgressbarModule.forRoot(),
     // RatingModule.forRoot(),
@@ -102,7 +102,7 @@ import { RouteEffects } from '../store/effects/route.effects';
     // DatepickerModule,
     // BsDatepickerModule,
     // BsDropdownModule,
-    // ModalModule,
+    ModalModule,
     // PaginationModule,
     // ProgressbarModule,
     // RatingModule,
