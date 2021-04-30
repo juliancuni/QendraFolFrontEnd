@@ -32,12 +32,13 @@
     "@ngrx/store-devtools": "^11.1.1",
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
+    "ag-grid-community": "^25.2.0",
     "bootstrap": "^4.6.0",
     "intl": "^1.2.5",
+    "jquery": "^3.6.0",
     "lodash": "^4.17.21",
     "modernizr": "^3.11.7",
     "moment": "^2.29.1",
-    "ng2-file-upload": "^1.4.0",
     "ngx-bootstrap": "^6.2.0",
     "ngx-custom-validators": "^8.0.0",
     "ngx-toastr": "^13.2.1",
@@ -50,6 +51,7 @@
     "ts-helpers": "^1.1.2",
     "tslib": "^2.2.0",
     "weather-icons": "github:erikflowers/weather-icons",
+    "xlsx": "^0.16.9",
     "zone.js": "^0.11.4"
   },
   "devDependencies": {

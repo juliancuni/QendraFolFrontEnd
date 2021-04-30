@@ -14,29 +14,31 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Import from XLSX file</h4>
+                <h4 class="modal-title">Import Old Data from XLSX file</h4>
                 <button type="button" class="close" aria-label="Close" (click)="importXLSX.hide()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <!-- Upload Zone -->
-                <div class="card" *ngIf="uploader?.queue?.length == 0">
+                <!-- <div class="card" *ngIf="uploader?.queue?.length == 0">
                     <div class="card-body">
                         <h4 class="page-header mt0">Upload files</h4>
                         <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
-                            (fileOver)="fileOverBase($event)" [uploader]="uploader"
-                            class="box-placeholder my-drop-zone" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                            (fileOver)="fileOverBase($event)" [uploader]="uploader" class="box-placeholder my-drop-zone"
+                            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" (change)="setFileToRead($event)">
                             Drop XLSX file
                         </div>
                         <p class="text-bold">...Or Browse File System</p>
                         <label for="file2" class="file-upload">
-                            <input id="file2" type="file" ng2FileSelect [uploader]="uploader" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
+                            <input id="file2" type="file" ng2FileSelect [uploader]="uploader"
+                                accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                                (change)="setFileToRead($event)" />
                         </label>
                     </div>
-                </div>
+                </div> -->
                 <!-- End Upload Zone -->
-                <div class="card" *ngIf="uploader?.queue?.length">
+                <!-- <div class="card" *ngIf="uploader?.queue?.length">
                     <div class="card-body">
                         <h4 class="page-header mt0">Upload queue</h4>
                         <table class="table">
@@ -66,7 +68,7 @@
                                         <span *ngIf="item.isError"><i class="fas fa-times"></i></span>
                                     </td>
                                     <td nowrap>
-                                        <button type="button" class="btn btn-info btn-xs" (click)="item.upload()"
+                                        <button type="button" class="btn btn-info btn-xs" (click)="upload()"
                                             [disabled]="item.isReady || item.isUploading || item.isSuccess">
                                             <span class="fa icon-cloud-upload mr"></span> Upload
                                         </button>
@@ -82,7 +84,7 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

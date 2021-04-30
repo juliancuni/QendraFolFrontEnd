@@ -37,6 +37,7 @@
               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
               "src/app/core/wrapper/wrapper.js",
               "src/app/core/preloader/preloader.js",
               "node_modules/bootstrap/js/dist/modal.js"
@@ -106,6 +107,7 @@
               "src/styles.scss"
             ],
             "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
               "src/app/core/wrapper/wrapper.js",
               "src/app/core/preloader/preloader.js",
               "node_modules/bootstrap/js/dist/modal.js"

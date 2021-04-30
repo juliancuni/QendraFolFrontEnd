@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FileUploader, FileUploaderOptions } from 'ng2-file-upload';
-const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
+import { FileUploadService } from 'src/app/shared/sdk/services';
+// import * as XLSX from 'xlsx';
+
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
@@ -8,12 +9,7 @@ const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 })
 export class HomeComponent implements OnInit {
 
-    public uploader: FileUploader = new FileUploader({ url: URL, allowedMimeType: ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'], autoUpload: false, removeAfterUpload: true });;
-    public hasBaseDropZoneOver: boolean = false;
-    constructor() { }
-
-    public fileOverBase(e: any): void {
-        this.hasBaseDropZoneOver = e;
+    constructor(private _fileApi: FileUploadService) {
     }
 
     ngOnInit() {

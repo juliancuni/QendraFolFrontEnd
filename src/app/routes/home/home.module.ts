@@ -1,24 +1,24 @@
 import { NgModule } from '@angular/core';
 import { HomeComponent } from './home/home.component';
 import { Routes, RouterModule } from '@angular/router';
-import { FileUploadModule } from 'ng2-file-upload';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CommonModule } from '@angular/common';
-
+import { UploadComponent } from './upload/upload.component';
 
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
+    { path: 'upload', component: UploadComponent }
 ];
 
 @NgModule({
     imports: [
         CommonModule,
         RouterModule.forChild(routes),
-        FileUploadModule,
         ModalModule.forChild(),
+
     ],
-    declarations: [HomeComponent],
+    declarations: [HomeComponent, UploadComponent],
     exports: [
         RouterModule
     ]

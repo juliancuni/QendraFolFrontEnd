@@ -39,7 +39,7 @@ import { AuthEffects } from '../../store/effects/auth.effects';
         LockComponent,
         MaintenanceComponent,
         Error404Component,
-        Error500Component
+        Error500Component,
     ],
     exports: [
         RouterModule,

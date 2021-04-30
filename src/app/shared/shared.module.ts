@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ToastrModule } from 'ngx-toastr';
-
 // import { AccordionModule } from 'ngx-bootstrap/accordion';
 // import { AlertModule } from 'ngx-bootstrap/alert';
 // import { ButtonsModule } from 'ngx-bootstrap/buttons';

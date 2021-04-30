@@ -1,0 +1,30 @@
+<div class="card">
+    <div class="card-body">
+        <h4 class="page-header mt0">Upload files</h4>
+        <div id="drop-file" class="box-placeholder my-drop-zone" [ngClass]="{'nv-file-over': fileOver}" (drop)="fromDrop($event)"
+            (dragover)="dragOver($event)" (dragleave)="dragLeave($event)"
+            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+            <br>
+            {{ fileName || "Drag and Drop XCLX (Excel) File." }}
+            <br><br>
+        </div>
+        <p class="text-bold">...Or Browse File System</p>
+        <input id="input-file" type="file" class="file-input" (change)="fromInput($event)"
+            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" #fileUpload>
+        <div class="file-upload">
+            <button color="primary" class="mr-1 btn btn-oval btn-info mb-1" (click)="fileUpload.click()"
+                *ngIf="!fileName">
+                <em class="fa-2x mr-2 fas fa-paperclip"></em>
+            </button>
+            <button color="primary" class="mr-1 btn btn-oval btn-danger mb-1" (click)="clearFile()" *ngIf="fileName">
+                <em class="fa-2x mr-2 fas fa-trash"></em>
+            </button>
+            {{fileName}}
+            <div class="ball-clip-rotate-multiple" *ngIf="loading">
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+
+    </div>
+</div>

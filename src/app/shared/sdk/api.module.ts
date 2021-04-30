@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { AccountService } from './services/account.service';
+import { FileUploadService } from './services/file-upload.service';
 import { RoleService } from './services/role.service';
 import { UsersService } from './services/users.service';
 
@@ -17,6 +18,7 @@ import { UsersService } from './services/users.service';
   declarations: [],
   providers: [
     AccountService,
+    FileUploadService,
     RoleService,
     UsersService,
     ApiConfiguration
