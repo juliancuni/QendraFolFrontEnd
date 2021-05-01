@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store';
+import { loadOldCeshtjetSuccess } from 'src/app/store/actions/old-ceshtje.actions';
 
 import * as XLSX from 'xlsx';
 
@@ -13,7 +16,8 @@ export class UploadComponent implements OnInit {
   public loading = false;
   public fileName: string;
   public jsonOldCeshtje = null;
-  constructor() {
+
+  constructor(private _store: Store<AppState>) {
 
   }
 
@@ -47,7 +51,7 @@ export class UploadComponent implements OnInit {
     (<HTMLInputElement>document.getElementById('drop-file')).value = "";
   }
 
-  excelToJson(file) { 
+  excelToJson(file) {
     let headerJson = {};
     this.jsonOldCeshtje = {};
     const target: DataTransfer = <DataTransfer>(file);
@@ -68,8 +72,9 @@ export class UploadComponent implements OnInit {
       }
       this.jsonOldCeshtje['headers'] = headerJson;
       this.loading = false;
-      console.log(this.jsonOldCeshtje);
-    } 
+      console.log(this.jsonOldCeshtje.sheet1);
+      this._store.dispatch(loadOldCeshtjetSuccess({ oldCeshtjet: this.jsonOldCeshtje.sheet1 }))
+    }
   }
 
   get_header_row(sheet) {

@@ -1,5 +1,9 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { BsModalService, BsModalRef, ModalDirective } from 'ngx-bootstrap/modal';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { Observable } from 'rxjs';
+import { OldCeshtja } from 'src/app/shared/entities/old.ceshtja';
+import { AppState } from 'src/app/store';
 
 @Component({
     selector: 'app-home',
@@ -7,8 +11,12 @@ import { BsModalService, BsModalRef, ModalDirective } from 'ngx-bootstrap/modal'
     styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+
+    oldCeshtjet$: Observable<OldCeshtja[]>;
+
     @ViewChild('importXCLS', { static: false }) importXCLS: ModalDirective;
-    constructor(private modalService: BsModalService) {
+
+    constructor(private _store: Store<AppState>) {
     }
 
     openModal() {
@@ -20,6 +28,7 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.oldCeshtjet$ = this._store.select((state) => state.oldCeshtjet.oldCeshtjet)
     }
 
 }

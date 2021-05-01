@@ -22,7 +22,8 @@
                 <app-upload></app-upload>
             </div>
             <div class="modal-footer">
-                <button class="mr-1 btn btn-labeled btn-success mb-2" type="button">
+                <button class="mr-1 btn btn-labeled btn-success mb-2" type="button"
+                    *ngIf="(oldCeshtjet$ | async)?.length > 0">
                     <span class="btn-label"><i class="fa fa-download"></i></span>Import
                 </button>
                 <button class="mr-1 btn btn-labeled btn-default mb-2" type="button" (click)="closeModal()">
