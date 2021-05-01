@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.oldCeshtjet$ = this._store.select((state) => state.oldCeshtjet.oldCeshtjet)
+        this.oldCeshtjet$ = this._store.select((state) => state.oldCeshtjet.oldData)
     }
 
 }

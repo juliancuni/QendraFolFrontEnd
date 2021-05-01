@@ -5,7 +5,7 @@
             (drop)="fromDrop($event)" (dragover)="dragOver($event)" (dragleave)="dragLeave($event)"
             accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
             <br>
-            {{ fileName || "Drag and Drop XCLX (Excel) File." }}
+            {{ (fileName$ | async) || "Drag and Drop XCLX (Excel) File." }}
             <br><br>
         </div>
         <p class="text-bold">...Or Browse File System</p>
@@ -17,18 +17,18 @@
                     <td>
                         <div class="file-upload">
                             <button color="primary" class="mr-1 btn btn-oval btn-info mb-1" (click)="fileUpload.click()"
-                                *ngIf="!fileName">
+                                *ngIf="!(fileName$ | async)">
                                 <em class="fa-2x mr-2 fas fa-paperclip"></em>
                             </button>
                             <button color="primary" class="mr-1 btn btn-oval btn-danger mb-1" (click)="clearFile()"
-                                *ngIf="fileName">
+                                *ngIf="(fileName$ | async)?.length > 0">
                                 <em class="fa-2x mr-2 fas fa-trash"></em>
                             </button>
-                            {{fileName}}
+                            {{(fileName$ | async)}}
                         </div>
                     </td>
                     <td>
-                        <div class="ball-clip-rotate-multiple" *ngIf="loading">
+                        <div class="ball-clip-rotate-multiple" *ngIf="loading$ | async">
                             <div></div>
                             <div></div>
                         </div>
@@ -37,9 +37,9 @@
             </table>
         </div>
         <!-- *ngIf="jsonOldCeshtje?.sheet1?.length > 0" -->
-        <div class="card border-0" *ngIf="jsonOldCeshtje?.sheet1?.length > 0">
+        <div class="card border-0" *ngIf="(jsonOldCeshtje$ | async)?.length > 0">
             <div class="card-body text-center">
-                <h2>Në tabelën e dhënë u gjendën {{jsonOldCeshtje?.sheet1?.length}} rekorde.</h2>
+                <h2>Në tabelën e dhënë u gjendën {{(jsonOldCeshtje$ | async)?.length}} rekorde.</h2>
             </div>
         </div>
     </div>

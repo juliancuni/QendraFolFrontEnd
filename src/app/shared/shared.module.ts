@@ -68,8 +68,15 @@ import { RouteEffects } from '../store/effects/route.effects';
     // PopoverModule.forRoot(),
     // TypeaheadModule.forRoot(),
     ToastrModule.forRoot(),
-    ApiModule.forRoot({rootUrl: "https://localhost:5001"}),
-    StoreModule.forRoot(reducers, { metaReducers, runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true } }),
+    ApiModule.forRoot({ rootUrl: "https://localhost:5001" }),
+    StoreModule.forRoot(reducers, {
+      metaReducers, runtimeChecks: {
+        strictStateImmutability: false,
+        strictActionImmutability: false,
+        strictStateSerializability: false,
+        strictActionSerializability: false,
+      }
+    }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([AppEffects, RouteEffects]),

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap } from 'rxjs/operators';
+import { catchError, map, concatMap, switchMap } from 'rxjs/operators';
 import { EMPTY, of } from 'rxjs';
 
 import * as OldCeshtjeActions from '../actions/old-ceshtje.actions';
+import { OldDataService } from 'src/app/shared/services/old-data.service';
 
 
 
@@ -12,19 +13,20 @@ export class OldCeshtjeEffects {
 
   loadOldCeshtjes$ = createEffect(() => {
     return this.actions$.pipe(
-
       ofType(OldCeshtjeActions.loadOldCeshtjet),
-      concatMap(() =>
-        /** An EMPTY observable only emits completion. Replace with your own observable API request */
-        EMPTY.pipe(
-          map(data => OldCeshtjeActions.loadOldCeshtjetSuccess({ oldCeshtjet: data })),
-          catchError(error => of(OldCeshtjeActions.loadOldCeshtjetFailure({ error }))))
-      )
+      switchMap((action) => {
+        return this._oldDataService.excelToJson(action.rawFile);
+      }),
+      map((oldDataObj) => {
+        return OldCeshtjeActions.loadOldCeshtjetSuccess({ excelFileName: oldDataObj.filename, oldData: oldDataObj.sheet1 });
+      }),
+      catchError((error) => {
+        console.log("err", error);
+        return of(OldCeshtjeActions.loadOldCeshtjetFailure({ error: error }))
+      })
     );
   });
 
-
-
-  constructor(private actions$: Actions) { }
+  constructor(private actions$: Actions, private _oldDataService: OldDataService) { }
 
 }
