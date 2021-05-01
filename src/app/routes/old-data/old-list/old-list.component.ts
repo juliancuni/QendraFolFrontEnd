@@ -5,14 +5,19 @@ import { Observable, Subject, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { OldCeshtja } from 'src/app/shared/entities/old.ceshtja';
 import { AppState } from 'src/app/store';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { OldCeshtjeComponent } from '../old-ceshtje/old-ceshtje.component';
+import { loadOldCeshtje } from 'src/app/store/actions/old-ceshtje.actions';
 
 @Component({
   selector: 'app-old-list',
   templateUrl: './old-list.component.html',
-  styleUrls: ['./old-list.component.scss']
+  styleUrls: ['./old-list.component.scss'],
+  providers: [DialogService]
 })
 export class OldListComponent implements OnInit {
 
+  public ref: DynamicDialogRef;
   public display: boolean = false;
   public headers$: Observable<any>;
   public data$: Observable<OldCeshtja[]>;
@@ -20,7 +25,16 @@ export class OldListComponent implements OnInit {
   public cols: any[];
   private _selectedColumns: any[];
 
-  constructor(private _store: Store<AppState>) {
+  constructor(private _store: Store<AppState>, public _dialogService: DialogService) {
+  }
+
+  show() {
+    this.ref = this._dialogService.open(OldCeshtjeComponent, {
+      header: 'Çështja/Personi',
+      width: '100%',
+      contentStyle: { "max-height": "800px", "overflow": "auto" },
+      baseZIndex: 10000,
+    });
   }
 
   ngOnInit(): void {
@@ -79,8 +93,9 @@ export class OldListComponent implements OnInit {
   }
 
   onRowSelect(event) {
-    this.showDialog();
-    console.log(event)
+    this._store.dispatch(loadOldCeshtje({oldCeshtje: event.data}));
+    this.show();
+    console.log(event.data)
   }
 
   onRowUnselect(event) {
@@ -88,9 +103,7 @@ export class OldListComponent implements OnInit {
   }
 
 
-  showDialog() {
-    this.display = true;
-  }
+
 
 
   ngOnDestroy() {

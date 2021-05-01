@@ -8,7 +8,7 @@ export const loadOldCeshtjet = createAction(
 
 export const loadOldCeshtjetSuccess = createAction(
   '[Home Component] Load OldCeshtjet Success',
-  props<{ excelFileName: string, oldData: any, oldHeaders: any }>()
+  props<{ excelFileName: string, oldData: OldCeshtja[], oldHeaders: any }>()
 );
 
 export const loadOldCeshtjetFailure = createAction(
@@ -18,4 +18,9 @@ export const loadOldCeshtjetFailure = createAction(
 
 export const clearOldData= createAction(
   '[Upload Component] Clear OldData'
+);
+
+export const loadOldCeshtje = createAction(
+  '[Old Lista Component] Load OldCeshtje',
+  props<{ oldCeshtje: OldCeshtja }>()
 )

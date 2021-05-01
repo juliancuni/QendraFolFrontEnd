@@ -8,7 +8,8 @@ export const oldCeshtjeFeatureKey = 'oldCeshtjet';
 export interface OldCeshtjetState {
   rawFile: any,
   excelFileName: string,
-  oldData: [],
+  oldData: OldCeshtja[],
+  oldCeshtje: OldCeshtja,
   oldHeaders: any,
   loading: boolean,
   error: any
@@ -18,6 +19,7 @@ export const initialState: OldCeshtjetState = {
   rawFile: null,
   excelFileName: null,
   oldData: null,
+  oldCeshtje: null,
   oldHeaders: null,
   loading: null,
   error: null
@@ -36,6 +38,9 @@ export const reducer = createReducer(
   }),
   on(OldCeshtjeActions.clearOldData, (state) => {
     return { ...state, rawFile: null, excelFileName: null, oldData: null, oldHeaders: null, loading: false, error: null }
+  }),
+  on(OldCeshtjeActions.loadOldCeshtje, (state, action) => {
+    return { ...state, oldCeshtje: action.oldCeshtje }
   })
 );
 
