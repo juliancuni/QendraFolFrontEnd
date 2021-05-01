@@ -29,13 +29,13 @@ export const reducer = createReducer(
     return { ...state, rawFile: action.rawFile, loading: true }
   }),
   on(OldCeshtjeActions.loadOldCeshtjetSuccess, (state, action) => {
-    return { ...state, rawFile: null, excelFileName: action.excelFileName, oldData: action.oldData, oldHeaders: action.oldHeaders, loading: false }
+    return { ...state, rawFile: null, excelFileName: action.excelFileName, oldData: action.oldData, oldHeaders: action.oldHeaders, loading: false, error: null }
   }),
   on(OldCeshtjeActions.loadOldCeshtjetFailure, (state, action) => {
-    return { ...state, loading: false, error: action.error }
+    return { ...state, rawFile: null, excelFileName: null, oldData: null, oldHeaders: null, loading: false, error: action.error }
   }),
   on(OldCeshtjeActions.clearOldData, (state) => {
-    return { ...state, rawFile: null, oldData: null, oldHeaders: null, excelFileName: null }
+    return { ...state, rawFile: null, excelFileName: null, oldData: null, oldHeaders: null, loading: false, error: null }
   })
 );
 
