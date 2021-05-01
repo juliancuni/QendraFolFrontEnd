@@ -13,11 +13,12 @@ import { AppState } from 'src/app/store';
 })
 export class OldListComponent implements OnInit {
 
+  public display: boolean = false;
   public headers$: Observable<any>;
   public data$: Observable<OldCeshtja[]>;
   public selectedCeshtje: OldCeshtja;
-  cols: any[];
-  _selectedColumns: any[];
+  public cols: any[];
+  private _selectedColumns: any[];
 
   constructor(private _store: Store<AppState>) {
   }
@@ -78,12 +79,19 @@ export class OldListComponent implements OnInit {
   }
 
   onRowSelect(event) {
+    this.showDialog();
     console.log(event)
   }
 
   onRowUnselect(event) {
     console.log(event)
   }
+
+
+  showDialog() {
+    this.display = true;
+  }
+
 
   ngOnDestroy() {
   }

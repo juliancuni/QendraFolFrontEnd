@@ -1,35 +1,10 @@
 <div class="content-heading">
     Dashboard
-    <div class="ml-auto" (click)="importXCLS.show()" title="Import XLSX File">
+    <!-- <div class="ml-auto" (click)="importXCLS.show()" title="Import XLSX File"> -->
+    <div class="ml-auto" (click)="show()" title="Import XLSX File">
         <em class="icon-cloud-upload"></em>
     </div>
 </div>
 <div class="home-container">
 
-</div>
-
-
-<div bsModal #importXCLS="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Import Old Data from XLSX file</h4>
-                <button type="button" class="close" aria-label="Close" (click)="importXCLS.hide()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <app-upload></app-upload>
-            </div>
-            <div class="modal-footer">
-                <button class="mr-1 btn btn-labeled btn-success mb-2" type="button"
-                    *ngIf="(oldCeshtjet$ | async)?.length > 0" [routerLink]="'/old-data'">
-                    <span class="btn-label"><i class="fa fa-download"></i></span>Import
-                </button>
-                <button class="mr-1 btn btn-labeled btn-default mb-2" type="button" (click)="closeModal()">
-                    <span class="btn-label"><i class="fa fa-times"></i></span>Close
-                </button>
-            </div>
-        </div>
-    </div>
 </div>

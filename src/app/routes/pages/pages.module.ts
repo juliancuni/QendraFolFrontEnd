@@ -13,6 +13,7 @@ import { StoreModule } from '@ngrx/store';
 import * as fromAuth from '../../store/reducers/auth.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from '../../store/effects/auth.effects';
+import { MessageService } from 'primeng/api';
 
 /* Use this routes definition in case you want to make them lazy-loaded */
 // const routes: Routes = [
@@ -50,6 +51,9 @@ import { AuthEffects } from '../../store/effects/auth.effects';
         MaintenanceComponent,
         Error404Component,
         Error500Component,
+    ],
+    providers: [
+        MessageService
     ]
 })
 export class PagesModule { }

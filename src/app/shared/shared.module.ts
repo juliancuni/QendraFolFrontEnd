@@ -3,40 +3,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { ToastrModule } from 'ngx-toastr';
-// import { AccordionModule } from 'ngx-bootstrap/accordion';
-// import { AlertModule } from 'ngx-bootstrap/alert';
-// import { ButtonsModule } from 'ngx-bootstrap/buttons';
-// import { CarouselModule } from 'ngx-bootstrap/carousel';
-// import { CollapseModule } from 'ngx-bootstrap/collapse';
-// import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
-// import { PaginationModule } from 'ngx-bootstrap/pagination';
-// import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
-// import { RatingModule } from 'ngx-bootstrap/rating';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-// import { TimepickerModule } from 'ngx-bootstrap/timepicker';
-// import { TooltipModule } from 'ngx-bootstrap/tooltip';
-// import { PopoverModule } from 'ngx-bootstrap/popover';
-// import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
-// import { DatepickerModule } from 'ngx-bootstrap/datepicker';
-// import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-
-// import { FlotDirective } from './directives/flot/flot.directive';
-// import { SparklineDirective } from './directives/sparkline/sparkline.directive';
-// import { EasypiechartDirective } from './directives/easypiechart/easypiechart.directive';
-import { ColorsService } from './colors/colors.service';
-// import { CheckallDirective } from './directives/checkall/checkall.directive';
-// import { VectormapDirective } from './directives/vectormap/vectormap.directive';
-// import { NowDirective } from './directives/now/now.directive';
-// import { ScrollableDirective } from './directives/scrollable/scrollable.directive';
-// import { JqcloudDirective } from './directives/jqcloud/jqcloud.directive';
-
-// import { AuthEffects } from './store/effects/auth.effects';
 import { TableModule } from 'primeng/table';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 
 
@@ -52,6 +27,8 @@ import { InputTextModule } from 'primeng/inputtext';
     MultiSelectModule,
     ButtonModule,
     InputTextModule,
+    DynamicDialogModule,
+    ToastModule,
     // AccordionModule.forRoot(),
     // AlertModule.forRoot(),
     // ButtonsModule.forRoot(),
@@ -69,10 +46,10 @@ import { InputTextModule } from 'primeng/inputtext';
     // TooltipModule.forRoot(),
     // PopoverModule.forRoot(),
     // TypeaheadModule.forRoot(),
-    ToastrModule.forRoot(),
   ],
   providers: [
-    ColorsService
+    // ColorsService
+    MessageService
   ],
   declarations: [
     // FlotDirective,
@@ -94,6 +71,8 @@ import { InputTextModule } from 'primeng/inputtext';
     MultiSelectModule,
     ButtonModule,
     InputTextModule,
+    DynamicDialogModule,
+    ToastModule,
     // AccordionModule,
     // AlertModule,
     // ButtonsModule,
@@ -111,7 +90,6 @@ import { InputTextModule } from 'primeng/inputtext';
     // TooltipModule,
     // PopoverModule,
     // TypeaheadModule,
-    ToastrModule,
     // FlotDirective,
     // SparklineDirective,
     // EasypiechartDirective,

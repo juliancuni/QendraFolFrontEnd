@@ -8,7 +8,6 @@ import { select, Store } from '@ngrx/store';
 import { AppState } from 'src/app/store';
 import { Observable } from 'rxjs';
 import * as fromAuthActions from 'src/app/store/actions/auth.actions';
-import { ToastrService } from 'ngx-toastr';
 import { HttpErrors } from 'src/app/shared/entities/http.errors';
 
 @Component({
@@ -23,13 +22,12 @@ export class LoginComponent implements OnInit {
     isAuthenticated$: Observable<boolean>;
     valForm: FormGroup;
 
-    constructor(public settings: SettingsService, fb: FormBuilder, private _store: Store<AppState>, private _toastr: ToastrService) {
+    constructor(public settings: SettingsService, fb: FormBuilder, private _store: Store<AppState>) {
 
         this.valForm = fb.group({
             'username': ['root', Validators.required],
             'password': ['newSnew2013', Validators.required]
         });
-
     }
 
     login($ev, value: LoginDto) {

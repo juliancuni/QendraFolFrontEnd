@@ -1,34 +1,35 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { ModalDirective } from 'ngx-bootstrap/modal';
-import { Observable } from 'rxjs';
-import { OldCeshtja } from 'src/app/shared/entities/old.ceshtja';
-import { AppState } from 'src/app/store';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { UploadComponent } from '../upload/upload.component';
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss']
+    styleUrls: ['./home.component.scss'],
+    providers: [DialogService]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
-    oldCeshtjet$: Observable<OldCeshtja[]>;
+    ref: DynamicDialogRef;
 
-    @ViewChild('importXCLS', { static: false }) importXCLS: ModalDirective;
+    constructor(public _dialogService: DialogService) { }
 
-    constructor(private _store: Store<AppState>) {
+    show() {
+        this.ref = this._dialogService.open(UploadComponent, {
+            header: 'Import Old Data from XLSX file',
+            width: '70%',
+            contentStyle: { "max-height": "500px", "overflow": "auto" },
+            baseZIndex: 10000,
+        });
     }
 
-    openModal() {
-        this.importXCLS.show();
-    }
 
-    closeModal() {
-        this.importXCLS.hide();
-    }
+    ngOnInit() { }
 
-    ngOnInit() {
-        this.oldCeshtjet$ = this._store.select((state) => state.oldCeshtjet.oldData)
+    ngOnDestroy() {
+        if (this.ref) {
+            this.ref.close();
+        }
     }
 
 }

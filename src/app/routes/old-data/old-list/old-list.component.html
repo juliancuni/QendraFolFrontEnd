@@ -1,9 +1,10 @@
 <ng-container *ngIf="data$ | async as oldData">
     <div class="card">
-        <p-table #dt1 [columns]="selectedColumns" [value]="oldData" dataKey="Id" selectionMode="single" [(selection)]="selectedCeshtje"
-            styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm" [scrollable]="true" [rows]="100"
-            scrollHeight="600px" [virtualScroll]="true" [virtualRowHeight]="34"
-            [globalFilterFields]="[selectedColumns]" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
+        <p-table #dt1 [columns]="selectedColumns" [value]="oldData" dataKey="Id" selectionMode="single"
+            [(selection)]="selectedCeshtje" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm"
+            [scrollable]="true" [rows]="100" scrollHeight="600px" [virtualScroll]="true" [virtualRowHeight]="34"
+            [globalFilterFields]="['Emri','Mbiemri','Kategoria','Sipas Nenit']" (onRowSelect)="onRowSelect($event)"
+            (onRowUnselect)="onRowUnselect($event)">
             <ng-template pTemplate="caption">
                 <div class="p-d-flex">
                     <button pButton label="Fshi Kerkimin" class="p-button-outlined" icon="pi pi-filter-slash"
@@ -24,12 +25,13 @@
                     <th *ngFor="let col of columns">
                         <div class="p-d-flex p-jc-between p-ai-center">
                             {{col.header}}
-                            <p-columnFilter type="{{col.type}}" field="{{col.header}}" display="{{col.menu}}"></p-columnFilter>
+                            <p-columnFilter type="{{col.type}}" field="{{col.header}}" display="{{col.menu}}">
+                            </p-columnFilter>
                         </div>
                     </th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-data let-columns="columns"> 
+            <ng-template pTemplate="body" let-data let-columns="columns">
                 <tr [pSelectableRow]="data">
                     <td *ngFor="let col of columns">
                         {{data[col.field]}}
@@ -44,48 +46,3 @@
         </p-table>
     </div>
 </ng-container>
-<!-- <table class="table">
-    <thead>
-        <tr>
-            <th *ngFor="let header of headers$ | async; index as i">{{header}}</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let data of oldData$ | async; index as i">
-            <td>{{data.Id}}</td>
-            <td>{{data.Emri}}</td>
-            <td>{{data.Mbiemri}}</td>
-            <td>{{data["Data_e_ngjarjes"]}}</td>
-            <td>{{data["Kategoria"]}}</td>
-            <td>{{data["Sipas Nenit"]}}</td>
-            <td>{{data["Policia"]}}</td>
-            <td>{{data["Prokuroria"]}}</td>
-            <td>{{data["Sipas Nenit_P"]}}</td>
-            <td>{{data["Masa e sigurisë kërkuar nga Prokurori"]}}</td>
-            <td>{{data["Data Vendimit Pr"]}}</td>
-            <td>{{data["Gjykata"]}}</td>
-            <td>{{data["Hetimi"]}}</td>
-            <td>{{data["Data Vedim Gjk"]}}</td>
-            <td>{{data["Gjygjtari paraprak"]}}</td>
-            <td>{{data["Neni_GJP"]}}</td>
-            <td>{{data["Data Gjygjtari pr"]}}</td>
-            <td>{{data["Masa e sigurise Gjykata Shk1"]}}</td>
-            <td>{{data["Data mases Gjykates Shk1"]}}</td>
-            <td>{{data["Vendimi Gjykates Shk1"]}}</td>
-            <td>{{data["Neni_GJSH1"]}}</td>
-            <td>{{data["Data Vendimit GJ SH1"]}}</td>
-            <td>{{data["Vendimi Apelit"]}}</td>
-            <td>{{data["Neni_Apeli"]}}</td>
-            <td>{{data["Data Vendim Apeli"]}}</td>
-            <td>{{data["Masa e sigurisë në Gjykatën e Apelit"]}}</td>
-            <td>{{data["Data mas sig Apeli"]}}</td>
-            <td>{{data["Vendim Gjykata Larte"]}}</td>
-            <td>{{data["Data Gjykata Larte"]}}</td>
-            <td>{{data["Neni_GJL"]}}</td>
-            <td>{{data["Masa e sigurisë në Gjykatën e Larte"]}}</td>
-            <td>{{data["Data mas sig Gj Larte"]}}</td>
-            <td>{{data["Komente"]}}</td>
-           
-        </tr>
-    </tbody>
-</table> -->

@@ -11,31 +11,23 @@
         <p class="text-bold">...Or Browse File System</p>
         <input id="input-file" type="file" class="file-input" (change)="fromInput($event)"
             accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" #fileUpload>
-        <div class="table-responsive">
             <table class="table-responsive">
                 <tr>
                     <td>
                         <div class="file-upload">
-                            <button color="primary" class="mr-1 btn btn-oval btn-info mb-1" (click)="fileUpload.click()"
-                                *ngIf="!(fileName$ | async)">
-                                <em class="fa-2x mr-2 fas fa-paperclip"></em>
-                            </button>
-                            <button color="primary" class="mr-1 btn btn-oval btn-danger mb-1" (click)="clearFile()"
-                                *ngIf="(fileName$ | async)?.length > 0">
-                                <em class="fa-2x mr-2 fas fa-trash"></em>
-                            </button>
+                            <button pButton pRipple type="button" icon="pi pi-paperclip" class="p-button-rounded" (click)="fileUpload.click()" *ngIf="!(fileName$ | async)"></button>
+                            <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="clearFile()" *ngIf="(fileName$ | async)"></button>
                             {{(fileName$ | async)}}
                         </div>
                     </td>
                     <td>
-                        <div class="ball-clip-rotate-multiple" *ngIf="loading$ | async">
+                        <div class="ball-clip-rotate-multiple" *ngIf="loading$ | async  ">
                             <div></div>
                             <div></div>
                         </div>
                     </td>
                 </tr>
             </table>
-        </div>
         <!-- *ngIf="jsonOldCeshtje?.sheet1?.length > 0" -->
         <div class="card border-0" *ngIf="(jsonOldCeshtje$ | async)?.length > 0">
             <div class="card-body text-center">
