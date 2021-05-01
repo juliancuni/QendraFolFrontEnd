@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OldListComponent } from './old-list/old-list.component';
 import { RouterModule, Routes } from '@angular/router';
-import { AgGridModule } from 'ag-grid-angular';
-// import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 const routes: Routes = [
   { path: '', component: OldListComponent }
@@ -13,16 +12,13 @@ const routes: Routes = [
 
   imports: [
     CommonModule,
-    // SharedModule,
     RouterModule.forChild(routes),
-    AgGridModule.withComponents([OldListComponent]),
+    SharedModule,
   ],
   declarations: [
     OldListComponent,
   ],
-  exports: [
-    // RouterModule
-  ],
+  exports: [],
 
 })
 export class OldDataModule { }

@@ -11,6 +11,16 @@ import { LayoutModule } from './layout/layout.module';
 import { SharedModule } from './shared/shared.module';
 import { RoutesModule } from './routes/routes.module';
 
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { reducers, metaReducers } from './store';
+import { EffectsModule } from '@ngrx/effects';
+import { AppEffects } from './store/effects/app.effects';
+import { RouteEffects } from './store/effects/route.effects';
+
+import { ApiModule } from './shared/sdk/api.module';
+
 
 // https://github.com/ocombe/ng2-translate/issues/218
 export function createTranslateLoader(http: HttpClient) {
@@ -35,7 +45,18 @@ export function createTranslateLoader(http: HttpClient) {
                 deps: [HttpClient]
             }
         }),
-
+        StoreModule.forRoot(reducers, {
+            metaReducers, runtimeChecks: {
+                strictStateImmutability: false,
+                strictActionImmutability: false,
+                strictStateSerializability: false,
+                strictActionSerializability: false,
+            }
+        }),
+        !environment.production ? StoreDevtoolsModule.instrument() : [],
+        StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+        EffectsModule.forRoot([AppEffects, RouteEffects]),
+        ApiModule.forRoot({ rootUrl: "https://localhost:5001" }),
     ],
     providers: [],
     bootstrap: [AppComponent]

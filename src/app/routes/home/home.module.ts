@@ -8,6 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import * as fromOldCeshtje from '../../store/reducers/old-ceshtje.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { OldCeshtjeEffects } from '../../store/effects/old-ceshtje.effects';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 const routes: Routes = [
@@ -21,7 +22,7 @@ const routes: Routes = [
         ModalModule.forChild(),
         StoreModule.forFeature(fromOldCeshtje.oldCeshtjeFeatureKey, fromOldCeshtje.reducer),
         EffectsModule.forFeature([OldCeshtjeEffects]),
-
+        SharedModule
     ],
     declarations: [HomeComponent, UploadComponent],
     exports: [

@@ -1,5 +1,5 @@
 export interface OldCeshtja {
-    "Id?": string,
+    Id?: string,
     "Emri?": string,
     "Mbiemri?": string,
     "Data_e_ngjarjes?": string,
