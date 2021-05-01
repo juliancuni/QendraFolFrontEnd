@@ -34,7 +34,7 @@ export class OldDataService {
           const headers = this.get_header_row(ws);
           headerJson[`header${i + 1}`] = headers;
         }
-        this.jsonOldCeshtje['headers'] = headerJson;
+        this.jsonOldCeshtje['headers'] = headerJson["header1"];
         observer.next(this.jsonOldCeshtje)
         // observer.next({ excelFileName: this.jsonOldCeshtje['filename'], oldCeshtjet: this.jsonOldCeshtje["sheet1"] })
         observer.complete();

@@ -12,7 +12,6 @@ import { OldCeshtjeEffects } from '../../store/effects/old-ceshtje.effects';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
-    { path: 'upload', component: UploadComponent }
 ];
 
 @NgModule({

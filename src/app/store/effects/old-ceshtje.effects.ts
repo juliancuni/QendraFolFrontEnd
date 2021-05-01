@@ -18,7 +18,7 @@ export class OldCeshtjeEffects {
         return this._oldDataService.excelToJson(action.rawFile);
       }),
       map((oldDataObj) => {
-        return OldCeshtjeActions.loadOldCeshtjetSuccess({ excelFileName: oldDataObj.filename, oldData: oldDataObj.sheet1 });
+        return OldCeshtjeActions.loadOldCeshtjetSuccess({ excelFileName: oldDataObj.filename, oldData: oldDataObj.sheet1, oldHeaders: oldDataObj.headers });
       }),
       catchError((error) => {
         console.log("err", error);

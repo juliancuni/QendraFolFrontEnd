@@ -8,7 +8,7 @@ export const loadOldCeshtjet = createAction(
 
 export const loadOldCeshtjetSuccess = createAction(
   '[Home Component] Load OldCeshtjet Success',
-  props<{ excelFileName: string, oldData: any }>()
+  props<{ excelFileName: string, oldData: any, oldHeaders: any }>()
 );
 
 export const loadOldCeshtjetFailure = createAction(
