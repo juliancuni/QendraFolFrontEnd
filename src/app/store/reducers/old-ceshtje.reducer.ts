@@ -1,6 +1,5 @@
-import { NullTemplateVisitor } from '@angular/compiler';
 import { createReducer, on } from '@ngrx/store';
-import { OldCeshtja } from 'src/app/shared/entities/old.ceshtja';
+import { OldCeshtja } from 'src/app/shared/sdk/models';
 import * as OldCeshtjeActions from '../actions/old-ceshtje.actions';
 
 export const oldCeshtjeFeatureKey = 'oldCeshtjet';
@@ -12,7 +11,10 @@ export interface OldCeshtjetState {
   oldCeshtje: OldCeshtja,
   oldHeaders: any,
   loading: boolean,
-  error: any
+  error: any,
+  errorSavedOdlC: any,
+  nrSuccess: number,
+  nrFailures: number
 }
 
 export const initialState: OldCeshtjetState = {
@@ -22,7 +24,10 @@ export const initialState: OldCeshtjetState = {
   oldCeshtje: null,
   oldHeaders: null,
   loading: null,
-  error: null
+  error: null,
+  errorSavedOdlC: null,
+  nrSuccess: 0,
+  nrFailures: 0
 };
 
 export const reducer = createReducer(
@@ -41,6 +46,24 @@ export const reducer = createReducer(
   }),
   on(OldCeshtjeActions.loadOldCeshtje, (state, action) => {
     return { ...state, oldCeshtje: action.oldCeshtje }
-  })
+  }),
+  on(OldCeshtjeActions.bulkSaveOldCeshtjeToDb, (state) => {
+    return { ...state, loading: true }
+  }),
+  on(OldCeshtjeActions.bulkSaveOldCeshtjeToDbSuccess, (state) => {
+    return { ...state, loading: false }
+  }),
+  on(OldCeshtjeActions.bulkSaveOldCeshtjeToDbFailure, (state) => {
+    return { ...state, loading: false }
+  }),
+  // on(OldCeshtjeActions.putOldCeshtjeToDb, (state) => {
+  //   return { ...state, loading: true }
+  // }),
+  on(OldCeshtjeActions.putOldCeshtjeToDbSuccess, (state) => {
+    return { ...state, loading: false }
+  }),
+  on(OldCeshtjeActions.putOldCeshtjeToDbFailure, (state) => {
+    return { ...state, loading: false }
+  }),
 );
 

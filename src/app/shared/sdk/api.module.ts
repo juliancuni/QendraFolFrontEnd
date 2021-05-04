@@ -6,6 +6,7 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { AccountService } from './services/account.service';
 import { FileUploadService } from './services/file-upload.service';
+import { OldCeshtjaService } from './services/old-ceshtja.service';
 import { RoleService } from './services/role.service';
 import { UsersService } from './services/users.service';
 
@@ -19,6 +20,7 @@ import { UsersService } from './services/users.service';
   providers: [
     AccountService,
     FileUploadService,
+    OldCeshtjaService,
     RoleService,
     UsersService,
     ApiConfiguration

@@ -4,7 +4,8 @@ import { Observable, of, Subscriber, throwError } from 'rxjs';
 import { AppState } from 'src/app/store';
 import * as OldCeshtjetActions from 'src/app/store/actions/old-ceshtje.actions';
 import * as XLSX from 'xlsx';
-import { OldCeshtja } from '../entities/old.ceshtja';
+import { OldCeshtja } from '../sdk/models';
+// import { OldCeshtja } from '../sdk/models';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,7 @@ export class OldDataService {
           headerJson[`header${i + 1}`] = headers;
         }
         this.jsonOldCeshtje['headers'] = headerJson["header1"];
+        this.saveToDb(this.jsonOldCeshtje["sheet1"]);
         observer.next(this.jsonOldCeshtje)
         // observer.next({ excelFileName: this.jsonOldCeshtje['filename'], oldCeshtjet: this.jsonOldCeshtje["sheet1"] })
         observer.complete();
@@ -59,4 +61,22 @@ export class OldDataService {
     }
     return headers;
   }
+
+  private saveToDb(oldCeshtjet: OldCeshtja[]) {
+    oldCeshtjet.forEach((oldC) => {
+      let tmp = parseInt(oldC["Id"]);
+      oldC.oldId = tmp;
+      let oldCeshtjeRefactor = {};
+      delete oldC["Id"];
+      for (const [key, value] of Object.entries(oldC)) {
+        let newKey = key.slice();
+        newKey = newKey.split(' ').join('_');
+        oldCeshtjeRefactor[newKey] = value;
+      }
+      oldCeshtjeRefactor;
+      // this._oldCeshtjaService.apiOldCeshtjaPost$Plain$Response({ body: newOldObj }).subscribe((res) => { console.log(res) });
+    }, oldCeshtjet);
+    this._store.dispatch(OldCeshtjetActions.bulkSaveOldCeshtjeToDb({oldCeshtjet: oldCeshtjet}))
+  }
+
 }

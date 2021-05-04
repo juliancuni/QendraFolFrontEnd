@@ -1,6 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
@@ -20,6 +20,7 @@ import { AppEffects } from './store/effects/app.effects';
 import { RouteEffects } from './store/effects/route.effects';
 
 import { ApiModule } from './shared/sdk/api.module';
+import { TokenInterceptor } from './shared/services/token.interceptor';
 
 
 // https://github.com/ocombe/ng2-translate/issues/218
@@ -58,7 +59,13 @@ export function createTranslateLoader(http: HttpClient) {
         EffectsModule.forRoot([AppEffects, RouteEffects]),
         ApiModule.forRoot({ rootUrl: "https://localhost:5001" }),
     ],
-    providers: [],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptor,
+            multi: true
+        }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

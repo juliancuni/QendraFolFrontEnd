@@ -6,7 +6,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { OldCeshtjeComponent } from './old-ceshtje/old-ceshtje.component';
 
 const routes: Routes = [
-  { path: '', component: OldListComponent }
+  { path: '', component: OldListComponent },
+  { path: 'old', component: OldCeshtjeComponent }
 ]
 
 @NgModule({

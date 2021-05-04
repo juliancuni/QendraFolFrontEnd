@@ -3,7 +3,7 @@
         <p-table #dt1 [columns]="selectedColumns" [value]="oldData" dataKey="Id" selectionMode="single"
             [(selection)]="selectedCeshtje" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm"
             [scrollable]="true" [rows]="100" scrollHeight="600px" [virtualScroll]="true" [virtualRowHeight]="34"
-            [globalFilterFields]="['Emri','Mbiemri','Kategoria','Sipas Nenit']" (onRowSelect)="onRowSelect($event)"
+            [globalFilterFields]="['Emri','Mbiemri','Kategoria','Sipas_Nenit']" (onRowSelect)="onRowSelect($event)"
             (onRowUnselect)="onRowUnselect($event)">
             <ng-template pTemplate="caption">
                 <div class="p-d-flex">
@@ -18,23 +18,25 @@
                         selectedItemsLabel="{0} Kolona të zgjedhura" [style]="{minWidth: '200px'}"
                         placeholder="Zgjidh një kolonë">
                     </p-multiSelect>
+                    <button pButton label="Add New" class="p-button-outlined" icon="pi pi-plus"
+                        (click)="addNewOldCeshtje()"></button>
                 </div>
             </ng-template>
             <ng-template pTemplate="header" let-columns>
                 <tr>
                     <th *ngFor="let col of columns">
                         <div class="p-d-flex p-jc-between p-ai-center">
-                            {{col.header}}
+                            {{col.header.toLowerCase()}}
                             <p-columnFilter type="{{col.type}}" field="{{col.header}}" display="{{col.menu}}">
                             </p-columnFilter>
                         </div>
                     </th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-data let-columns="columns">
-                <tr [pSelectableRow]="data">
+            <ng-template pTemplate="body" let-oldData let-columns="columns">
+                <tr [pSelectableRow]="oldData">
                     <td *ngFor="let col of columns">
-                        {{data[col.field]}}
+                        {{oldData[col.field]}}
                     </td>
                 </tr>
             </ng-template>

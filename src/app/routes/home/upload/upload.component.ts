@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { OldCeshtja } from 'src/app/shared/entities/old.ceshtja';
+import { OldCeshtja } from 'src/app/shared/sdk/models';
 import { AppState } from 'src/app/store';
 import * as OldCeshtjeActions from 'src/app/store/actions/old-ceshtje.actions';
 

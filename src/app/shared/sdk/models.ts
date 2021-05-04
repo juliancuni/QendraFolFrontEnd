@@ -2,6 +2,8 @@ export { RegisterDto } from './models/register-dto';
 export { UserDto } from './models/user-dto';
 export { LoginDto } from './models/login-dto';
 export { FileModel } from './models/file-model';
+export { OldCeshtja } from './models/old-ceshtja';
+export { BulkCreateReport } from './models/bulk-create-report';
 export { Fotografia } from './models/fotografia';
 export { ApiUser } from './models/api-user';
 export { ApiUserRole } from './models/api-user-role';

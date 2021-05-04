@@ -5,6 +5,9 @@ import { EMPTY, of } from 'rxjs';
 
 import * as OldCeshtjeActions from '../actions/old-ceshtje.actions';
 import { OldDataService } from 'src/app/shared/services/old-data.service';
+import { OldCeshtjaService } from 'src/app/shared/sdk/services';
+import { Store } from '@ngrx/store';
+import { AppState } from '..';
 
 
 
@@ -27,6 +30,42 @@ export class OldCeshtjeEffects {
     );
   });
 
-  constructor(private actions$: Actions, private _oldDataService: OldDataService) { }
+  bulkSaveOldCeshtjeToDb$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(OldCeshtjeActions.bulkSaveOldCeshtjeToDb),
+      switchMap((action) => {
+        return this._oldCeshtjeService.apiOldCeshtjaBulkPost$Json$Response({ body: action.oldCeshtjet });;
+      }),
+      map((res) => {
+        console.log(res);
+        if (res.ok) return OldCeshtjeActions.bulkSaveOldCeshtjeToDbSuccess()
+        return OldCeshtjeActions.bulkSaveOldCeshtjeToDbFailure()
+      }), 
+      catchError((error) => {
+        console.log(error);
+        return of(OldCeshtjeActions.bulkSaveOldCeshtjeToDbFailure());
+      })
+    )
+  });
+
+  putOldCeshtjeToDb$ = createEffect(() => {
+    console.log("putOldCeshtjeToDb");
+    return this.actions$.pipe(
+      ofType(OldCeshtjeActions.putOldCeshtjeToDb),
+      switchMap((action) => {
+        return this._oldCeshtjeService.apiOldCeshtjaPut$Response({ body: action.oldCeshtje });
+      }),
+      map((res) => {
+        console.log(res);
+        return OldCeshtjeActions.putOldCeshtjeToDbSuccess({oldCeshtje: res})
+      }), 
+      catchError((error) => {
+        console.log(error);
+        return of(OldCeshtjeActions.putOldCeshtjeToDbFailure());
+      })
+    )
+  });
+
+  constructor(private actions$: Actions, private _oldDataService: OldDataService, private _oldCeshtjeService: OldCeshtjaService, private _store: Store<AppState>) { }
 
 }
