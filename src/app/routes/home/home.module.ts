@@ -21,7 +21,7 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         ModalModule.forChild(),
         StoreModule.forFeature(fromOldCeshtje.oldCeshtjeFeatureKey, fromOldCeshtje.reducer),
-        EffectsModule.forFeature([OldCeshtjeEffects, OldCeshtjeDbEffects]),
+        EffectsModule.forFeature([OldCeshtjeEffects]),
         SharedModule
     ],
     declarations: [HomeComponent],

@@ -6,6 +6,11 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { OldCeshtjeComponent } from './old-ceshtje/old-ceshtje.component';
 import { UploadComponent } from './upload/upload.component';
 import { OldCeshtjetFromDBResolver } from 'src/app/shared/services/old-ceshtje-db.resolver';
+import { StoreModule } from '@ngrx/store';
+
+import * as fromOldCeshtjeDb from '../../store/reducers/old-ceshtje-db.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { OldCeshtjeDbEffects } from 'src/app/store/effects/old-ceshtje-db.effects';
 
 const routes: Routes = [
   { path: '', component: OldListComponent, resolve: { oldCeshtjetFromDb: OldCeshtjetFromDBResolver } },
@@ -18,11 +23,13 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     SharedModule,
+    StoreModule.forFeature(fromOldCeshtjeDb.featureKey, fromOldCeshtjeDb.reducer),
+    EffectsModule.forFeature([OldCeshtjeDbEffects]),
   ],
   declarations: [
     OldListComponent,
     OldCeshtjeComponent,
-    UploadComponent
+    UploadComponent,
   ],
   exports: [],
   providers: [

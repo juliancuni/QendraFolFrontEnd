@@ -1,21 +1,23 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Table } from 'primeng/table/table';
 import { Observable, Subject } from 'rxjs';
 import { AppState } from 'src/app/store';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { OldCeshtjeComponent } from '../old-ceshtje/old-ceshtje.component';
-import { clearOldData, loadOldCeshtje } from 'src/app/store/actions/old-ceshtje.actions';
+import * as OldCeshtjetFromActions from 'src/app/store/actions/old-ceshtje.actions';
 import { OldCeshtja } from 'src/app/shared/sdk/models';
-import { OldCeshtjaService } from 'src/app/shared/sdk/services';
-import { map, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { UploadComponent } from '../upload/upload.component';
+import * as OldCeshtjetFromDbSelectors from 'src/app/store/selectors/old-ceshtje-db.selectors';
+import { ConfirmationService } from 'primeng/api';
+import * as OldCeshtjetFromDbActions from 'src/app/store/actions/old-ceshtje-db.actions';
 
 @Component({
   selector: 'app-old-list',
   templateUrl: './old-list.component.html',
   styleUrls: ['./old-list.component.scss'],
-  providers: [DialogService]
+  providers: [DialogService, ConfirmationService]
 })
 export class OldListComponent implements OnInit {
 
@@ -28,22 +30,24 @@ export class OldListComponent implements OnInit {
   public cols: any[];
   private _selectedColumns: any[];
   notifier = new Subject();
+  public oldCeshtje: OldCeshtja;
+  public dialogMethod: string;
 
-  constructor(private _store: Store<AppState>, public _dialogService: DialogService, private _oldCeshtjaService: OldCeshtjaService) {
+  constructor(private _store: Store<AppState>, public _dialogService: DialogService, private _confirmationService: ConfirmationService) {
   }
 
-  showOldCeshtjeModal() {
-    this.ceshtjaModal = this._dialogService.open(OldCeshtjeComponent, {
-      header: 'Çështja/Personi',
-      width: '100%',
-      contentStyle: { "max-height": "100%", "overflow": "auto" },
-      baseZIndex: 10000,
-      closeOnEscape: true
-    });
-    this.ceshtjaModal.onClose.pipe(takeUntil(this.notifier)).subscribe(() => {
-      this._store.dispatch(clearOldData());
-    })
-  }
+  // showOldCeshtjeModal() {
+  //   this.ceshtjaModal = this._dialogService.open(OldCeshtjeComponent, {
+  //     header: 'Çështja/Personi',
+  //     width: '100%',
+  //     contentStyle: { "max-height": "100%", "overflow": "auto" },
+  //     baseZIndex: 10000,
+  //     closeOnEscape: true
+  //   });
+  //   this.ceshtjaModal.onClose.pipe(takeUntil(this.notifier)).subscribe(() => {
+  //     this._store.dispatch(clearOldData());
+  //   })
+  // }
 
   ngOnInit(): void {
     this.cols = [
@@ -84,9 +88,9 @@ export class OldListComponent implements OnInit {
 
     this._selectedColumns = this.cols.filter((col) => col.selected);
 
-    // this.data$ = this._store.select((state) => state.oldCeshtjet.oldData);
-    this.data$ = this._oldCeshtjaService.apiOldCeshtjaGet$Json();
-    this.headers$ = this._store.select((state) => state.oldCeshtjet.oldHeaders);
+    this.data$ = this._store.pipe(select(OldCeshtjetFromDbSelectors.selectAllOldCeshtjeDb));
+
+    // this.headers$ = this._store.select((state) => state.oldCeshtjet.oldHeaders);
   }
 
   @Input() get selectedColumns(): any[] {
@@ -101,20 +105,45 @@ export class OldListComponent implements OnInit {
     table.clear();
   }
 
-  onRowSelect(event) {
-    this._store.dispatch(loadOldCeshtje({ oldCeshtje: event.data }));
-    // this.showOldCeshtjeModal();
-  }
+  // onRowSelect(event) {
+  //   // this._store.dispatch(OldCeshtjetFromActions.loadOldCeshtje({ oldCeshtje: event.data }));
+  //   this.display = true;
+  //   this.dialogMethod = "update";
+  //   this.oldCeshtje = event.data;
+  //   // this.showOldCeshtjeModal();
+  // }
 
-  onRowUnselect(event) {
-    this._store.dispatch(loadOldCeshtje({ oldCeshtje: event.data }));
+  viewCheshtje(data) {
+    // this._store.dispatch(OldCeshtjetFromActions.loadOldCeshtje({ oldCeshtje: event.data }));
+    this.display = true;
+    this.dialogMethod = "update";
+    this.oldCeshtje = data;
     // this.showOldCeshtjeModal();
   }
 
   addNewOldCeshtje() {
-    let emptyOldCesthje: OldCeshtja = {};
-    this._store.dispatch(loadOldCeshtje({ oldCeshtje: emptyOldCesthje }));
+    this.display = true;
+    this.dialogMethod = "create";
+    this.oldCeshtje = {};
+    // let emptyOldCesthje: OldCeshtja = {};
+    // this.oldCeshtje = emptyOldCesthje;
+    // this._store.dispatch(OldCeshtjetFromActions.loadOldCeshtje({ oldCeshtje: emptyOldCesthje }));
     // this.showOldCeshtjeModal();
+  }
+
+  confirmDelete(oldCeshtje: OldCeshtja) {
+    this._confirmationService.confirm({
+      message: 'Jeni të sigurtë që doni të fshini këtë rekord?',
+      header: 'Kujdes!',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this._store.dispatch(OldCeshtjetFromDbActions.deleteOldCeshtjeDb({ oldCeshtje: oldCeshtje }))
+      },
+      reject: () => {
+        console.log("DELETE REJECTED");
+
+      }
+    });
   }
 
   showImportXLSX() {
@@ -125,8 +154,13 @@ export class OldListComponent implements OnInit {
       baseZIndex: 10000,
     });
     this.bulkUploadModal.onClose.pipe(takeUntil(this.notifier)).subscribe(() => {
-      this._store.dispatch(clearOldData());
+      this._store.dispatch(OldCeshtjetFromActions.clearOldData());
     })
+  }
+
+  toggleModal(ev) {
+    console.log(ev);
+    this.display = false;
   }
 
   ngOnDestroy() {

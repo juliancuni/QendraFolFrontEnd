@@ -1,7 +1,9 @@
-<p-dialog [(visible)]="display" [modal]="true" [style]="{width: '70vw'}" [maximizable]="true" [baseZIndex]="9999" [draggable]="false" [resizable]="false" (onHide)="clearState()" appendTo="body">
+<p-dialog [(visible)]="show" [modal]="true" [style]="{width: '70vw'}" [maximizable]="true" [baseZIndex]="9999"
+    [draggable]="false" [resizable]="false" (onHide)="closeModal()" appendTo="body">
     <ng-template pTemplate="header" appendTo="body">
-
-        <h3>Të dhënat e ngjarjes për {{oldCeshtje.emri}} {{oldCeshtje.mbiemri}} - dt: {{oldCeshtje.data_e_ngjarjes}}
+        <h3 *ngIf="method == 'create'">Çështje e re</h3>
+        <h3 *ngIf="method == 'update'">Të dhënat e ngjarjes për {{oldCeshtje.emri}} {{oldCeshtje.mbiemri}} - dt:
+            {{oldCeshtje.data_e_ngjarjes}}
         </h3>
     </ng-template>
     <div class="row py-4 justify-content-center">
@@ -21,7 +23,9 @@
         </div>
     </div>
     <ng-template pTemplate="footer">
-        <button pButton pRipple type="button" label="Save" class="p-button-raised p-button-text" (click)="save()"></button>
-        <button pButton pRipple type="button" label="Close" class="p-button-raised p-button-text p-button-plain" (click)="closeModal()"></button>
+        <button pButton pRipple type="button" label="Save" class="p-button-raised p-button-text"
+            (click)="save()"></button>
+        <button pButton pRipple type="button" label="Close" class="p-button-raised p-button-text p-button-plain"
+            (click)="closeModal()"></button>
     </ng-template>
 </p-dialog>
