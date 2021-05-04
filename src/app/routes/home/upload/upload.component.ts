@@ -51,7 +51,7 @@ export class UploadComponent implements OnInit {
   }
 
   excelToJson(rawFile) {
-    this._store.dispatch(OldCeshtjeActions.loadOldCeshtjet({ rawFile: rawFile }));
+    this._store.dispatch(OldCeshtjeActions.loadOldCeshtjetXls({ rawFile: rawFile }));
   }
 
 

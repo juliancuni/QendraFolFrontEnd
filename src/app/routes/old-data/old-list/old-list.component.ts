@@ -111,12 +111,6 @@ export class OldListComponent implements OnInit {
     this.showModal();
   }
 
-
-
-
-
-
-
   ngOnDestroy() {
     if (this.ref) {
       this.ref.close();

@@ -32,13 +32,13 @@ export const initialState: OldCeshtjetState = {
 
 export const reducer = createReducer(
   initialState,
-  on(OldCeshtjeActions.loadOldCeshtjet, (state, action) => {
+  on(OldCeshtjeActions.loadOldCeshtjetXls, (state, action) => {
     return { ...state, rawFile: action.rawFile, loading: true }
   }),
-  on(OldCeshtjeActions.loadOldCeshtjetSuccess, (state, action) => {
+  on(OldCeshtjeActions.loadOldCeshtjetSuccessXls, (state, action) => {
     return { ...state, rawFile: null, excelFileName: action.excelFileName, oldData: action.oldData, oldHeaders: action.oldHeaders, loading: false, error: null }
   }),
-  on(OldCeshtjeActions.loadOldCeshtjetFailure, (state, action) => {
+  on(OldCeshtjeActions.loadOldCeshtjetFailureXls, (state, action) => {
     return { ...state, rawFile: null, excelFileName: null, oldData: null, oldHeaders: null, loading: false, error: action.error }
   }),
   on(OldCeshtjeActions.clearOldData, (state) => {

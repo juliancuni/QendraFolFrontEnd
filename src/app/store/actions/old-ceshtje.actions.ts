@@ -1,17 +1,17 @@
 import { createAction, props } from '@ngrx/store';
 import { OldCeshtja } from 'src/app/shared/sdk/models';
 
-export const loadOldCeshtjet = createAction(
+export const loadOldCeshtjetXls = createAction(
   '[Upload Component] Load OldCeshtjet',
   props<{ rawFile: any }>()
 );
 
-export const loadOldCeshtjetSuccess = createAction(
+export const loadOldCeshtjetSuccessXls = createAction(
   '[Home Component] Load OldCeshtjet Success',
   props<{ excelFileName: string, oldData: OldCeshtja[], oldHeaders: any }>()
 );
 
-export const loadOldCeshtjetFailure = createAction(
+export const loadOldCeshtjetFailureXls = createAction(
   '[OldCeshtje Service] Load OldCeshtjet Failure',
   props<{ error: any }>()
 );

@@ -16,16 +16,16 @@ export class OldCeshtjeEffects {
 
   loadOldCeshtjes$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(OldCeshtjeActions.loadOldCeshtjet),
+      ofType(OldCeshtjeActions.loadOldCeshtjetXls),
       switchMap((action) => {
         return this._oldDataService.excelToJson(action.rawFile);
       }),
       map((oldDataObj) => {
-        return OldCeshtjeActions.loadOldCeshtjetSuccess({ excelFileName: oldDataObj.filename, oldData: oldDataObj.sheet1, oldHeaders: oldDataObj.headers });
+        return OldCeshtjeActions.loadOldCeshtjetSuccessXls({ excelFileName: oldDataObj.filename, oldData: oldDataObj.sheet1, oldHeaders: oldDataObj.headers });
       }),
       catchError((error) => {
         console.log("err", error);
-        return of(OldCeshtjeActions.loadOldCeshtjetFailure({ error: error }))
+        return of(OldCeshtjeActions.loadOldCeshtjetFailureXls({ error: error }))
       })
     );
   });
