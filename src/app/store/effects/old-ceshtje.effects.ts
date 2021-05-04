@@ -37,10 +37,9 @@ export class OldCeshtjeEffects {
         return this._oldCeshtjeService.apiOldCeshtjaBulkPost$Json$Response({ body: action.oldCeshtjet });;
       }),
       map((res) => {
-        console.log(res);
-        if (res.ok) return OldCeshtjeActions.bulkSaveOldCeshtjeToDbSuccess()
+        if (res.ok) return OldCeshtjeActions.bulkSaveOldCeshtjeToDbSuccess({ bulkReport: res.body })
         return OldCeshtjeActions.bulkSaveOldCeshtjeToDbFailure()
-      }), 
+      }),
       catchError((error) => {
         console.log(error);
         return of(OldCeshtjeActions.bulkSaveOldCeshtjeToDbFailure());
@@ -49,16 +48,15 @@ export class OldCeshtjeEffects {
   });
 
   putOldCeshtjeToDb$ = createEffect(() => {
-    console.log("putOldCeshtjeToDb");
     return this.actions$.pipe(
       ofType(OldCeshtjeActions.putOldCeshtjeToDb),
       switchMap((action) => {
-        return this._oldCeshtjeService.apiOldCeshtjaPut$Response({ body: action.oldCeshtje });
+        return this._oldCeshtjeService.apiOldCeshtjaPut$Json$Response({ body: action.oldCeshtje });
       }),
       map((res) => {
         console.log(res);
-        return OldCeshtjeActions.putOldCeshtjeToDbSuccess({oldCeshtje: res})
-      }), 
+        return OldCeshtjeActions.putOldCeshtjeToDbSuccess({ oldCeshtje: res })
+      }),
       catchError((error) => {
         console.log(error);
         return of(OldCeshtjeActions.putOldCeshtjeToDbFailure());

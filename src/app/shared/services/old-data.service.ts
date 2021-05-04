@@ -74,7 +74,6 @@ export class OldDataService {
         oldCeshtjeRefactor[newKey] = value;
       }
       oldCeshtjeRefactor;
-      // this._oldCeshtjaService.apiOldCeshtjaPost$Plain$Response({ body: newOldObj }).subscribe((res) => { console.log(res) });
     }, oldCeshtjet);
     this._store.dispatch(OldCeshtjetActions.bulkSaveOldCeshtjeToDb({oldCeshtjet: oldCeshtjet}))
   }

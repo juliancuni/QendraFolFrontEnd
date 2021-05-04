@@ -111,13 +111,13 @@ export class OldCeshtjaService extends BaseService {
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiOldCeshtjaPut()` instead.
+   * To access only the response body, use `apiOldCeshtjaPut$Plain()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiOldCeshtjaPut$Response(params?: {
+  apiOldCeshtjaPut$Plain$Response(params?: {
     body?: OldCeshtja
-  }): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<OldCeshtja>> {
 
     const rb = new RequestBuilder(this.rootUrl, OldCeshtjaService.ApiOldCeshtjaPutPath, 'put');
     if (params) {
@@ -126,27 +126,68 @@ export class OldCeshtjaService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*'
+      accept: 'text/plain'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<OldCeshtja>;
       })
     );
   }
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiOldCeshtjaPut$Response()` instead.
+   * To access the full response (for headers, for example), `apiOldCeshtjaPut$Plain$Response()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiOldCeshtjaPut(params?: {
+  apiOldCeshtjaPut$Plain(params?: {
     body?: OldCeshtja
-  }): Observable<void> {
+  }): Observable<OldCeshtja> {
 
-    return this.apiOldCeshtjaPut$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+    return this.apiOldCeshtjaPut$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<OldCeshtja>) => r.body as OldCeshtja)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiOldCeshtjaPut$Json()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiOldCeshtjaPut$Json$Response(params?: {
+    body?: OldCeshtja
+  }): Observable<StrictHttpResponse<OldCeshtja>> {
+
+    const rb = new RequestBuilder(this.rootUrl, OldCeshtjaService.ApiOldCeshtjaPutPath, 'put');
+    if (params) {
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'text/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<OldCeshtja>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `apiOldCeshtjaPut$Json$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiOldCeshtjaPut$Json(params?: {
+    body?: OldCeshtja
+  }): Observable<OldCeshtja> {
+
+    return this.apiOldCeshtjaPut$Json$Response(params).pipe(
+      map((r: StrictHttpResponse<OldCeshtja>) => r.body as OldCeshtja)
     );
   }
 

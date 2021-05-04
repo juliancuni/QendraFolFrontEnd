@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { OldCeshtja } from 'src/app/shared/sdk/models';
+import { MessageService } from 'primeng/api';
+import { Observable, Subject } from 'rxjs';
+import { first, map, take, takeUntil } from 'rxjs/operators';
+import { BulkCreateReport, OldCeshtja } from 'src/app/shared/sdk/models';
 import { AppState } from 'src/app/store';
 import * as OldCeshtjeActions from 'src/app/store/actions/old-ceshtje.actions';
 
@@ -11,15 +13,17 @@ import * as OldCeshtjeActions from 'src/app/store/actions/old-ceshtje.actions';
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.scss']
 })
-export class UploadComponent implements OnInit {
+export class UploadComponent implements OnInit, OnDestroy {
 
   fileName$: Observable<string>;
   loading$: Observable<boolean>;
   jsonOldCeshtje$: Observable<OldCeshtja[]>
-
+  bulkCreateReport$: Observable<BulkCreateReport>;
+  report: string;
   public fileOver = false;
+  notifier = new Subject();
 
-  constructor(private _store: Store<AppState>) {
+  constructor(private _store: Store<AppState>, private _messageService: MessageService) {
 
   }
 
@@ -51,6 +55,7 @@ export class UploadComponent implements OnInit {
   }
 
   excelToJson(rawFile) {
+    console.log("excelToJson")
     this._store.dispatch(OldCeshtjeActions.loadOldCeshtjetXls({ rawFile: rawFile }));
   }
 
@@ -60,6 +65,22 @@ export class UploadComponent implements OnInit {
     this.loading$ = this._store.select((state) => state.oldCeshtjet.loading);
     this.fileName$ = this._store.select((state) => state.oldCeshtjet.excelFileName);
     this.jsonOldCeshtje$ = this._store.select((state) => state.oldCeshtjet.oldData);
+    this._store.select((state) => state.oldCeshtjet.bulkReport).pipe(takeUntil(this.notifier)).subscribe((report) => {
+      if (report) {
+        let strImportFailed = report.importFailedIds;
+        strImportFailed = strImportFailed.replace(", ]", "]")
+        if (report.nrImportFailure > 0) {
+          this._messageService.add({ severity: 'warn', summary: report.nrImportFailure + ' Rekorde', detail: 'Nuk u regjistruan. Keto ceshtje egzistojne ne DB' })
+        }
+        if (report.nrImportSuccess > 0) {
+          this._messageService.add({ severity: 'success', summary: report.nrImportSuccess + ' Rekorde', detail: 'U regjistruan me sukses ne DB.' })
+        }
+      }
+    });
   }
 
+  ngOnDestroy() {
+    this.notifier.next()
+    this.notifier.complete()
+  }
 }

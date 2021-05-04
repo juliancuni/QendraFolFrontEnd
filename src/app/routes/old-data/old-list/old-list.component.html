@@ -8,7 +8,7 @@
             <ng-template pTemplate="caption">
                 <div class="p-d-flex">
                     <button pButton label="Fshi Kerkimin" class="p-button-outlined" icon="pi pi-filter-slash"
-                        (click)="clear(dt1)"></button>
+                        (click)="clearKerkim(dt1)"></button>
                     <span class="p-input-icon-left p-ml-auto">
                         <i class="pi pi-search"></i>
                         <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')"
@@ -20,6 +20,8 @@
                     </p-multiSelect>
                     <button pButton label="Add New" class="p-button-outlined" icon="pi pi-plus"
                         (click)="addNewOldCeshtje()"></button>
+                    <button pButton label="Upload From XLSX" class="p-button-outlined" icon="pi pi-upload"
+                        (click)="showImportXLSX()"></button>
                 </div>
             </ng-template>
             <ng-template pTemplate="header" let-columns>
@@ -48,3 +50,4 @@
         </p-table>
     </div>
 </ng-container>
+<app-old-ceshtje></app-old-ceshtje>

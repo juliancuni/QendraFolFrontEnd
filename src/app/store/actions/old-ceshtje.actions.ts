@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { OldCeshtja } from 'src/app/shared/sdk/models';
+import { BulkCreateReport, OldCeshtja } from 'src/app/shared/sdk/models';
 
 export const loadOldCeshtjetXls = createAction(
   '[Upload Component] Load OldCeshtjet',
@@ -32,6 +32,7 @@ export const bulkSaveOldCeshtjeToDb = createAction(
 
 export const bulkSaveOldCeshtjeToDbSuccess = createAction(
   '[Old Effects] Save OldCeshtjeToDb Success',
+  props<{ bulkReport: BulkCreateReport }>()
 )
 
 export const bulkSaveOldCeshtjeToDbFailure = createAction(
@@ -49,5 +50,5 @@ export const putOldCeshtjeToDbSuccess = createAction(
 )
 
 export const putOldCeshtjeToDbFailure = createAction(
-    '[Old Effects] Put OldCeshtjeToDb Failure'
-  )
+  '[Old Effects] Put OldCeshtjeToDb Failure'
+)

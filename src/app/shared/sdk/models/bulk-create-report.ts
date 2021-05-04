@@ -3,7 +3,7 @@
 export interface BulkCreateReport {
   dateOfImport?: string;
   id?: number;
-  importFailedIds?: null | Array<number>;
+  importFailedIds?: null | string;
   nrImportFailure?: number;
   nrImportSuccess?: number;
   user?: null | string;

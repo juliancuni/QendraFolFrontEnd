@@ -73,6 +73,9 @@
                   "maximumError": "30kb"
                 }
               ]
+            },
+            "development": {
+              "sourceMap": true
             }
           }
         },

@@ -1,14 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Table } from 'primeng/table/table';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { AppState } from 'src/app/store';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { OldCeshtjeComponent } from '../old-ceshtje/old-ceshtje.component';
-import { loadOldCeshtje } from 'src/app/store/actions/old-ceshtje.actions';
+import { clearOldData, loadOldCeshtje } from 'src/app/store/actions/old-ceshtje.actions';
 import { OldCeshtja } from 'src/app/shared/sdk/models';
 import { OldCeshtjaService } from 'src/app/shared/sdk/services';
-import { map } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
+import { UploadComponent } from '../upload/upload.component';
 
 @Component({
   selector: 'app-old-list',
@@ -18,25 +19,30 @@ import { map } from 'rxjs/operators';
 })
 export class OldListComponent implements OnInit {
 
-  public ref: DynamicDialogRef;
+  public ceshtjaModal: DynamicDialogRef;
+  public bulkUploadModal: DynamicDialogRef;
   public display: boolean = false;
   public headers$: Observable<any>;
   public data$: Observable<OldCeshtja[]>;
   public selectedCeshtje: OldCeshtja;
   public cols: any[];
   private _selectedColumns: any[];
+  notifier = new Subject();
 
   constructor(private _store: Store<AppState>, public _dialogService: DialogService, private _oldCeshtjaService: OldCeshtjaService) {
   }
 
-  showModal() {
-    this.ref = this._dialogService.open(OldCeshtjeComponent, {
+  showOldCeshtjeModal() {
+    this.ceshtjaModal = this._dialogService.open(OldCeshtjeComponent, {
       header: 'Çështja/Personi',
       width: '100%',
       contentStyle: { "max-height": "100%", "overflow": "auto" },
       baseZIndex: 10000,
       closeOnEscape: true
     });
+    this.ceshtjaModal.onClose.pipe(takeUntil(this.notifier)).subscribe(() => {
+      this._store.dispatch(clearOldData());
+    })
   }
 
   ngOnInit(): void {
@@ -91,29 +97,46 @@ export class OldListComponent implements OnInit {
     this._selectedColumns = this.cols.filter(col => val.includes(col));
   }
 
-  clear(table: Table) {
+  clearKerkim(table: Table) {
     table.clear();
   }
 
   onRowSelect(event) {
     this._store.dispatch(loadOldCeshtje({ oldCeshtje: event.data }));
-    this.showModal();
+    // this.showOldCeshtjeModal();
   }
 
   onRowUnselect(event) {
     this._store.dispatch(loadOldCeshtje({ oldCeshtje: event.data }));
-    this.showModal();
+    // this.showOldCeshtjeModal();
   }
 
   addNewOldCeshtje() {
     let emptyOldCesthje: OldCeshtja = {};
-    this._store.dispatch(loadOldCeshtje({ oldCeshtje: null }));
-    this.showModal();
+    this._store.dispatch(loadOldCeshtje({ oldCeshtje: emptyOldCesthje }));
+    // this.showOldCeshtjeModal();
+  }
+
+  showImportXLSX() {
+    this.bulkUploadModal = this._dialogService.open(UploadComponent, {
+      header: 'Import Old Data from XLSX file',
+      width: '70%',
+      contentStyle: { "max-height": "700px", "overflow": "auto" },
+      baseZIndex: 10000,
+    });
+    this.bulkUploadModal.onClose.pipe(takeUntil(this.notifier)).subscribe(() => {
+      this._store.dispatch(clearOldData());
+    })
   }
 
   ngOnDestroy() {
-    if (this.ref) {
-      this.ref.close();
+    this.notifier.next(true);
+    this.notifier.complete();
+    if (this.ceshtjaModal) {
+      this.ceshtjaModal.close();
+    }
+    if (this.bulkUploadModal) {
+      this.bulkUploadModal.close();
     }
   }
 }

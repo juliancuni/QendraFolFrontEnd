@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { UploadComponent } from '../upload/upload.component';
+import { UploadComponent } from '../../old-data/upload/upload.component';
 
 @Component({
     selector: 'app-home',
@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.ref = this._dialogService.open(UploadComponent, {
             header: 'Import Old Data from XLSX file',
             width: '70%',
-            contentStyle: { "max-height": "500px", "overflow": "auto" },
+            contentStyle: { "max-height": "700px", "overflow": "auto" },
             baseZIndex: 10000,
         });
     }

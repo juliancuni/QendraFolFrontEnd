@@ -4,6 +4,7 @@ import { OldListComponent } from './old-list/old-list.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { OldCeshtjeComponent } from './old-ceshtje/old-ceshtje.component';
+import { UploadComponent } from './upload/upload.component';
 
 const routes: Routes = [
   { path: '', component: OldListComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
   declarations: [
     OldListComponent,
     OldCeshtjeComponent,
+    UploadComponent
   ],
   exports: [],
 

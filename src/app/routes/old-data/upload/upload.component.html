@@ -1,0 +1,42 @@
+<div class="card">
+    <div class="card-body">
+        <h4 class="page-header mt0">Upload XLSX file</h4>
+        <div id="drop-file" class="box-placeholder my-drop-zone" [ngClass]="{'nv-file-over': fileOver}"
+            (drop)="fromDrop($event)" (dragover)="dragOver($event)" (dragleave)="dragLeave($event)"
+            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+            <br>
+            {{ (fileName$ | async) || "Drag and Drop XCLX (Excel) File." }}
+            <br><br>
+        </div>
+        <p class="text-bold">...Or Browse File System</p>
+        <input id="input-file" type="file" class="file-input" (change)="fromInput($event)"
+            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" #fileUpload>
+        <table class="table-responsive">
+            <tr>
+                <td>
+                    <div class="file-upload">
+                        <button pButton pRipple type="button" icon="pi pi-paperclip" class="p-button-rounded"
+                            (click)="fileUpload.click()" *ngIf="!(fileName$ | async)"></button>
+                        <button pButton pRipple type="button" icon="pi pi-trash"
+                            class="p-button-rounded p-button-danger" (click)="clearFile()"
+                            *ngIf="(fileName$ | async)"></button>
+                        {{(fileName$ | async)}}
+                    </div>
+                </td>
+                <td>
+                    <div class="ball-clip-rotate-multiple" *ngIf="loading$ | async  ">
+                        <div></div>
+                        <div></div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <!-- *ngIf="jsonOldCeshtje?.sheet1?.length > 0" -->
+        <div class="card border-0" *ngIf="(jsonOldCeshtje$ | async)?.length > 0">
+            <div class="card-body text-center">
+                <h2>Në tabelën {{fileName$ | async}} u gjendën {{(jsonOldCeshtje$ | async)?.length}} rekorde.</h2>
+                <p-messages [(value)]="report"></p-messages>
+            </div>
+        </div>
+    </div>
+</div>

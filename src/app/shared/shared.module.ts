@@ -10,9 +10,11 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
 
 
 
@@ -28,7 +30,10 @@ import { MessageService } from 'primeng/api';
     ButtonModule,
     InputTextModule,
     DynamicDialogModule,
+    DialogModule,
     ToastModule,
+    MessagesModule,
+    MessageModule,
     // AccordionModule.forRoot(),
     // AlertModule.forRoot(),
     // ButtonsModule.forRoot(),
@@ -72,7 +77,10 @@ import { MessageService } from 'primeng/api';
     ButtonModule,
     InputTextModule,
     DynamicDialogModule,
+    DialogModule,
     ToastModule,
+    MessagesModule,
+    MessageModule,
     // AccordionModule,
     // AlertModule,
     // ButtonsModule,

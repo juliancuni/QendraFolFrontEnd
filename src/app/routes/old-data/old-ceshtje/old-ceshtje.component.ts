@@ -53,8 +53,10 @@ export class OldCeshtjeComponent implements OnInit, OnDestroy {
 
   oldCeshtje$: Observable<OldCeshtja>;
   valForm: FormGroup;
-  componentDestroyed$: Subject<boolean> = new Subject();
+  notifier = new Subject();
   oldCeshtje: OldCeshtja;
+  display = false;
+
   constructor(private _store: Store<AppState>, private fb: FormBuilder, private _oldCeshtjaService: OldCeshtjaService) {
     this.valForm = fb.group({
       "emri": [null],
@@ -96,9 +98,10 @@ export class OldCeshtjeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._store.select((state) => state.oldCeshtjet.oldCeshtje)
-      .pipe(takeUntil(this.componentDestroyed$))
+      .pipe(takeUntil(this.notifier))
       .subscribe((oldC) => {
         if (oldC) {
+          this.display = true;
           this.oldCeshtje = oldC;
           this.valForm.patchValue({
             "emri": oldC.emri,
@@ -138,21 +141,30 @@ export class OldCeshtjeComponent implements OnInit, OnDestroy {
       });
   }
 
-  save(ev, value: OldCeshtja) {
-    // ev.preventDefault();
+  save() {
     for (let c in this.valForm.controls) {
       this.valForm.controls[c].markAsTouched();
     }
+    let value = this.valForm.value;
     if (this.oldCeshtje) {
       value.id = this.oldCeshtje.id;
       value.oldId = this.oldCeshtje.oldId;
     }
-    // console.log(value);
     this._store.dispatch(OldCeshtjeActions.putOldCeshtjeToDb({ oldCeshtje: value }));
+    this.display = false;
+  }
+
+  closeModal() {
+    this.display = false;
+  }
+
+  clearState() {
+    this.display = false;
+    this._store.dispatch(OldCeshtjeActions.clearOldData());
   }
 
   ngOnDestroy() {
-    this.componentDestroyed$.next(true)
-    this.componentDestroyed$.complete()
+    this.notifier.next(true)
+    this.notifier.complete()
   }
 }
