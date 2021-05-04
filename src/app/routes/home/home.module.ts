@@ -8,6 +8,7 @@ import * as fromOldCeshtje from '../../store/reducers/old-ceshtje.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { OldCeshtjeEffects } from '../../store/effects/old-ceshtje.effects';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { OldCeshtjeDbEffects } from 'src/app/store/effects/old-ceshtje-db.effects';
 
 
 const routes: Routes = [
@@ -20,7 +21,7 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         ModalModule.forChild(),
         StoreModule.forFeature(fromOldCeshtje.oldCeshtjeFeatureKey, fromOldCeshtje.reducer),
-        EffectsModule.forFeature([OldCeshtjeEffects]),
+        EffectsModule.forFeature([OldCeshtjeEffects, OldCeshtjeDbEffects]),
         SharedModule
     ],
     declarations: [HomeComponent],
