@@ -32,18 +32,19 @@ export class OldListComponent implements OnInit {
   notifier = new Subject();
   public oldCeshtje: OldCeshtja;
   public dialogMethod: string;
+  public loading$: Observable<boolean>;
 
   constructor(private _store: Store<AppState>, public _dialogService: DialogService, private _confirmationService: ConfirmationService) {
   }
 
   ngOnInit(): void {
     this.cols = [
-      { field: "oldId", header: "Old_Id", selected: true, type: "text", display: "menu" },
+      { field: "oldId", header: "Old_Id", selected: false, type: "text", display: "menu" },
       { field: "emri", header: "Emri", selected: true, type: "text", display: "menu" },
       { field: "mbiemri", header: "Mbiemri", selected: true, type: "text", display: "menu" },
       { field: "data_e_ngjarjes", header: "Data e ngjarjes", selected: true, type: "text", display: "menu" },
       { field: "kategoria", header: "Kategoria", selected: true, type: "text", display: "menu" },
-      { field: "sipas_Nenit", header: "Sipas Nenit", selected: true, type: "text", display: "menu" },
+      { field: "sipas_Nenit", header: "Sipas Nenit", selected: false, type: "text", display: "menu" },
       { field: "policia", header: "Policia", selected: false, type: "text", display: "menu" },
       { field: "prokuroria", header: "Prokuroria", selected: false, type: "text", display: "menu" },
       { field: "sipas_Nenit_P", header: "Sipas Nenit Prokuroria", selected: false, type: "text", display: "menu" },
@@ -74,6 +75,7 @@ export class OldListComponent implements OnInit {
     ];
     this._selectedColumns = this.cols.filter((col) => col.selected);
     this.data$ = this._store.pipe(select(OldCeshtjetFromDbSelectors.selectAllOldCeshtjeDb));
+    this.loading$ = this._store.pipe(select((state) => state.oldCeshtjetFromDb.loading));
   }
 
   @Input() get selectedColumns(): any[] {
@@ -110,7 +112,6 @@ export class OldListComponent implements OnInit {
       },
       reject: () => {
         console.log("DELETE REJECTED");
-
       }
     });
   }
@@ -123,8 +124,9 @@ export class OldListComponent implements OnInit {
       baseZIndex: 10000,
     });
     this.bulkUploadModal.onClose.pipe(takeUntil(this.notifier)).subscribe(() => {
-      this._store.dispatch(OldCeshtjetFromDbActions.loadAllCeshtjeFromDbList());
+      this._store.dispatch(OldCeshtjetFromDbActions.resetTableData());
       this._store.dispatch(OldCeshtjetFromDbActions.clearRawDataFromStore());
+      this._store.dispatch(OldCeshtjetFromDbActions.loadAllCeshtjeFromDbList());
     })
   }
 

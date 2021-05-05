@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { MessageService } from 'primeng/api';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Observable, Subject } from 'rxjs';
 import { first, map, take, takeUntil } from 'rxjs/operators';
 import { BulkCreateReport, OldCeshtja } from 'src/app/shared/sdk/models';
@@ -19,11 +21,12 @@ export class UploadComponent implements OnInit, OnDestroy {
   loading$: Observable<boolean>;
   jsonOldCeshtje$: Observable<OldCeshtja[]>
   bulkCreateReport$: Observable<BulkCreateReport>;
-  report: string;
+  report: BulkCreateReport;
   public fileOver = false;
   notifier = new Subject();
+  
 
-  constructor(private _store: Store<AppState>, private _messageService: MessageService) {
+  constructor(private _store: Store<AppState>, private _messageService: MessageService, private _router: Router, private readonly dialogRef: DynamicDialogRef) {
 
   }
 
@@ -60,7 +63,9 @@ export class UploadComponent implements OnInit, OnDestroy {
     this._store.dispatch(OldCeshtjetFromDbActions.convertXclsxFile({ rawFile: rawFile }));
   }
 
-
+  closeUploadDialog() {
+    this.dialogRef.close();
+  }
 
   ngOnInit(): void {
     this.loading$ = this._store.select((state) => state.oldCeshtjetFromDb.loading);
@@ -74,6 +79,7 @@ export class UploadComponent implements OnInit, OnDestroy {
     });
 
     this._store.select((state) => state.oldCeshtjetFromDb.report).pipe(takeUntil(this.notifier)).subscribe((report) => {
+      this.report = report;
       if (report) {
         let strImportFailed = report.importFailedIds;
         strImportFailed = strImportFailed.replace(", ]", "]")

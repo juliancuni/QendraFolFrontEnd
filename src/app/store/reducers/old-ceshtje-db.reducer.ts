@@ -35,7 +35,9 @@ export const reducer = createReducer(
 
     on(OldCeshtjetFromDbActions.uploadJsonConvertedToDbSuccess, (state, action) => { return { ...state, report: action.report, loading: false } }),
 
-    on(OldCeshtjetFromDbActions.clearRawDataFromStore, (state) => { return { ...state, fileName: null, jsonOld: null, report: null, error: null } }),
+    on(OldCeshtjetFromDbActions.clearRawDataFromStore, (state) => { return { ...state, fileName: null, jsonOld: null, report: null, error: null, } }),
+
+    on(OldCeshtjetFromDbActions.resetTableData, (state) => adapter.removeAll(state)),
 
     /** CRUD From DB */
     on(OldCeshtjetFromDbActions.loadAllCeshtjeFromDbSuccess, (state, action) => adapter.addMany(action.oldCeshtjetFromDB, { ...state, allOldCeshtjetDbLoaded: true })),
@@ -43,6 +45,8 @@ export const reducer = createReducer(
     on(OldCeshtjetFromDbActions.upsertOldCeshtjeDbSuccess, (state, action) => adapter.upsertOne(action.oldCeshtje, state)),
 
     on(OldCeshtjetFromDbActions.deleteOldCeshtjeDb, (state, action) => adapter.removeOne(action.oldCeshtje.id, state)),
+
+
 
     on(
         OldCeshtjetFromDbActions.loadAllCeshtjeFromDbFailure,

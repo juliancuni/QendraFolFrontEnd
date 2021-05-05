@@ -12,7 +12,6 @@ export const convertXclsxFileError = createAction(
     props<{ error: any }>()
 )
 
-
 export const uploadJsonConvertedToDb = createAction(
     '[Old Ceshtje Db Effect] Upload',
     props<{ bulkJson: OldCeshtja[], fileName: string, jsonOld: any }>()
@@ -30,6 +29,10 @@ export const clearRawDataFromStore = createAction(
 export const uploadJsonConvertedToDbFailure = createAction(
     '[Old Ceshtje Db Effect] Upload Failure',
     props<{ error: any }>()
+)
+
+export const resetTableData = createAction(
+    '[Upload Component] Reset Table data'
 )
 
 /** Load All Old Ceshtjet */

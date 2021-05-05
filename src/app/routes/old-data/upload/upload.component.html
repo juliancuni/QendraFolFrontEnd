@@ -32,11 +32,22 @@
             </tr>
         </table>
         <!-- *ngIf="jsonOldCeshtje?.sheet1?.length > 0" -->
-        <div class="card border-0" >
+        <div class="card border-0">
             <div class="card-body text-center">
-                <h2 *ngIf="(jsonOldCeshtje$ | async)?.length > 0">Në tabelën {{fileName$ | async}} u gjendën {{(jsonOldCeshtje$ | async)?.length}} rekorde.</h2>
-                <p-messages [(value)]="report"></p-messages>
+                <h2 *ngIf="(jsonOldCeshtje$ | async)?.length > 0">Në tabelën {{fileName$ | async}} u gjendën
+                    {{(jsonOldCeshtje$ | async)?.length}} rekorde.</h2>
+                <p-messages></p-messages>
             </div>
+
         </div>
+    </div>
+    <div class="card-footer text-muted">
+        <!-- <div class="card-body text-right"> -->
+        <button pButton type="button" label="Load" icon="pi pi-check" class="p-button-sm p-button-raised"
+            *ngIf="report?.nrImportSuccess > 0" (click)="closeUploadDialog()"></button>
+        <button pButton type="button" label="Close" icon="pi pi-check"
+            class="p-button-sm p-button-raised p-button-secondary" *ngIf="!report || report?.nrImportSuccess == 0"
+            (click)="closeUploadDialog()"></button>
+        <!-- </div> -->
     </div>
 </div>
