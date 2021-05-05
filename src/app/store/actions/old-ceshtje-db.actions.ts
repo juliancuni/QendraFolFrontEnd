@@ -1,11 +1,44 @@
 import { createAction, props } from "@ngrx/store";
-import { OldCeshtja } from "src/app/shared/sdk/models";
-import { Update } from '@ngrx/entity';
-import { UpdateNum } from "@ngrx/entity/src/models";
+import { BulkCreateReport, OldCeshtja } from "src/app/shared/sdk/models";
+
+/** Upload Bulk XCLSX */
+export const convertXclsxFile = createAction(
+    '[OldDataService] Convert XCLSX to JSON',
+    props<{ rawFile: any }>()
+)
+
+export const convertXclsxFileError = createAction(
+    '[OldDataService] Convert XCLSX to JSON',
+    props<{ error: any }>()
+)
+
+
+export const uploadJsonConvertedToDb = createAction(
+    '[Old Ceshtje Db Effect] Upload',
+    props<{ bulkJson: OldCeshtja[], fileName: string, jsonOld: any }>()
+)
+
+export const uploadJsonConvertedToDbSuccess = createAction(
+    '[Old Ceshtje Db Effect] Upload Success',
+    props<{ report: BulkCreateReport }>()
+)
+
+export const clearRawDataFromStore = createAction(
+    '[UploadComponent] Clear Raw Data'
+)
+
+export const uploadJsonConvertedToDbFailure = createAction(
+    '[Old Ceshtje Db Effect] Upload Failure',
+    props<{ error: any }>()
+)
 
 /** Load All Old Ceshtjet */
 export const loadAllCeshtjeFromDb = createAction(
     "[Old Ceshtje Resolver] Load All Old Ceshtjet"
+);
+
+export const loadAllCeshtjeFromDbList = createAction(
+    "[Old List Component] Load All Old Ceshtjet"
 );
 
 export const loadAllCeshtjeFromDbSuccess = createAction(

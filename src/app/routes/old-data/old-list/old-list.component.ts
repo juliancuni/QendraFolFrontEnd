@@ -4,8 +4,8 @@ import { Table } from 'primeng/table/table';
 import { Observable, Subject } from 'rxjs';
 import { AppState } from 'src/app/store';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { OldCeshtjeComponent } from '../old-ceshtje/old-ceshtje.component';
-import * as OldCeshtjetFromActions from 'src/app/store/actions/old-ceshtje.actions';
+// import { OldCeshtjeComponent } from '../old-ceshtje/old-ceshtje.component';
+// import * as OldCeshtjetFromActions from 'src/app/store/actions/old-ceshtje.actions';
 import { OldCeshtja } from 'src/app/shared/sdk/models';
 import { takeUntil } from 'rxjs/operators';
 import { UploadComponent } from '../upload/upload.component';
@@ -35,19 +35,6 @@ export class OldListComponent implements OnInit {
 
   constructor(private _store: Store<AppState>, public _dialogService: DialogService, private _confirmationService: ConfirmationService) {
   }
-
-  // showOldCeshtjeModal() {
-  //   this.ceshtjaModal = this._dialogService.open(OldCeshtjeComponent, {
-  //     header: 'Çështja/Personi',
-  //     width: '100%',
-  //     contentStyle: { "max-height": "100%", "overflow": "auto" },
-  //     baseZIndex: 10000,
-  //     closeOnEscape: true
-  //   });
-  //   this.ceshtjaModal.onClose.pipe(takeUntil(this.notifier)).subscribe(() => {
-  //     this._store.dispatch(clearOldData());
-  //   })
-  // }
 
   ngOnInit(): void {
     this.cols = [
@@ -85,12 +72,8 @@ export class OldListComponent implements OnInit {
       { field: "data_mas_sig_Gj_Larte", header: "Data e mases sigurise Gjykata Larte", selected: false, type: "text", display: "menu" },
       { field: "komente", header: "Komente", selected: false, type: "text", display: "menu" },
     ];
-
     this._selectedColumns = this.cols.filter((col) => col.selected);
-
     this.data$ = this._store.pipe(select(OldCeshtjetFromDbSelectors.selectAllOldCeshtjeDb));
-
-    // this.headers$ = this._store.select((state) => state.oldCeshtjet.oldHeaders);
   }
 
   @Input() get selectedColumns(): any[] {
@@ -105,30 +88,16 @@ export class OldListComponent implements OnInit {
     table.clear();
   }
 
-  // onRowSelect(event) {
-  //   // this._store.dispatch(OldCeshtjetFromActions.loadOldCeshtje({ oldCeshtje: event.data }));
-  //   this.display = true;
-  //   this.dialogMethod = "update";
-  //   this.oldCeshtje = event.data;
-  //   // this.showOldCeshtjeModal();
-  // }
-
   viewCheshtje(data) {
-    // this._store.dispatch(OldCeshtjetFromActions.loadOldCeshtje({ oldCeshtje: event.data }));
     this.display = true;
     this.dialogMethod = "update";
     this.oldCeshtje = data;
-    // this.showOldCeshtjeModal();
   }
 
   addNewOldCeshtje() {
     this.display = true;
     this.dialogMethod = "create";
     this.oldCeshtje = {};
-    // let emptyOldCesthje: OldCeshtja = {};
-    // this.oldCeshtje = emptyOldCesthje;
-    // this._store.dispatch(OldCeshtjetFromActions.loadOldCeshtje({ oldCeshtje: emptyOldCesthje }));
-    // this.showOldCeshtjeModal();
   }
 
   confirmDelete(oldCeshtje: OldCeshtja) {
@@ -154,7 +123,8 @@ export class OldListComponent implements OnInit {
       baseZIndex: 10000,
     });
     this.bulkUploadModal.onClose.pipe(takeUntil(this.notifier)).subscribe(() => {
-      this._store.dispatch(OldCeshtjetFromActions.clearOldData());
+      this._store.dispatch(OldCeshtjetFromDbActions.loadAllCeshtjeFromDbList());
+      this._store.dispatch(OldCeshtjetFromDbActions.clearRawDataFromStore());
     })
   }
 

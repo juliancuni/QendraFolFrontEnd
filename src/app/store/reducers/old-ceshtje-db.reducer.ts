@@ -1,26 +1,43 @@
 import { createEntityAdapter, EntityState } from "@ngrx/entity";
 import { createReducer, on } from "@ngrx/store";
-import { OldCeshtja } from "src/app/shared/sdk/models";
+import { BulkCreateReport, OldCeshtja } from "src/app/shared/sdk/models";
 import * as OldCeshtjetFromDbActions from "../actions/old-ceshtje-db.actions";
 
 export const featureKey = 'oldCeshtjetFromDb';
 
 export interface OldCeshtjeDbState extends EntityState<OldCeshtja> {
     allOldCeshtjetDbLoaded: boolean,
-    error: any
+    error: {},
+    fileName: string,
+    report: BulkCreateReport,
+    jsonOld: any,
+    loading: boolean,
 }
 
 export const adapter = createEntityAdapter<OldCeshtja>();
 
 export const initialOldCeshtjeDbState = adapter.getInitialState({
     allOldCeshtjetDbLoaded: false,
-    error: null
+    error: null,
+    fileName: null,
+    report: null,
+    jsonOld: null,
+    loading: false
 });
 
 export const reducer = createReducer(
 
     initialOldCeshtjeDbState,
+    /** Upload Bulk from XCSLX */
+    on(OldCeshtjetFromDbActions.convertXclsxFile, (state) => { return { ...state, loading: true } }),
 
+    on(OldCeshtjetFromDbActions.uploadJsonConvertedToDb, (state, action) => { return { ...state, fileName: action.fileName, loading: true } }),
+
+    on(OldCeshtjetFromDbActions.uploadJsonConvertedToDbSuccess, (state, action) => { return { ...state, report: action.report, loading: false } }),
+
+    on(OldCeshtjetFromDbActions.clearRawDataFromStore, (state) => { return { ...state, fileName: null, jsonOld: null, report: null, error: null } }),
+
+    /** CRUD From DB */
     on(OldCeshtjetFromDbActions.loadAllCeshtjeFromDbSuccess, (state, action) => adapter.addMany(action.oldCeshtjetFromDB, { ...state, allOldCeshtjetDbLoaded: true })),
 
     on(OldCeshtjetFromDbActions.upsertOldCeshtjeDbSuccess, (state, action) => adapter.upsertOne(action.oldCeshtje, state)),
@@ -31,8 +48,10 @@ export const reducer = createReducer(
         OldCeshtjetFromDbActions.loadAllCeshtjeFromDbFailure,
         OldCeshtjetFromDbActions.upsertOldCeshtjeDbFailure,
         OldCeshtjetFromDbActions.deleteOldCeshtjeDbFailure,
+        OldCeshtjetFromDbActions.convertXclsxFileError,
+        OldCeshtjetFromDbActions.uploadJsonConvertedToDbFailure,
         (state, action) => {
-            return { ...state, error: action.error }
+            return { ...state, error: action.error, loading: false }
         }
     ),
 

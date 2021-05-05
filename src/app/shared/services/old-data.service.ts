@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, of, Subscriber, throwError } from 'rxjs';
 import { AppState } from 'src/app/store';
-import * as OldCeshtjetActions from 'src/app/store/actions/old-ceshtje.actions';
+// import * as OldCeshtjetActions from 'src/app/store/actions/old-ceshtje.actions';
 import * as XLSX from 'xlsx';
 import { OldCeshtja } from '../sdk/models';
 // import { OldCeshtja } from '../sdk/models';
@@ -36,7 +36,7 @@ export class OldDataService {
           headerJson[`header${i + 1}`] = headers;
         }
         this.jsonOldCeshtje['headers'] = headerJson["header1"];
-        this.saveToDb(this.jsonOldCeshtje["sheet1"]);
+        this.jsonOldCeshtje["sheet1"] = this.saveToDb(this.jsonOldCeshtje["sheet1"]);
         observer.next(this.jsonOldCeshtje)
         // observer.next({ excelFileName: this.jsonOldCeshtje['filename'], oldCeshtjet: this.jsonOldCeshtje["sheet1"] })
         observer.complete();
@@ -75,7 +75,8 @@ export class OldDataService {
       }
       oldCeshtjeRefactor;
     }, oldCeshtjet);
-    this._store.dispatch(OldCeshtjetActions.bulkSaveOldCeshtjeToDb({oldCeshtjet: oldCeshtjet}))
+    return oldCeshtjet;
+    // this._store.dispatch(OldCeshtjetActions.bulkSaveOldCeshtjeToDb({oldCeshtjet: oldCeshtjet}))
   }
 
 }

@@ -5,8 +5,8 @@ import { Observable, Subject } from 'rxjs';
 import { first, map, take, takeUntil } from 'rxjs/operators';
 import { BulkCreateReport, OldCeshtja } from 'src/app/shared/sdk/models';
 import { AppState } from 'src/app/store';
-import * as OldCeshtjeActions from 'src/app/store/actions/old-ceshtje.actions';
-
+// import * as OldCeshtjeActions from 'src/app/store/actions/old-ceshtje.actions';
+import * as OldCeshtjetFromDbActions from 'src/app/store/actions/old-ceshtje-db.actions';
 
 @Component({
   selector: 'app-upload',
@@ -51,21 +51,29 @@ export class UploadComponent implements OnInit, OnDestroy {
   clearFile() {
     (<HTMLInputElement>document.getElementById('input-file')).value = "";
     (<HTMLInputElement>document.getElementById('drop-file')).value = "";
-    this._store.dispatch(OldCeshtjeActions.clearOldData());
+    this._store.dispatch(OldCeshtjetFromDbActions.clearRawDataFromStore());
+    this._messageService.clear();
   }
 
   excelToJson(rawFile) {
     console.log("excelToJson")
-    this._store.dispatch(OldCeshtjeActions.loadOldCeshtjetXls({ rawFile: rawFile }));
+    this._store.dispatch(OldCeshtjetFromDbActions.convertXclsxFile({ rawFile: rawFile }));
   }
 
 
 
   ngOnInit(): void {
-    this.loading$ = this._store.select((state) => state.oldCeshtjet.loading);
-    this.fileName$ = this._store.select((state) => state.oldCeshtjet.excelFileName);
-    this.jsonOldCeshtje$ = this._store.select((state) => state.oldCeshtjet.oldData);
-    this._store.select((state) => state.oldCeshtjet.bulkReport).pipe(takeUntil(this.notifier)).subscribe((report) => {
+    this.loading$ = this._store.select((state) => state.oldCeshtjetFromDb.loading);
+    this.fileName$ = this._store.select((state) => state.oldCeshtjetFromDb.fileName);
+    this.jsonOldCeshtje$ = this._store.select((state) => state.oldCeshtjetFromDb.jsonOld);
+    this._store.select((state) => state.oldCeshtjetFromDb.error).pipe(takeUntil(this.notifier)).subscribe((error) => {
+      if(error) {
+        console.log(error);
+        this._messageService.add({ severity: 'error', summary: error["status"], detail: error["message"] })
+      }
+    });
+
+    this._store.select((state) => state.oldCeshtjetFromDb.report).pipe(takeUntil(this.notifier)).subscribe((report) => {
       if (report) {
         let strImportFailed = report.importFailedIds;
         strImportFailed = strImportFailed.replace(", ]", "]")

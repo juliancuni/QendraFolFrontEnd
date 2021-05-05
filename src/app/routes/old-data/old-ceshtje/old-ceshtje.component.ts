@@ -17,7 +17,6 @@ import * as OldCeshtjeDbActions from 'src/app/store/actions/old-ceshtje-db.actio
 export class OldCeshtjeComponent implements OnInit, OnDestroy, OnChanges {
 
   public keys = [
-    // { field: "oldId", header: "Id", selected: true, type: "text", display: "menu" },
     { field: "emri", header: "Emri", selected: true, type: "text", display: "menu" },
     { field: "mbiemri", header: "Mbiemri", selected: true, type: "text", display: "menu" },
     { field: "data_e_ngjarjes", header: "Data e ngjarjes", selected: true, type: "text", display: "menu" },
@@ -55,24 +54,10 @@ export class OldCeshtjeComponent implements OnInit, OnDestroy, OnChanges {
   oldCeshtje$: Observable<OldCeshtja>;
   valForm: FormGroup;
   notifier = new Subject();
-  // display = false;
-  // private _oldCeshtje: OldCeshtja;
-  // private _method: string;
   @Input() show: boolean;
   @Input() oldCeshtje: OldCeshtja;
   @Input() method: string;
   @Output() toggleModal = new EventEmitter<boolean>();
-  // @Input()
-  // get oldCeshtje(): OldCeshtja { return this._oldCeshtje; }
-  // set oldCeshtje(oldCeshtje: OldCeshtja) {
-  //   this._oldCeshtje = (oldCeshtje);
-  // }
-
-  // @Input()
-  // get method(): string { return this._method; }
-  // set method(method: string) {
-  //   this._method = (method && method.trim()) || '<no method set>';
-  // }
 
   constructor(private _store: Store<AppState>, private fb: FormBuilder, private _oldCeshtjaService: OldCeshtjaService) {
     // if (this.oldCeshtje) this.display = true;
@@ -151,28 +136,12 @@ export class OldCeshtjeComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit(): void {
-
-    // this._store.select((state) => state.oldCeshtjet.oldCeshtje)
-    //   .pipe(takeUntil(this.notifier))
-    //   .subscribe((oldC) => {
-    //     if (oldC) {
-    //       this.display = true;
-    //       this.oldCeshtje = oldC;
-    
-
-    //   }
-    // });
   }
 
   save() {
     for (let c in this.valForm.controls) {
       this.valForm.controls[c].markAsTouched();
     }
-    // let value = this.valForm.value;
-    // if (this.oldCeshtje) {
-    //   value.id = this.oldCeshtje.id;
-    //   value.oldId = this.oldCeshtje.oldId;
-    // }
     const oldCeshtjeUpdated: OldCeshtja = {
       ...this.oldCeshtje,
       ...this.valForm.value
@@ -181,8 +150,6 @@ export class OldCeshtjeComponent implements OnInit, OnDestroy, OnChanges {
       id: oldCeshtjeUpdated.id,
       changes: oldCeshtjeUpdated
     };
-    // console.log(update);
-    // console.log(oldCeshtjeUpdated);
     this._store.dispatch(OldCeshtjeDbActions.upsertOldCeshtjeDb({ oldCeshtje: oldCeshtjeUpdated }));
 
     this.show = false;
@@ -191,12 +158,10 @@ export class OldCeshtjeComponent implements OnInit, OnDestroy, OnChanges {
   closeModal() {
     this.show = false;
     this.toggleModal.emit(false);
-    // this.oldCeshtje = {};
   }
 
   clearState() {
     this.show = false;
-    // this._store.dispatch(OldCeshtjeActions.clearOldData());
   }
 
   ngOnDestroy() {

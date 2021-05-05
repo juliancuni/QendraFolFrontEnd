@@ -32,9 +32,9 @@
             </tr>
         </table>
         <!-- *ngIf="jsonOldCeshtje?.sheet1?.length > 0" -->
-        <div class="card border-0" *ngIf="(jsonOldCeshtje$ | async)?.length > 0">
+        <div class="card border-0" >
             <div class="card-body text-center">
-                <h2>Në tabelën {{fileName$ | async}} u gjendën {{(jsonOldCeshtje$ | async)?.length}} rekorde.</h2>
+                <h2 *ngIf="(jsonOldCeshtje$ | async)?.length > 0">Në tabelën {{fileName$ | async}} u gjendën {{(jsonOldCeshtje$ | async)?.length}} rekorde.</h2>
                 <p-messages [(value)]="report"></p-messages>
             </div>
         </div>
