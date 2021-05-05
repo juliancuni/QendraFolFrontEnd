@@ -59,7 +59,7 @@ export class UploadComponent implements OnInit, OnDestroy {
   }
 
   excelToJson(rawFile) {
-    console.log("excelToJson")
+    // console.log("excelToJson")
     this._store.dispatch(OldCeshtjetFromDbActions.convertXclsxFile({ rawFile: rawFile }));
   }
 

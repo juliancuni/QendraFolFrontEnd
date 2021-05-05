@@ -39,7 +39,7 @@ export class OldListComponent implements OnInit {
 
   ngOnInit(): void {
     this.cols = [
-      { field: "oldId", header: "Old_Id", selected: false, type: "text", display: "menu" },
+      { field: "oldId", header: "Old_Id", selected: true, type: "text", display: "menu" },
       { field: "emri", header: "Emri", selected: true, type: "text", display: "menu" },
       { field: "mbiemri", header: "Mbiemri", selected: true, type: "text", display: "menu" },
       { field: "data_e_ngjarjes", header: "Data e ngjarjes", selected: true, type: "text", display: "menu" },
@@ -86,8 +86,9 @@ export class OldListComponent implements OnInit {
     this._selectedColumns = this.cols.filter(col => val.includes(col));
   }
 
-  clearKerkim(table: Table) {
+  clear(table: Table) {
     table.clear();
+    table.filterGlobal("", "")
   }
 
   viewCheshtje(data) {
@@ -111,7 +112,7 @@ export class OldListComponent implements OnInit {
         this._store.dispatch(OldCeshtjetFromDbActions.deleteOldCeshtjeDb({ oldCeshtje: oldCeshtje }))
       },
       reject: () => {
-        console.log("DELETE REJECTED");
+        // console.log("DELETE REJECTED");
       }
     });
   }
@@ -131,7 +132,6 @@ export class OldListComponent implements OnInit {
   }
 
   toggleModal(ev) {
-    console.log(ev);
     this.display = false;
   }
 

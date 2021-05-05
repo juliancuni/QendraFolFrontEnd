@@ -23,7 +23,7 @@ export class FlotDirective implements OnInit, OnChanges, OnDestroy {
         this.element = $(this.el.nativeElement);
 
         if (!$.plot) {
-            console.log('Flot chart no available.');
+            // console.log('Flot chart no available.');
         }
 
         this.plot = null;

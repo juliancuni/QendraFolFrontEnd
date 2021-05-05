@@ -3,11 +3,11 @@
         <p-table #dt1 [columns]="selectedColumns" [value]="oldData" dataKey="Id" selectionMode="single"
             [loading]="loading$ | async" [(selection)]="selectedCeshtje" [scrollable]="true" [rows]="100"
             scrollHeight="600px" [virtualScroll]="true" [virtualRowHeight]="34"
-            [globalFilterFields]="['emri','mbiemri','kategoria']">
+            [globalFilterFields]="['oldId', 'emri','mbiemri','kategoria', 'policia', 'komente']">
             <ng-template pTemplate="caption">
                 <div class="p-d-flex">
                     <button pButton label="Fshi Kerkimin" class="p-button-outlined" icon="pi pi-filter-slash"
-                        (click)="clearKerkim(dt1)"></button>
+                    (click)="clear(dt1)"></button>
                     <span class="p-input-icon-left p-ml-auto">
                         <i class="pi pi-search"></i>
                         <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')"
@@ -21,12 +21,12 @@
                         (click)="addNewOldCeshtje()"></button>
                     <button pButton label="Upload From XLSX" class="p-button-outlined" icon="pi pi-upload"
                         (click)="showImportXLSX()"></button>
-                    <h5>{{oldData.length}} Rekorde</h5>
+                    {{oldData.length}} Rekorde
                 </div>
             </ng-template>
             <ng-template pTemplate="header" let-columns>
                 <tr>
-                    <th *ngFor="let col of columns">
+                    <th *ngFor="let col of columns" pSortableColumn="{{col.field}}"><p-sortIcon field="{{col.field}}"></p-sortIcon>
                         <div class="p-d-flex p-jc-between p-ai-center">
                             {{col.header.toLowerCase()}}
                             <p-columnFilter type="{{col.type}}" field="{{col.field}}" display="{{col.menu}}">
@@ -45,17 +45,17 @@
                     </td>
                     <td>
                         <button pButton pRipple type="button" icon="pi pi-external-link"
-                            class="p-button-rounded p-button-success p-button-outlined p-mr-2"
+                            class="p-button-rounded p-button-success p-button-outlined p-mr-2" 
                             (click)="viewCheshtje(oldData)"></button>
                         <button pButton pRipple type="button" icon="pi pi-trash"
-                            class="p-button-rounded p-button-danger p-button-outlined"
+                            class="p-button-rounded p-button-danger p-button-outlined" 
                             (click)="confirmDelete(oldData)"></button>
                     </td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="emptymessage">
                 <tr>
-                    <td colspan="7">S'ka te dhena per kerkimin.</td>
+                    <td colspan="7">S'ka asnjë rekord.</td>
                 </tr>
             </ng-template>
         </p-table>

@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-// import { ModalModule } from 'ngx-bootstrap/modal';
-// import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TableModule } from 'primeng/table';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ButtonModule } from 'primeng/button';
@@ -16,7 +14,8 @@ import { MessageService } from 'primeng/api';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-
+import { CalendarModule } from 'primeng/calendar'
+import { DropdownModule } from 'primeng/dropdown';
 
 
 // https://angular.io/styleguide#!#04-10
@@ -36,8 +35,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     MessagesModule,
     MessageModule,
     ConfirmDialogModule,
-    // ModalModule.forRoot(),
-    // TabsModule.forRoot(),
+    CalendarModule,
+    DropdownModule,
   ],
   providers: [
     MessageService
@@ -60,8 +59,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     MessagesModule,
     MessageModule,
     ConfirmDialogModule,
-    // ModalModule,
-    // TabsModule,
+    CalendarModule,
+    DropdownModule,
   ],
 })
 

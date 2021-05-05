@@ -13,10 +13,14 @@
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right"
                         for="inputContact{{i+1}}">{{key.header}}</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <input class="form-control" id="inputContact{{i+1}}" type="text" *ngIf="!key.textArea"
-                            [formControlName]="key.field" />
+                        <input class="form-control" id="inputContact{{i+1}}" type="text"
+                            *ngIf="!key.textArea && ! key.calendar && !key.dropdown" [formControlName]="key.field" />
                         <textarea class="form-control" id="inputContact{{i+1}}" row="4" *ngIf="key.textArea"
                             [formControlName]="key.field"></textarea>
+                        <p-calendar inputId="inputContact{{i+1}}" [formControlName]="key.field" [showIcon]="true"
+                            *ngIf="key.calendar"></p-calendar>
+                        <p-dropdown placeholder="{{key.header}}" *ngIf="key.dropdown" [formControlName]="key.field"
+                            [showClear]="true" [options]="sipasNenit"></p-dropdown>
                     </div>
                 </div>
             </form>
