@@ -38,7 +38,10 @@
             <tr>
                 <td *ngFor="let col of columns">
                     <span class="p-column-title">{{col.header}}</span>
-                    {{oldData[col.field]}}
+                    <span *ngIf="col.type !== 'date'">{{oldData[col.field]}}</span>
+                    <span *ngIf="col.type === 'date'">{{oldData[col.field] | date}}</span>
+                    <!-- <span>{{oldData[col.field]}}</span> -->
+
                 </td>
                 <td>
                     <button pButton pRipple type="button" icon="pi pi-external-link"

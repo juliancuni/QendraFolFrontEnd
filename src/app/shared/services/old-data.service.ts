@@ -59,7 +59,6 @@ export class OldDataService {
         headers.push(hdr);
       }
     }
-    console.log(headers);
     return headers;
   }
 
@@ -76,16 +75,13 @@ export class OldDataService {
       }
       oldCeshtjeRefactor;
     }, oldCeshtjet);
-    this.convertDates(oldCeshtjet);
+    oldCeshtjet = this.convertDates(oldCeshtjet);
+    console.log(oldCeshtjet);
     return oldCeshtjet;
-    // this._store.dispatch(OldCeshtjetActions.bulkSaveOldCeshtjeToDb({oldCeshtjet: oldCeshtjet}))
   }
 
   convertDates(jsonOld: any) {
-    // let oldCeshtjet: OldCeshtja[];
-    // oldCeshtjet = this.saveToDb(jsonOld);
-    let newDate = new Date();
-    jsonOld.map((json) => {
+    return jsonOld.map((json) => {
       (json["Data_e_ngjarjes"]) ? json["Data_e_ngjarjes"] = new Date(json["Data_e_ngjarjes"]) : null;
       (json["Data Vendimit Pr"]) ? json["Data Vendimit Pr"] = new Date(json["Data Vendimit Pr"]) : null;
       (json["Data Vedim Gjk"]) ? json["Data Vedim Gjk"] = new Date(json["Data Vedim Gjk"]) : null;
@@ -96,8 +92,7 @@ export class OldDataService {
       (json["Data mas sig Apeli"]) ? json["Data mas sig Apeli"] = new Date(json["Data mas sig Apeli"]) : null;
       (json["Data Gjykata Larte"]) ? json["Data Gjykata Larte"] = new Date(json["Data Gjykata Larte"]) : null;
       (json["Data mas sig Gj Larte"]) ? json["Data mas sig Gj Larte"] = new Date(json["Data mas sig Gj Larte"]) : null;
+      return json;
     })
-    console.log(jsonOld);
   }
-
 }

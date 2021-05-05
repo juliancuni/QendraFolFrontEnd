@@ -57,7 +57,7 @@ export function createTranslateLoader(http: HttpClient) {
         !environment.production ? StoreDevtoolsModule.instrument() : [],
         StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
         EffectsModule.forRoot([AppEffects, RouteEffects]),
-        ApiModule.forRoot({ rootUrl: "https://localhost:5001" }),
+        ApiModule.forRoot({ rootUrl: environment.apiUrl }),
     ],
     providers: [
         {

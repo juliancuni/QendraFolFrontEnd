@@ -6,12 +6,14 @@ import { AppState } from 'src/app/store';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 // import { OldCeshtjeComponent } from '../old-ceshtje/old-ceshtje.component';
 // import * as OldCeshtjetFromActions from 'src/app/store/actions/old-ceshtje.actions';
-import { OldCeshtja } from 'src/app/shared/sdk/models';
+// import { OldCeshtja } from 'src/app/shared/sdk/models';
 import { takeUntil } from 'rxjs/operators';
 import { UploadComponent } from '../upload/upload.component';
 import * as OldCeshtjetFromDbSelectors from 'src/app/store/selectors/old-ceshtje-db.selectors';
 import { ConfirmationService } from 'primeng/api';
 import * as OldCeshtjetFromDbActions from 'src/app/store/actions/old-ceshtje-db.actions';
+import { map } from 'rxjs/operators';
+import { OldCeshtja } from 'src/app/shared/sdk/models';
 
 @Component({
   selector: 'app-old-list',
@@ -25,12 +27,12 @@ export class OldListComponent implements OnInit {
   public bulkUploadModal: DynamicDialogRef;
   public display: boolean = false;
   public headers$: Observable<any>;
-  public data$: Observable<OldCeshtja[]>;
-  public selectedCeshtje: OldCeshtja;
+  public data$: Observable<any[]>;
+  public selectedCeshtje: {};
   public cols: any[];
   private _selectedColumns: any[];
   notifier = new Subject();
-  public oldCeshtje: OldCeshtja;
+  public oldCeshtje: {};
   public dialogMethod: string;
   public loading$: Observable<boolean>;
 
@@ -76,6 +78,23 @@ export class OldListComponent implements OnInit {
     this._selectedColumns = this.cols.filter((col) => col.selected);
     this.data$ = this._store.pipe(select(OldCeshtjetFromDbSelectors.selectAllOldCeshtjeDb));
     this.loading$ = this._store.pipe(select((state) => state.oldCeshtjetFromDb.loading));
+    this.data$.pipe(
+      map((cesthjet) => {
+        return cesthjet.forEach((cesthje) => {
+          cesthje.data_Gjygjtari_pr = new Date(cesthje.data_Gjygjtari_pr);
+          cesthje.data_Gjykata_Larte = new Date(cesthje.data_Gjykata_Larte);
+          cesthje.data_Vedim_Gjk = new Date(cesthje.data_Vedim_Gjk);
+          cesthje.data_Vendim_Apeli = new Date(cesthje.data_Vendim_Apeli);
+          cesthje.data_Vendimit_GJ_SH1 = new Date(cesthje.data_Vendimit_GJ_SH1);
+          cesthje.data_Vendimit_Pr = new Date(cesthje.data_Vendimit_Pr);
+          cesthje.data_e_ngjarjes = new Date(cesthje.data_e_ngjarjes);
+          cesthje.data_mas_sig_Apeli = new Date(cesthje.data_mas_sig_Apeli);
+          cesthje.data_mas_sig_Gj_Larte = new Date(cesthje.data_mas_sig_Gj_Larte);
+          cesthje.data_mases_Gjykates_Shk1 = new Date(cesthje.data_mas_sig_Gj_Larte);
+          return cesthje;
+        })
+      })
+    )
   }
 
   @Input() get selectedColumns(): any[] {
@@ -103,7 +122,7 @@ export class OldListComponent implements OnInit {
     this.oldCeshtje = {};
   }
 
-  confirmDelete(oldCeshtje: OldCeshtja) {
+  confirmDelete(oldCeshtje: {}) {
     this._confirmationService.confirm({
       message: 'Jeni të sigurtë që doni të fshini këtë rekord?',
       header: 'Kujdes!',

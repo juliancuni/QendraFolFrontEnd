@@ -23,8 +23,8 @@ export class LoginComponent implements OnInit {
     constructor(public settings: SettingsService, fb: FormBuilder, private _store: Store<AppState>) {
 
         this.valForm = fb.group({
-            'username': ['root', Validators.required],
-            'password': ['newSnew2013', Validators.required]
+            'username': [null, Validators.required],
+            'password': [null, Validators.required]
         });
     }
 
