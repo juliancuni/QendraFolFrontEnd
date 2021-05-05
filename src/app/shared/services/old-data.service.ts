@@ -36,7 +36,7 @@ export class OldDataService {
           headerJson[`header${i + 1}`] = headers;
         }
         this.jsonOldCeshtje['headers'] = headerJson["header1"];
-        this.jsonOldCeshtje["sheet1"] = this.saveToDb(this.jsonOldCeshtje["sheet1"]);
+        this.jsonOldCeshtje["sheet1"] = this.saveToDb([...this.jsonOldCeshtje["sheet1"]]);
         observer.next(this.jsonOldCeshtje)
         // observer.next({ excelFileName: this.jsonOldCeshtje['filename'], oldCeshtjet: this.jsonOldCeshtje["sheet1"] })
         observer.complete();
@@ -59,10 +59,11 @@ export class OldDataService {
         headers.push(hdr);
       }
     }
+    console.log(headers);
     return headers;
   }
 
-  private saveToDb(oldCeshtjet: OldCeshtja[]) {
+  private saveToDb(oldCeshtjet) {
     oldCeshtjet.forEach((oldC) => {
       let tmp = parseInt(oldC["Id"]);
       oldC.oldId = tmp;
@@ -75,8 +76,28 @@ export class OldDataService {
       }
       oldCeshtjeRefactor;
     }, oldCeshtjet);
+    this.convertDates(oldCeshtjet);
     return oldCeshtjet;
     // this._store.dispatch(OldCeshtjetActions.bulkSaveOldCeshtjeToDb({oldCeshtjet: oldCeshtjet}))
+  }
+
+  convertDates(jsonOld: any) {
+    // let oldCeshtjet: OldCeshtja[];
+    // oldCeshtjet = this.saveToDb(jsonOld);
+    let newDate = new Date();
+    jsonOld.map((json) => {
+      (json["Data_e_ngjarjes"]) ? json["Data_e_ngjarjes"] = new Date(json["Data_e_ngjarjes"]) : null;
+      (json["Data Vendimit Pr"]) ? json["Data Vendimit Pr"] = new Date(json["Data Vendimit Pr"]) : null;
+      (json["Data Vedim Gjk"]) ? json["Data Vedim Gjk"] = new Date(json["Data Vedim Gjk"]) : null;
+      (json["Data Gjygjtari pr"]) ? json["Data Gjygjtari pr"] = new Date(json["Data Gjygjtari pr"]) : null;
+      (json["Data mases Gjykates Shk1"]) ? json["Data mases Gjykates Shk1"] = new Date(json["Data mases Gjykates Shk1"]) : null;
+      (json["Data Vendimit GJ SH1"]) ? json["Data Vendimit GJ SH1"] = new Date(json["Data Vendimit GJ SH1"]) : null;
+      (json["Data Vendim Apeli"]) ? json["Data Vendim Apeli"] = new Date(json["Data Vendim Apeli"]) : null;
+      (json["Data mas sig Apeli"]) ? json["Data mas sig Apeli"] = new Date(json["Data mas sig Apeli"]) : null;
+      (json["Data Gjykata Larte"]) ? json["Data Gjykata Larte"] = new Date(json["Data Gjykata Larte"]) : null;
+      (json["Data mas sig Gj Larte"]) ? json["Data mas sig Gj Larte"] = new Date(json["Data mas sig Gj Larte"]) : null;
+    })
+    console.log(jsonOld);
   }
 
 }

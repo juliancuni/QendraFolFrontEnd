@@ -1,65 +1,61 @@
 <ng-container *ngIf="data$ | async as oldData">
-    <div class="card">
-        <p-table #dt1 [columns]="selectedColumns" [value]="oldData" dataKey="Id" selectionMode="single"
-            [loading]="loading$ | async" [(selection)]="selectedCeshtje" [scrollable]="true" [rows]="100"
-            scrollHeight="600px" [virtualScroll]="true" [virtualRowHeight]="34"
-            [globalFilterFields]="['oldId', 'emri','mbiemri','kategoria', 'policia', 'komente']">
-            <ng-template pTemplate="caption">
-                <div class="p-d-flex">
-                    <button pButton label="Fshi Kerkimin" class="p-button-outlined" icon="pi pi-filter-slash"
+    <p-table #dt1 [columns]="selectedColumns" [value]="oldData" dataKey="Id" selectionMode="single"
+        styleClass="p-datatable-responsive-demo p-datatable-sm" [loading]="loading$ | async"
+        [(selection)]="selectedCeshtje" [scrollable]="true" [rows]="100" scrollHeight="600px" [virtualScroll]="true"
+        [virtualRowHeight]="34" [globalFilterFields]="['oldId', 'emri','mbiemri','kategoria', 'policia', 'komente']">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex">
+                <button pButton label="Fshi Kerkimin" class="p-button-outlined" icon="pi pi-filter-slash"
                     (click)="clear(dt1)"></button>
-                    <span class="p-input-icon-left p-ml-auto">
-                        <i class="pi pi-search"></i>
-                        <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')"
-                            placeholder="Kerko ne tabele" />
-                    </span>
-                    <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
-                        selectedItemsLabel="{0} Kolona të zgjedhura" [style]="{minWidth: '200px'}"
-                        placeholder="Zgjidh një kolonë">
-                    </p-multiSelect>
-                    <button pButton label="Add New" class="p-button-outlined" icon="pi pi-plus"
-                        (click)="addNewOldCeshtje()"></button>
-                    <button pButton label="Upload From XLSX" class="p-button-outlined" icon="pi pi-upload"
-                        (click)="showImportXLSX()"></button>
-                    {{oldData.length}} Rekorde
-                </div>
-            </ng-template>
-            <ng-template pTemplate="header" let-columns>
-                <tr>
-                    <th *ngFor="let col of columns" pSortableColumn="{{col.field}}"><p-sortIcon field="{{col.field}}"></p-sortIcon>
-                        <div class="p-d-flex p-jc-between p-ai-center">
-                            {{col.header.toLowerCase()}}
-                            <p-columnFilter type="{{col.type}}" field="{{col.field}}" display="{{col.menu}}">
-                            </p-columnFilter>
-                        </div>
-                    </th>
-                    <th>
-
-                    </th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-oldData let-columns="columns">
-                <tr>
-                    <td *ngFor="let col of columns">
-                        {{oldData[col.field]}}
-                    </td>
-                    <td>
-                        <button pButton pRipple type="button" icon="pi pi-external-link"
-                            class="p-button-rounded p-button-success p-button-outlined p-mr-2" 
-                            (click)="viewCheshtje(oldData)"></button>
-                        <button pButton pRipple type="button" icon="pi pi-trash"
-                            class="p-button-rounded p-button-danger p-button-outlined" 
-                            (click)="confirmDelete(oldData)"></button>
-                    </td>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="emptymessage">
-                <tr>
-                    <td colspan="7">S'ka asnjë rekord.</td>
-                </tr>
-            </ng-template>
-        </p-table>
-    </div>
+                <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Kerko ne tabele" />
+                </span>
+                <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+                    selectedItemsLabel="{0} Kolona të zgjedhura" [style]="{minWidth: '200px'}"
+                    placeholder="Zgjidh një kolonë">
+                </p-multiSelect>
+                <button pButton label="Add New" class="p-button-outlined" icon="pi pi-plus"
+                    (click)="addNewOldCeshtje()"></button>
+                <button pButton label="Upload From XLSX" class="p-button-outlined" icon="pi pi-upload"
+                    (click)="showImportXLSX()"></button>
+                {{oldData.length}} Rekorde
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns" pSortableColumn="{{col.field}}">
+                    <p-sortIcon field="{{col.field}}"></p-sortIcon>
+                    {{col.header}}
+                    <p-columnFilter type="{{col.type}}" field="{{col.field}}" display="{{col.menu}}">
+                    </p-columnFilter>
+                </th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-oldData let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns">
+                    <span class="p-column-title">{{col.header}}</span>
+                    {{oldData[col.field]}}
+                </td>
+                <td>
+                    <button pButton pRipple type="button" icon="pi pi-external-link"
+                        class="p-button-rounded p-button-success p-button-outlined p-mr-2"
+                        (click)="viewCheshtje(oldData)"></button>
+                    <button pButton pRipple type="button" icon="pi pi-trash"
+                        class="p-button-rounded p-button-danger p-button-outlined"
+                        (click)="confirmDelete(oldData)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="7">S'ka asnjë rekord.</td>
+            </tr>
+        </ng-template>
+    </p-table>
 </ng-container>
 <app-old-ceshtje [oldCeshtje]="oldCeshtje" [method]="dialogMethod" [show]="display" (toggleModal)="toggleModal($event)">
 </app-old-ceshtje>

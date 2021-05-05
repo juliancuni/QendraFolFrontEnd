@@ -42,7 +42,7 @@ export class OldListComponent implements OnInit {
       { field: "oldId", header: "Old_Id", selected: true, type: "text", display: "menu" },
       { field: "emri", header: "Emri", selected: true, type: "text", display: "menu" },
       { field: "mbiemri", header: "Mbiemri", selected: true, type: "text", display: "menu" },
-      { field: "data_e_ngjarjes", header: "Data e ngjarjes", selected: true, type: "text", display: "menu" },
+      { field: "data_e_ngjarjes", header: "Data e ngjarjes", selected: true, type: "date", display: "menu" },
       { field: "kategoria", header: "Kategoria", selected: true, type: "text", display: "menu" },
       { field: "sipas_Nenit", header: "Sipas Nenit", selected: false, type: "text", display: "menu" },
       { field: "policia", header: "Policia", selected: false, type: "text", display: "menu" },
