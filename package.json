@@ -40,7 +40,6 @@
     "lodash": "^4.17.21",
     "modernizr": "^3.11.7",
     "moment": "^2.29.1",
-    "ngx-bootstrap": "^6.2.0",
     "ngx-custom-validators": "^8.0.0",
     "popper.js": "^1.16.1",
     "primeicons": "^4.1.0",
