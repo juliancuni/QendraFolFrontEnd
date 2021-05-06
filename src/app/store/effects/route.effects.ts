@@ -12,7 +12,7 @@ export class RouteEffects {
 
   goHome$ = createEffect(
     () => this.actions$.pipe(
-      ofType(fromAuthActions.loginSuccess),
+      ofType(fromAuthActions.loginSuccess, fromAuthActions.registerSuccess),
       tap(() => this._router.navigate(['/home']))
     ), { dispatch: false }
   )

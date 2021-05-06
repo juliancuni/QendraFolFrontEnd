@@ -22,13 +22,13 @@ export const uploadJsonConvertedToDbSuccess = createAction(
     props<{ report: BulkCreateReport }>()
 )
 
-export const clearRawDataFromStore = createAction(
-    '[UploadComponent] Clear Raw Data'
-)
-
 export const uploadJsonConvertedToDbFailure = createAction(
     '[Old Ceshtje Db Effect] Upload Failure',
     props<{ error: any }>()
+)
+
+export const clearRawDataFromStore = createAction(
+    '[UploadComponent] Clear Raw Data'
 )
 
 export const resetTableData = createAction(

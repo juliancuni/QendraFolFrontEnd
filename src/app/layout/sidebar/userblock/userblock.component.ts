@@ -17,7 +17,7 @@ export class UserblockComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.user$ = this._store.select(state => state.auth.user);
+        this.user$ = this._store.select(state => state.auth.userDto);
     }
 
     userBlockIsVisible() {

@@ -8,50 +8,62 @@
                 </a>
             </div>
             <div class="card-body">
-                <p class="text-center py-2">SIGNUP TO GET INSTANT ACCESS.</p>
-                <form [formGroup]="valForm" class="form-validate mb-3" role="form" name="registerForm" novalidate="" (submit)="submitForm($event, valForm.value)">
+                <p class="text-center py-2">Për tu regjistruar</p>
+                <p class="text-center py-2">Plotësoni formën më poshtë.</p>
+                <form [formGroup]="valForm" class="form-validate mb-3" role="form" name="registerForm" novalidate=""
+                    (submit)="submitForm($event, valForm.value)">
                     <div class="form-group">
-                        <label class="text-muted mb-1">Email address</label>
+                        <label class="text-muted mb-1">Username</label>
                         <div class="input-group with-focus">
-                            <input class="form-control border-right-0" type="email" name="account_email" placeholder="Enter email" autocomplete="off" formControlName="email" required="" />
+                            <input class="form-control border-right-0" type="username" name="account_username"
+                                placeholder="Username" autocomplete="off" formControlName="username" required="" />
                             <div class="input-group-append">
                                 <span class="input-group-text text-muted bg-transparent border-left-0">
-                                    <em class="fa fa-envelope"></em>
+                                    <em class="fa fa-user"></em>
                                 </span>
                             </div>
                         </div>
-                        <div class="text-danger" *ngIf="valForm.controls['email'].hasError('required') && (valForm.controls['email'].dirty || valForm.controls['email'].touched)">This field is required</div>
-                        <div class="text-danger" *ngIf="valForm.controls['email'].hasError('email') && (valForm.controls['email'].dirty || valForm.controls['email'].touched)">This field must be a valid email address</div>
+                        <div class="text-danger"
+                            *ngIf="valForm.controls['username'].hasError('required') && (valForm.controls['username'].dirty || valForm.controls['username'].touched)">
+                            S'mund të lihet bosh</div>
+                        <!-- <div class="text-danger" *ngIf="valForm.controls['email'].hasError('email') && (valForm.controls['email'].dirty || valForm.controls['email'].touched)">This field must be a valid email address</div> -->
                     </div>
-                    <div formGroupName="passwordGroup">
-                        <div class="form-group">
-                            <label class="text-muted mb-1">Password</label>
-                            <div class="input-group with-focus">
-                                <input class="form-control border-right-0" id="id-password" type="password" name="password" formControlName="password" [formControl]="valForm.get('passwordGroup.password')" />
-                                <div class="input-group-append">
-                                    <span class="input-group-text text-muted bg-transparent border-left-0">
-                                        <em class="fa fa-lock"></em>
-                                    </span>
-                                </div>
+                    <div class="form-group">
+                        <label class="text-muted mb-1">Password</label>
+                        <div class="input-group with-focus">
+                            <input class="form-control border-right-0" id="id-password" type="password" name="password"
+                                formControlName="password" [formControl]="valForm.get('password')" />
+                            <div class="input-group-append">
+                                <span class="input-group-text text-muted bg-transparent border-left-0">
+                                    <em class="fa fa-lock"></em>
+                                </span>
                             </div>
-                            <div class="text-danger" *ngIf="valForm.get('passwordGroup.password').hasError('required') && (valForm.get('passwordGroup.password').dirty || valForm.get('passwordGroup.password').touched)">This field is required</div>
-                            <div class="text-danger" *ngIf="valForm.get('passwordGroup.password').hasError('pattern') && (valForm.get('passwordGroup.password').dirty || valForm.get('passwordGroup.password').touched)">Input should match 'a-zA-Z0-9' and 6-10 length</div>
                         </div>
-                        <div class="form-group">
-                            <label class="text-muted mb-1">Retype Password</label>
-                            <div class="input-group with-focus">
-                                <input class="form-control border-right-0" type="password" name="confirmPassword" formControlName="confirmPassword" [formControl]="valForm.get('passwordGroup.confirmPassword')" />
-                                <div class="input-group-append">
-                                    <span class="input-group-text text-muted bg-transparent border-left-0">
-                                        <em class="fa fa-lock"></em>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="text-danger" *ngIf="valForm.get('passwordGroup.confirmPassword').hasError('required') && (valForm.get('passwordGroup.confirmPassword').dirty || valForm.get('passwordGroup.confirmPassword').touched)">This field is required</div>
-                            <div class="text-danger" *ngIf="valForm.get('passwordGroup.confirmPassword').hasError('equalTo')">Password does Not match</div>
-                        </div>
+                        <div class="text-danger"
+                            *ngIf="valForm.get('password').hasError('required') && (valForm.get('password').dirty || valForm.get('password').touched)">
+                            S'mund të lihet bosh</div>
+                        <div class="text-danger"
+                            *ngIf="valForm.get('password').hasError('pattern') && (valForm.get('password').dirty || valForm.get('password').touched)">
+                            Password duhet të përmbajë 'a-zA-Z0-9' të 6-10 karaktere</div>
                     </div>
-                    <div class="clearfix">
+                    <div class="form-group">
+                        <label class="text-muted mb-1">Përsërite Password</label>
+                        <div class="input-group with-focus">
+                            <input class="form-control border-right-0" type="password" name="confirmPassword"
+                                formControlName="confirmPassword" [formControl]="valForm.get('confirmPassword')" />
+                            <div class="input-group-append">
+                                <span class="input-group-text text-muted bg-transparent border-left-0">
+                                    <em class="fa fa-lock"></em>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="text-danger"
+                            *ngIf="valForm.get('confirmPassword').hasError('required') && (valForm.get('confirmPassword').dirty || valForm.get('confirmPassword').touched)">
+                            S'mund të lihet bosh</div>
+                        <div class="text-danger" *ngIf="valForm.get('confirmPassword').hasError('equalTo')">Passwordet
+                            nuk përputhen</div>
+                    </div>
+                    <!-- <div class="clearfix">
                         <div class="checkbox c-checkbox float-left mt0">
                             <label>
                                 <input type="checkbox" required="" name="account_agreed" formControlName="accountagreed" />
@@ -59,13 +71,16 @@
                                 <a href="#">terms</a>
                             </label>
                         </div>
-                    </div>
-                    <span class="text-danger" *ngIf="valForm.controls['accountagreed'].hasError('required') && (valForm.controls['accountagreed'].dirty || valForm.controls['accountagreed'].touched)">You must agree the terms</span>
-                    <button class="btn btn-block btn-primary mt-3" type="submit">Create account</button>
+                    </div> -->
+                    <!-- <span class="text-danger" *ngIf="valForm.controls['accountagreed'].hasError('required') && (valForm.controls['accountagreed'].dirty || valForm.controls['accountagreed'].touched)">Duhet të pranoni termat e përdorimin</span> -->
+                    <button class="btn btn-block btn-primary mt-3" type="submit" [disabled]="(loading$ | async)">
+                        <span *ngIf="!(loading$ | async)">Regjistro Llogari</span>
+                        <i class="pi pi-spin pi-spinner" style="font-size: 1rem" *ngIf="(loading$ | async)"></i>
+                    </button>
                 </form>
                 <!-- <div class="alert alert-danger text-center"></div> -->
-                <p class="pt-3 text-center">Have an account?</p>
-                <a class="btn btn-block btn-secondary" [routerLink]="'/login'">Signup</a>
+                <p class="pt-3 text-center">Keni një llogari?</p>
+                <a class="btn btn-block btn-secondary" [routerLink]="'/login'">Kliko këtu</a>
             </div>
         </div>
         <!-- END card-->
@@ -74,7 +89,7 @@
             <span>{{ settings.getAppSetting('year') }}</span>
             <span class="mx-2">-</span>
             <span>{{ settings.getAppSetting('name') }}</span>
-            <br/>
+            <br />
             <span>{{ settings.getAppSetting('description') }}</span>
         </div>
     </div>

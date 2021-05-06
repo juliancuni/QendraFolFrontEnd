@@ -41,6 +41,7 @@
     "modernizr": "^3.11.7",
     "moment": "^2.29.1",
     "ngx-custom-validators": "^8.0.0",
+    "ngx-progressbar": "^6.1.0",
     "popper.js": "^1.16.1",
     "primeicons": "^4.1.0",
     "primeng": "^11.4.0",

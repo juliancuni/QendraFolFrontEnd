@@ -14,9 +14,12 @@ export class OldCeshtjeDbEffects {
     loadAllCeshtjeFromDb$ = createEffect(() =>
         this._actions$.pipe(
             ofType(OldCeshtjetFromDbActions.loadAllCeshtjeFromDb, OldCeshtjetFromDbActions.loadAllCeshtjeFromDbList),
-            concatMap(() => this._oldCeshtjaService.apiOldCeshtjaGet$Json$Response()),
-            map((oldCeshtjet) => OldCeshtjetFromDbActions.loadAllCeshtjeFromDbSuccess({ oldCeshtjetFromDB: oldCeshtjet.body })),
-            catchError((error) => of(OldCeshtjetFromDbActions.loadAllCeshtjeFromDbFailure({ error })))
+            mergeMap(() => this._oldCeshtjaService.apiOldCeshtjaGet$Json$Response()
+                .pipe(
+                    map(({ body }) => OldCeshtjetFromDbActions.loadAllCeshtjeFromDbSuccess({ oldCeshtjetFromDB: body })),
+                    catchError((error) => of(OldCeshtjetFromDbActions.loadAllCeshtjeFromDbFailure({ error })))
+                )
+            )
         )
     );
 

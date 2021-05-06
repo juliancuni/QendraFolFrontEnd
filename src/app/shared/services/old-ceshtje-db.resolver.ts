@@ -21,6 +21,7 @@ export class OldCeshtjetFromDBResolver implements Resolve<OldCeshtja> {
         return this._store.pipe(
             select(areOldCeshtjetDbLoaded),
             tap((oldCeshtjetDbLoaded) => {
+                console.log(oldCeshtjetDbLoaded)
                 if (!this.loading && !oldCeshtjetDbLoaded) {
                     this.loading = true
                     this._store.dispatch(loadAllCeshtjeFromDb());

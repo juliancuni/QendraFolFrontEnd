@@ -6,37 +6,51 @@ import { HttpErrors } from '../../shared/entities/http.errors';
 export const authFeatureKey = 'auth';
 
 export interface AuthState {
-  user: UserDto,
+  userDto: UserDto,
   isAuthenticated: boolean,
-  error: HttpErrors
+  error: HttpErrors,
+  loading: boolean
 }
 
 export const initialState: AuthState = {
-  user: null,
+  userDto: null,
   isAuthenticated: false,
   error: null,
+  loading: false
 };
 
 
 export const reducer = createReducer(
   initialState,
+  on(AuthActions.loginPage, AuthActions.browserReload, (state, action) => {
+    return { ...state, loading: true }
+  }),
   on(AuthActions.loginSuccess, AuthActions.browserReload, (state, action) => {
-    return { ...state, user: action.user, isAuthenticated: true, error: null }
+    return { ...state, userDto: action.userDto, isAuthenticated: true, error: null, loading: false }
   }),
   on(AuthActions.loginFailure, (state, action) => {
-    return { ...state, user: null, isAuthenticated: false, error: action.error }
+    return { ...state, userDto: null, isAuthenticated: false, error: action.error, loading: false}
   }),
   on(AuthActions.logoutSuccess, (state) => {
-    return { ...state, user: null, isAuthenticated: false, error: null }
+    return { ...state, userDto: null, isAuthenticated: false, error: null }
   }),
   on(AuthActions.logoutFailure, (state, action) => {
-    return { ...state, user: null, error: action.error }
+    return { ...state, userDto: null, error: action.error }
   }),
   on(AuthActions.logout, (state, action) => {
-    return { ...state, user: null, isAuthenticated: false, error: null }
+    return { ...state, userDto: null, isAuthenticated: false, error: null }
   }),
   on(AuthActions.browserReload, (state, action) => {
-    return { ...state, user: action.user }
-  })
+    return { ...state, userDto: action.userDto }
+  }),
+  on(AuthActions.register, (state, action) => {
+    return { ...state, loading: true }
+  }),
+  on(AuthActions.registerSuccess, (state, action) => {
+    return { ...state, userDto: action.userDto, isAuthenticated: true, error: null, loading: false }
+  }),
+  on(AuthActions.registerFailure, (state, action) => {
+    return { ...state, userDto: null, isAuthenticated: false, error: action.error, loading: false }
+  }),
 );
 

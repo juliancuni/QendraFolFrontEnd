@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
         try {
             const user = localStorage.getItem('user');
             if (user) {
-                this._store.dispatch(fromAuthActions.browserReload({ user: JSON.parse(user) }));
+                this._store.dispatch(fromAuthActions.browserReload({ userDto: JSON.parse(user) }));
             } else {
                 this._store.dispatch(fromRouteActions.goToLogin());
             }

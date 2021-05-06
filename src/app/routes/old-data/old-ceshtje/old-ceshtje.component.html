@@ -3,7 +3,7 @@
     <ng-template pTemplate="header" appendTo="body">
         <h3 *ngIf="method == 'create'">Çështje e re</h3>
         <h3 *ngIf="method == 'update'">Të dhënat e ngjarjes për {{oldCeshtje.emri}} {{oldCeshtje.mbiemri}} - dt:
-            {{oldCeshtje.data_e_ngjarjes}}
+            {{oldCeshtje.data_e_ngjarjes | date}}
         </h3>
     </ng-template>
     <div class="row py-4 justify-content-center">

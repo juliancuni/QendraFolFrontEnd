@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
     login$: Observable<LoginDto>;
     error$: Observable<HttpErrors>
     isAuthenticated$: Observable<boolean>;
+    loading$: Observable<boolean>;
     valForm: FormGroup;
 
     constructor(public settings: SettingsService, fb: FormBuilder, private _store: Store<AppState>) {
@@ -43,6 +44,7 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.loading$ = this._store.select((state) => state.auth.loading);
         this.isAuthenticated$ = this._store.select((state) => state.auth.isAuthenticated);
         this.error$ = this._store.select((state) => state.auth.error);
     }

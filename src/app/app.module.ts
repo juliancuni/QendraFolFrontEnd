@@ -21,7 +21,8 @@ import { RouteEffects } from './store/effects/route.effects';
 
 import { ApiModule } from './shared/sdk/api.module';
 import { TokenInterceptor } from './shared/services/token.interceptor';
-
+import { NgProgressModule } from 'ngx-progressbar';
+import { NgProgressHttpModule } from 'ngx-progressbar/http';
 
 // https://github.com/ocombe/ng2-translate/issues/218
 export function createTranslateLoader(http: HttpClient) {
@@ -34,6 +35,8 @@ export function createTranslateLoader(http: HttpClient) {
     ],
     imports: [
         HttpClientModule,
+        NgProgressModule,
+        NgProgressHttpModule,
         BrowserAnimationsModule, // required for ng2-tag-input
         CoreModule,
         LayoutModule,
