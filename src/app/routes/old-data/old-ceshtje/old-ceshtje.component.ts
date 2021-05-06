@@ -21,7 +21,7 @@ export class OldCeshtjeComponent implements OnInit, OnDestroy, OnChanges {
     { field: "emri", header: "Emri", selected: true, type: "text", display: "menu" },
     { field: "mbiemri", header: "Mbiemri", selected: true, type: "text", display: "menu" },
     { field: "data_e_ngjarjes", header: "Data e ngjarjes", selected: true, type: "text", display: "menu", calendar: true },
-    { field: "kategoria", header: "Kategoria", selected: true, type: "text", display: "menu" },
+    { field: "kategoria", header: "Kategoria", selected: true, type: "text", display: "menu", dropdown: true },
     { field: "sipas_Nenit", header: "Sipas Nenit", selected: true, type: "text", display: "menu", dropdown: true },
     { field: "policia", header: "Policia", selected: false, type: "text", display: "menu", textArea: true },
     { field: "prokuroria", header: "Prokuroria", selected: false, type: "text", display: "menu" },
@@ -56,6 +56,7 @@ export class OldCeshtjeComponent implements OnInit, OnDestroy, OnChanges {
   valForm: FormGroup;
   notifier = new Subject();
   sipasNenit = ["Neni 135", "Neni 244", "Neni 244/a", "Neni 245", "Neni 245/1", "Neni 248", "Neni 256", "Neni 257", "Neni 257/a", "Neni 258", "Neni 259", "Neni 259/a ", "Neni 260", "Neni 283", "Neni 283/a", "Neni 283/b", "Neni 283/1", "Neni 283/2", "Neni 283/3", "Neni 284", "Neni 284/a", "Neni 284/ç", "Neni 284/c,", "Neni 285/a", "Neni 285/b", "Neni 286", "Neni 312", "Neni 313", "Neni 319", "Neni 319/a", "Neni 319/b", "Neni 319/c", "Neni 319/ç", "Neni 319/d", "Neni 319/dh", "Neni 319/e", "Neni 328", "Neni 333", "Neni 333/a", "Neni 334"];
+  kategoria = ["Droga", "Korrupsioni"]
   @Input() show: boolean;
   @Input() oldCeshtje: OldCeshtja;
   @Input() method: string;

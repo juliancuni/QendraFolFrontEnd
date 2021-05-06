@@ -19,8 +19,10 @@
                             [formControlName]="key.field"></textarea>
                         <p-calendar inputId="inputContact{{i+1}}" [formControlName]="key.field" [showIcon]="true"
                             *ngIf="key.calendar"></p-calendar>
-                        <p-dropdown placeholder="{{key.header}}" *ngIf="key.dropdown" [formControlName]="key.field"
+                        <p-dropdown placeholder="{{key.header}}" *ngIf="key.dropdown && key.field == 'sipas_Nenit'" [formControlName]="key.field"
                             [showClear]="true" [options]="sipasNenit"></p-dropdown>
+                        <p-dropdown placeholder="{{key.header}}" *ngIf="key.dropdown && key.field == 'kategoria'" [formControlName]="key.field"
+                            [showClear]="true" [options]="kategoria"></p-dropdown>
                     </div>
                 </div>
             </form>
