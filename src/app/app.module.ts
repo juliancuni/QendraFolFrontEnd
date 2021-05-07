@@ -23,7 +23,7 @@ import { ApiModule } from './shared/sdk/api.module';
 import { TokenInterceptor } from './shared/services/token.interceptor';
 
 // https://github.com/ocombe/ng2-translate/issues/218
-export function createTranslateLoader(http: HttpClient) {
+export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
@@ -55,7 +55,8 @@ export function createTranslateLoader(http: HttpClient) {
                 strictActionSerializability: false,
             }
         }),
-        !environment.production ? StoreDevtoolsModule.instrument() : [], StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+        !environment.production ? StoreDevtoolsModule.instrument() : [],
+        StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
         EffectsModule.forRoot([AppEffects, RouteEffects]),
         ApiModule.forRoot({ rootUrl: environment.apiUrl }),
     ],
