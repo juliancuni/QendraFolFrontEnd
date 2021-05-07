@@ -21,6 +21,7 @@ import { AppEffects } from './store/effects/app.effects';
 import { RouteEffects } from './store/effects/route.effects';
 import { ApiModule } from './shared/sdk/api.module';
 import { TokenInterceptor } from './shared/services/token.interceptor';
+import { extModules } from './build-specifics';
 
 // https://github.com/ocombe/ng2-translate/issues/218
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
@@ -55,8 +56,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
                 strictActionSerializability: false,
             }
         }),
-        !environment.production ? StoreDevtoolsModule.instrument() : [],
-        StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+        extModules,
         EffectsModule.forRoot([AppEffects, RouteEffects]),
         ApiModule.forRoot({ rootUrl: environment.apiUrl }),
     ],
