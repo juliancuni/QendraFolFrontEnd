@@ -10,7 +10,7 @@ jobs:
   build:
     parameters:
       project:
-        type: qendrafol
+        type: string
     executor: common/node
     steps:
       - checkout
