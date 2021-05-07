@@ -30,6 +30,7 @@ $offsidebar-wd:           $aside-wd + 15px;      // match the width with the mai
         min-height: 100%;
         overflow: hidden;
         -webkit-transform: translateZ(0px);
+        transform: translateZ(0px);
     }
 
     .progress {

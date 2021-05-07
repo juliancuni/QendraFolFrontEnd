@@ -14,15 +14,14 @@ export class SettingsService {
         this.user = {
             name: 'John',
             job: 'ng-developer',
-            picture: 'assets/img/user/02.jpg'
+            picture: ''
         };
 
         // App Settings
         // -----------------------------------
         this.app = {
-            name: 'MicroServices.al',
+            name: 'mircoservices.al',
             description: 'FrontEnd, BackEnd Solutions',
-            version: '0.0.1',
             year: ((new Date()).getFullYear())
         };
 

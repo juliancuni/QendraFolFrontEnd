@@ -13,8 +13,7 @@ import { UserblockService } from './userblock.service';
 })
 export class UserblockComponent implements OnInit {
     user$: Observable<UserDto>;
-    constructor(public userblockService: UserblockService, private _store: Store<AppState>) {
-    }
+    constructor(public userblockService: UserblockService, private _store: Store<AppState>) {}
 
     ngOnInit() {
         this.user$ = this._store.select(state => state.auth.userDto);

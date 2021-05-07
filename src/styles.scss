@@ -1,14 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
 
 //== Vendor
-@import '~@fortawesome/fontawesome-free/css/brands.css';
-@import '~@fortawesome/fontawesome-free/css/regular.css';
-@import '~@fortawesome/fontawesome-free/css/solid.css';
-@import '~@fortawesome/fontawesome-free/css/fontawesome.css';
-@import '~simple-line-icons/css/simple-line-icons.css';
-@import '~loaders.css/loaders.css';
+// @import '~@fortawesome/fontawesome-free/css/brands.css';
+// @import '~@fortawesome/fontawesome-free/css/regular.css';
+// @import '~@fortawesome/fontawesome-free/css/solid.css';
+// @import '~@fortawesome/fontawesome-free/css/fontawesome.css';
+// @import '~simple-line-icons/css/simple-line-icons.css';
+
+// @import '~loaders.css/loaders.css';
+
+// @import '~ngx-toastr/toastr.css';
+
+
+// @import '~ag-grid-community/dist/styles/ag-grid.css';
+// @import '~ag-grid-community/dist/styles/ag-theme-fresh.css';
+
+
+
+
+// @import '~@fullcalendar/core/main.css';
+// @import '~@fullcalendar/daygrid/main.css';
+// @import '~@fullcalendar/timegrid/main.css';
+// @import '~@fullcalendar/list/main.css';
+// @import '~@fullcalendar/bootstrap/main.css';
 
 //== Bootstrap
 @import "./app/shared/styles/bootstrap.scss";
 //== Application
 @import "./app/shared/styles/app.scss";
+
+// @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import "~primeicons/primeicons.css";
+@import "~primeng/resources/themes/saga-blue/theme.css";
+
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+// @import "~primeng/resources/primeng.min.css";

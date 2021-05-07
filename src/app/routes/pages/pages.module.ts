@@ -10,7 +10,7 @@ import { MaintenanceComponent } from './maintenance/maintenance.component';
 import { Error404Component } from './error404/error404.component';
 import { Error500Component } from './error500/error500.component';
 import { StoreModule } from '@ngrx/store';
-import * as fromAuth from '../../store/reducers/auth.reducer';
+import { authFeatureKey, reducer} from '../../store/reducers/auth.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from '../../store/effects/auth.effects';
 import { MessageService } from 'primeng/api';
@@ -29,7 +29,7 @@ import { MessageService } from 'primeng/api';
 @NgModule({
     imports: [
         SharedModule,
-        StoreModule.forFeature(fromAuth.authFeatureKey, fromAuth.reducer),
+        StoreModule.forFeature(authFeatureKey, reducer),
         EffectsModule.forFeature([AuthEffects]),
         // RouterModule.forChild(routes)
     ],

@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, Injector } from '@angular/core';
 import { Router } from '@angular/router';
-const screenfull = require('screenfull');
 
 import { UserblockService } from '../sidebar/userblock/userblock.service';
 import { SettingsService } from '../../core/settings/settings.service';
@@ -19,6 +18,13 @@ export class HeaderComponent implements OnInit {
     navCollapsed = true; // for horizontal layout
     menuItems = []; // for horizontal layout
     router: Router;
+    items = [{
+        label: 'Logout',
+        icon: 'pi pi-power-off',
+        command: () => {
+            this.logout();
+        }
+    }];
 
     isNavSearchVisible: boolean;
     @ViewChild('fsbutton', { static: true }) fsbutton;  // the fullscreen button
@@ -31,19 +37,8 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {
+
         this.isNavSearchVisible = false;
-
-        var ua = window.navigator.userAgent;
-        if (ua.indexOf("MSIE ") > 0 || !!ua.match(/Trident.*rv\:11\./)) { // Not supported under IE
-            this.fsbutton.nativeElement.style.display = 'none';
-        }
-
-        // Switch fullscreen icon indicator
-        // const el = this.fsbutton.nativeElement.firstElementChild;
-        // screenfull.on('change', () => {
-        //     if (el)
-        //         el.className = screenfull.isFullscreen ? 'fa fa-compress' : 'fa fa-expand';
-        // });
 
         this.router = this.injector.get(Router);
 
@@ -90,9 +85,6 @@ export class HeaderComponent implements OnInit {
     }
 
     toggleFullScreen(event) {
-        if (screenfull.enabled) {
-            screenfull.toggle();
-        }
     }
     logout() {
         this._store.dispatch(logout());

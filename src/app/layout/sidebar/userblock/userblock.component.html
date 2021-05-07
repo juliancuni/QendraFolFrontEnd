@@ -1,6 +1,6 @@
 <div class="item user-block" *ngIf="userBlockIsVisible()">
     <!-- User picture-->
-    <div class="user-block-picture" >
+    <div class="user-block-picture">
         <div class="user-block-status">
             <img class="img-thumbnail rounded-circle" [src]="(user$ | async)?.fotografiaUrl || '/assets/img/user.png'" alt="Avatar" />
             <div class="circle bg-success circle-lg"></div>
@@ -9,6 +9,5 @@
     <!-- Name and Job-->
     <div class="user-block-info">
         <span class="user-block-name">{{(user$ | async)?.emer || "User"}} {{(user$ | async)?.mbiemer}}</span>
-        <!-- <span class="user-block-role">Programmer</span> -->
     </div>
 </div>

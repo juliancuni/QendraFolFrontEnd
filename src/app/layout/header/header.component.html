@@ -2,7 +2,7 @@
 <nav class="navbar topnavbar" role="navigation">
     <!-- START navbar header-->
     <div class="navbar-header">
-        <a class="navbar-brand" [routerLink]="'/home'">
+        <a class="navbar-brand" href="#/">
             <div class="brand-logo">
                 <img class="img-fluid" src="assets/img/logo.png" alt="App Logo" />
             </div>
@@ -18,26 +18,30 @@
             <!-- Button used to collapse the left sidebar. Only visible on tablet and desktops-->
             <a class="nav-link d-none d-md-block d-lg-block d-xl-block" trigger-resize=""
                 (click)="toggleCollapsedSideabar()" *ngIf="!isCollapsedText()">
-                <em class="fas fa-bars"></em>
+                <em class="pi pi-align-justify"></em>
             </a>
             <!-- Button to show/hide the sidebar on mobile. Visible on mobile only.-->
             <a class="nav-link sidebar-toggle d-md-none"
                 (click)="settings.toggleLayoutSetting('asideToggled'); $event.stopPropagation()">
-                <em class="fas fa-bars"></em>
+                <em class="pi pi-align-justify"></em>
             </a>
         </li>
     </ul>
     <!-- END Left navbar-->
     <!-- START Right Navbar-->
     <ul class="navbar-nav flex-row">
-        <!-- Start Logout button -->
-        <li class="nav-item">
-            <a class="nav-link" (click)="logout(); $event.stopPropagation()">
-                <em class="icon-logout"></em>
+        <!-- START UserDropdown button-->
+        <li class="nav-item" title="LogOut">
+            <a class="nav-link" (click)="menu.toggle($event); $event.stopPropagation()">
+                <em class="pi pi-user"></em>
             </a>
+            <p-menu #menu [popup]="true" [model]="items"></p-menu>
         </li>
-        <!-- End Logout button -->
+        <!-- END UserDropdown menu-->
     </ul>
     <!-- END Right Navbar-->
+
+    <!-- <app-navsearch [visible]="getNavSearchVisible()" (onclose)="setNavSearchVisible(false)"></app-navsearch> -->
+
 </nav>
 <!-- END Top Navbar-->
