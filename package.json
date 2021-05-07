@@ -10,7 +10,7 @@
     "start": "ng serve",
     "start_hmr": "ng serve --hmr",
     "build": "ng build --prod --aot",
-    "test": "ng test",
+    "test": "ng test --no-progress",
     "lint": "ng lint",
     "modernizr": "modernizr -c modernizr-config.json -d src/modernizr.js",
     "gen_openapi": "ng-openapi-gen --input http://localhost:5000/swagger/v1/swagger.json --output src/app/shared/sdk"
