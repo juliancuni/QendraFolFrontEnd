@@ -19,7 +19,7 @@ import { TranslateModule } from '@ngx-translate/core';
 // import { MatFormFieldModule } from '@angular/material/form-field';
 // import { MatGridListModule } from '@angular/material/grid-list';
 // import { MatIconModule } from '@angular/material/icon';
-// import { MatInputModule } from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 // import { MatListModule } from '@angular/material/list';
 // import { MatMenuModule } from '@angular/material/menu';
 // import { MatPaginatorModule } from '@angular/material/paginator';
@@ -27,13 +27,17 @@ import { TranslateModule } from '@ngx-translate/core';
 // import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 // import { MatRadioModule } from '@angular/material/radio';
 // import { MatRippleModule } from '@angular/material/core';
-// import { MatSelectModule } from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 // import { MatSidenavModule } from '@angular/material/sidenav';
 // import { MatSliderModule } from '@angular/material/slider';
 // import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 // import { MatSnackBarModule } from '@angular/material/snack-bar';
 // import { MatSortModule } from '@angular/material/sort';
-// import { MatTableModule } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
+import { CdkTableModule } from "@angular/cdk/table";
+import { ScrollingModule } from "@angular/cdk/scrolling";
+// import { TableVirtualScrollModule } from 'ng-table-virtual-scroll';
+import {MatPaginatorModule} from '@angular/material/paginator';
 // import { MatTabsModule } from '@angular/material/tabs';
 // import { MatToolbarModule } from '@angular/material/toolbar';
 // import { MatTooltipModule } from '@angular/material/tooltip';
@@ -52,6 +56,7 @@ import { CalendarModule } from 'primeng/calendar'
 import { DropdownModule } from 'primeng/dropdown';
 import { MenuModule } from 'primeng/menu';
 
+
 import { ColorsService } from './colors/colors.service';
 
 // https://angular.io/styleguide#!#04-10
@@ -69,14 +74,18 @@ import { ColorsService } from './colors/colors.service';
     // MatCardModule,
     // MatCheckboxModule,
     // MatChipsModule,
-    // MatTableModule,
+    MatTableModule,
+    CdkTableModule,
+    ScrollingModule,
+    MatPaginatorModule,
+    // TableVirtualScrollModule,
     // MatDatepickerModule,
     // MatDialogModule,
     // MatExpansionModule,
     // MatFormFieldModule,
     // MatGridListModule,
     // MatIconModule,
-    // MatInputModule,
+    MatInputModule,
     // MatListModule,
     // MatMenuModule,
     // MatPaginatorModule,
@@ -84,7 +93,7 @@ import { ColorsService } from './colors/colors.service';
     // MatProgressSpinnerModule,
     // MatRadioModule,
     // MatRippleModule,
-    // MatSelectModule,
+    MatSelectModule,
     // MatSidenavModule,
     // MatSlideToggleModule,
     // MatSliderModule,
@@ -130,14 +139,18 @@ import { ColorsService } from './colors/colors.service';
     // MatCardModule,
     // MatCheckboxModule,
     // MatChipsModule,
-    // MatTableModule,
+    MatTableModule,
+    CdkTableModule,
+    ScrollingModule,
+    MatPaginatorModule,
+    // TableVirtualScrollModule,
     // MatDatepickerModule,
     // MatDialogModule,
     // MatExpansionModule,
     // MatFormFieldModule,
     // MatGridListModule,
     // MatIconModule,
-    // MatInputModule,
+    MatInputModule,
     // MatListModule,
     // MatMenuModule,
     // MatPaginatorModule,
@@ -145,7 +158,7 @@ import { ColorsService } from './colors/colors.service';
     // MatProgressSpinnerModule,
     // MatRadioModule,
     // MatRippleModule,
-    // MatSelectModule,
+    MatSelectModule,
     // MatSidenavModule,
     // MatSlideToggleModule,
     // MatSliderModule,

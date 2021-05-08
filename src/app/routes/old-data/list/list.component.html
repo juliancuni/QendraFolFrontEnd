@@ -1,0 +1,32 @@
+<div id="container">
+    <!-- <div id="navbar">Navbar</div> -->
+    <div id="search">
+        <form class="example-form">
+            <mat-form-field class="example-full-width">
+                <!-- <mat-label>Favorite food</mat-label> -->
+                <input matInput placeholder="Ex. Pizza" value="Sushi">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <!-- <mat-label>Kolona</mat-label> -->
+                <mat-select [formControl]="toppings" multiple>
+                    <mat-option *ngFor="let col of cols" [value]="col">{{col}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+    </div>
+    <div id="table">
+        <div class="table-responsive">
+            <cdk-virtual-scroll-viewport itemSize="0" id="table-container">
+                <table class="table">
+                    <ng-container *cdkVirtualFor="let row of dataSource">
+                        <tr style="width:100%; min-height: 30px;">
+                            <td>{{row.id}}</td>
+                            <td>{{row.emri}}</td>
+                            <td>{{row.mbiemri}}</td>
+                        </tr>
+                    </ng-container>
+                </table>
+            </cdk-virtual-scroll-viewport>
+        </div>
+    </div>
+</div>

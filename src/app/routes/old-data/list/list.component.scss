@@ -1,0 +1,50 @@
+#container {
+  height: 88vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: white;
+}
+
+#navbar {
+  flex: 0 0 auto;
+  height: 70px;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  background-color: lightblue;
+}
+
+#search {
+  flex: 0 0 auto;
+  height: 50px;
+  width: 100%;
+  text-align: center;
+  margin-top: 5px;
+  // background-color: red;
+}
+
+#table {
+  flex: 1 1 auto;
+  width: 100%;
+  position: relative;
+}
+
+#table-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+}
+
+#table-container cdk-virtual-scroll-viewport {
+  width: 100%;
+}
+
+.mat-header-row th {
+  position: sticky;
+  top: 0;
+  background-color: white;
+}

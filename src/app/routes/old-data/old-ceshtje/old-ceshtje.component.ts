@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Update } from '@ngrx/entity';
 import { Store } from '@ngrx/store';
@@ -12,7 +12,8 @@ import * as OldCeshtjeDbActions from 'src/app/store/actions/old-ceshtje-db.actio
 @Component({
   selector: 'app-old-ceshtje',
   templateUrl: './old-ceshtje.component.html',
-  styleUrls: ['./old-ceshtje.component.scss']
+  styleUrls: ['./old-ceshtje.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class OldCeshtjeComponent implements OnInit, OnDestroy, OnChanges {
 
@@ -55,8 +56,16 @@ export class OldCeshtjeComponent implements OnInit, OnDestroy, OnChanges {
   oldCeshtje$: Observable<OldCeshtja>;
   valForm: FormGroup;
   notifier = new Subject();
-  sipasNenit = ["Neni 135", "Neni 244", "Neni 244/a", "Neni 245", "Neni 245/1", "Neni 248", "Neni 256", "Neni 257", "Neni 257/a", "Neni 258", "Neni 259", "Neni 259/a ", "Neni 260", "Neni 283", "Neni 283/a", "Neni 283/b", "Neni 283/1", "Neni 283/2", "Neni 283/3", "Neni 284", "Neni 284/a", "Neni 284/ç", "Neni 284/c,", "Neni 285/a", "Neni 285/b", "Neni 286", "Neni 312", "Neni 313", "Neni 319", "Neni 319/a", "Neni 319/b", "Neni 319/c", "Neni 319/ç", "Neni 319/d", "Neni 319/dh", "Neni 319/e", "Neni 328", "Neni 333", "Neni 333/a", "Neni 334"];
-  kategoria = ["Droga", "Korrupsioni"]
+  nenet = ["Neni 135", "Neni 244", "Neni 244/a", "Neni 245", "Neni 245/1", "Neni 248", "Neni 256", "Neni 257", "Neni 257/a", "Neni 258", "Neni 259", "Neni 259/a ", "Neni 260", "Neni 283", "Neni 283/a", "Neni 283/b", "Neni 283/1", "Neni 283/2", "Neni 283/3", "Neni 284", "Neni 284/a", "Neni 284/ç", "Neni 284/c,", "Neni 285/a", "Neni 285/b", "Neni 286", "Neni 312", "Neni 313", "Neni 319", "Neni 319/a", "Neni 319/b", "Neni 319/c", "Neni 319/ç", "Neni 319/d", "Neni 319/dh", "Neni 319/e", "Neni 328", "Neni 333", "Neni 333/a", "Neni 334"];
+  kategoria = ["Droga", "Korrupsioni"];
+  prokuroria = ["Pushim", "Mosfillim", "Kërkesë për gjykim", "Sekuestrim", " Kërkesë për revokim", " Kërkesë për bashkim", " Zv masë sigurie"];
+  masa_e_sigurise = ["ndalimi jashtë shtetit", "paraqitje në polic.gjyq", "qëndrim në një vend", "garancia pasurore", "arresti në shtëpi", "arresti në burg", "shtrimi i përkohshëm", "pezullimi i ushtrimit të detyres", "ndalimi i përkohshëm i veprimtarive"];
+  hetimi = ["mosfillim çështje", "pushim ceshtje"];
+  gjygjtari_paraprak = ["pushim i ceshtjes", "kthen aktet prokurorit për vep.proced", "kthen aktet për formul.akuz", "revokon vendimin e pushimit", "dërgim i çështjes në gjyq"];
+  vendimi_Gjykates_Shk1 = ["i pafajshëm", "fajtor"];
+  vendimi_Apelit = ["lë në fuqi vendimin e Gjyk.Shk.I", "Ndryshon vendimin e Gjyk.Shk.I", "Prish vendimin dhe pushon çështjen", "Prish vendimin dhe kthen aktet Gjyk.Shk.I"];
+  vendim_Gjykata_Larte = ["Pranim rekursi", "Mospranim rekursi & lë në fuqi vend.Gj.Ap", "prish vend GJ.A dhe le ne fuqi vend GJ.1", "prish vendimin e Gjyk.Ap. dhe kthen aktet", "prish vendimin e Gjyk.Ap. dhe pushon çështjen", "shqyrton në Kolegje të Bashkuara"];
+
   @Input() show: boolean;
   @Input() oldCeshtje: OldCeshtja;
   @Input() method: string;
@@ -154,6 +163,7 @@ export class OldCeshtjeComponent implements OnInit, OnDestroy, OnChanges {
       id: oldCeshtjeUpdated.id,
       changes: oldCeshtjeUpdated
     };
+    console.log(oldCeshtjeUpdated)
     this._store.dispatch(OldCeshtjeDbActions.upsertOldCeshtjeDb({ oldCeshtje: oldCeshtjeUpdated }));
 
     this.show = false;

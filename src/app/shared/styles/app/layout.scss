@@ -21,7 +21,7 @@ $aside-bg:                                #fff;
 $content-bg:                              $body-bg;
 $content-heading-bg:                      #fafbfc;
 $content-heading-border:                  #cfdbe2;
-$content-padding:                         20px;
+$content-padding:                         0;
 
 $footer-hg:                               60px;
 
@@ -119,13 +119,13 @@ body {
 // Page main content
 // -----------------------------
 .content-wrapper {
-    padding: 15px;
+    padding-top: 5px;
     width: 100%; // styling to visually wrap the component
     border-top: 1px solid rgba(0, 0, 0, .15);
     margin-top: -1px;
 
     .unwrap {
-        margin: -15px; // expand over wrapper padding
+        margin: 0; // expand over wrapper padding
         @include media-breakpoint-up(md) {
             margin: -20px; // expand over wrapper padding
         }
@@ -139,7 +139,7 @@ body {
         color: #929292;
         margin: -15px;
         margin-bottom: 20px;
-        padding: 15px;
+        // padding: 15px;
         font-weight: normal;
         background-color: $content-heading-bg;
         border-bottom: 1px solid $content-heading-border;

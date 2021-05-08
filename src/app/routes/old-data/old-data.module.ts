@@ -11,10 +11,12 @@ import { StoreModule } from '@ngrx/store';
 import * as fromOldCeshtjeDb from '../../store/reducers/old-ceshtje-db.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { OldCeshtjeDbEffects } from 'src/app/store/effects/old-ceshtje-db.effects';
+import { ListComponent } from './list/list.component';
 
 const routes: Routes = [
   { path: '', component: OldListComponent, resolve: { oldCeshtjetFromDb: OldCeshtjetFromDBResolver } },
-  // { path: 'old', component: OldCeshtjeComponent }
+  { path: 'list', component: ListComponent },
+  { path: 'ceshtje', component: OldCeshtjeComponent }
 ]
 
 @NgModule({
@@ -30,6 +32,7 @@ const routes: Routes = [
     OldListComponent,
     OldCeshtjeComponent,
     UploadComponent,
+    ListComponent,
   ],
   exports: [],
   providers: [
