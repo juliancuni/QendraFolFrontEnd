@@ -27,5 +27,4 @@ export const menu = [
     headingMain,
     Home,
     OldData,
-    ListOld
 ];
