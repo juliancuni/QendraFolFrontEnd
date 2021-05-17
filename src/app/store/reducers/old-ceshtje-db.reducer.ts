@@ -44,6 +44,8 @@ export const reducer = createReducer(
     on(OldCeshtjetFromDbActions.loadAllCeshtjeFromDbSuccess, (state, action) => adapter.addMany(action.oldCeshtjetFromDB, { ...state, allOldCeshtjetDbLoaded: true })),
 
     on(OldCeshtjetFromDbActions.upsertOldCeshtjeDbSuccess, (state, action) => adapter.upsertOne(action.oldCeshtje, state)),
+    
+    on(OldCeshtjetFromDbActions.createOldCeshtjeDbSuccess, (state, action) => adapter.upsertOne(action.oldCeshtje, state)),
 
     on(OldCeshtjetFromDbActions.deleteOldCeshtjeDb, (state, action) => adapter.removeOne(action.id, state)),
 

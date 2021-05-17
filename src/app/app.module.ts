@@ -1,5 +1,5 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -17,11 +17,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { NgProgressModule } from 'ngx-progressbar';
 import { NgProgressHttpModule } from 'ngx-progressbar/http';
 import { reducers, metaReducers } from './store';
-import { AppEffects } from './store/effects/app.effects';
-import { RouteEffects } from './store/effects/route.effects';
 import { ApiModule } from './shared/sdk/api.module';
-import { TokenInterceptor } from './shared/services/token.interceptor';
 import { extModules } from './build-specifics';
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import { initializeKeycloak } from './shared/services/kc.initializer';
 
 // https://github.com/ocombe/ng2-translate/issues/218
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
@@ -57,15 +56,22 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
             }
         }),
         extModules,
-        EffectsModule.forRoot([AppEffects, RouteEffects]),
+        EffectsModule.forRoot([]),
         ApiModule.forRoot({ rootUrl: environment.apiUrl }),
+        KeycloakAngularModule
     ],
     providers: [
         {
-            provide: HTTP_INTERCEPTORS,
-            useClass: TokenInterceptor,
-            multi: true
-        }
+            provide: APP_INITIALIZER,
+            useFactory: initializeKeycloak,
+            multi: true,
+            deps: [KeycloakService],
+        },
+        // {
+        //     provide: HTTP_INTERCEPTORS,
+        //     useClass: TokenInterceptor,
+        //     multi: true
+        // }
     ],
     bootstrap: [AppComponent]
 })

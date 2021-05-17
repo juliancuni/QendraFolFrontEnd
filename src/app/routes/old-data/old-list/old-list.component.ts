@@ -13,6 +13,7 @@ import * as OldCeshtjetFromDbSelectors from 'src/app/store/selectors/old-ceshtje
 import { ConfirmationService } from 'primeng/api';
 import * as OldCeshtjetFromDbActions from 'src/app/store/actions/old-ceshtje-db.actions';
 import { map } from 'rxjs/operators';
+import { OldCeshtjeDto } from 'src/app/shared/sdk/models';
 
 @Component({
   selector: 'app-old-list',
@@ -121,13 +122,13 @@ export class OldListComponent implements OnInit {
     this.oldCeshtje = {};
   }
 
-  confirmDelete(oldCeshtje: {}) {
+  confirmDelete(oldCeshtje: OldCeshtjeDto) {
     this._confirmationService.confirm({
       message: 'Jeni të sigurtë që doni të fshini këtë rekord?',
       header: 'Kujdes!',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this._store.dispatch(OldCeshtjetFromDbActions.deleteOldCeshtjeDb({ oldCeshtje: oldCeshtje }))
+        this._store.dispatch(OldCeshtjetFromDbActions.deleteOldCeshtjeDb({ id: oldCeshtje.id }))
       },
       reject: () => {
         // console.log("DELETE REJECTED");
@@ -143,9 +144,9 @@ export class OldListComponent implements OnInit {
       baseZIndex: 10000,
     });
     this.bulkUploadModal.onClose.pipe(takeUntil(this.notifier)).subscribe(() => {
-      this._store.dispatch(OldCeshtjetFromDbActions.resetTableData());
-      this._store.dispatch(OldCeshtjetFromDbActions.clearRawDataFromStore());
-      this._store.dispatch(OldCeshtjetFromDbActions.loadAllCeshtjeFromDbList());
+      // this._store.dispatch(OldCeshtjetFromDbActions.resetTableData());
+      // this._store.dispatch(OldCeshtjetFromDbActions.clearRawDataFromStore());
+      // this._store.dispatch(OldCeshtjetFromDbActions.loadAllCeshtjeFromDbList());
     })
   }
 

@@ -27,12 +27,11 @@ export class OldDataService {
           const wsname: string = wb.SheetNames[i];
           const ws: XLSX.WorkSheet = wb.Sheets[wsname];
           const data = XLSX.utils.sheet_to_json(ws, { raw: false });
-          this.jsonOldCeshtje[`sheet${i + 1}`] = data;
+          this.jsonOldCeshtje[`sheet${i}`] = this.normalizeKeys(data);
           const headers = this.get_header_row(ws);
           headerJson[`header${i + 1}`] = headers;
         }
         this.jsonOldCeshtje['headers'] = headerJson["header1"];
-        this.jsonOldCeshtje["sheet1"] = this.saveToDb([...this.jsonOldCeshtje["sheet1"]]);
         observer.next(this.jsonOldCeshtje)
         observer.complete();
       },
@@ -51,28 +50,26 @@ export class OldDataService {
       var hdr = "UNKNOWN " + C;
       if (cell && cell.t) {
         hdr = XLSX.utils.format_cell(cell);
-        headers.push(hdr);
+        let normalisedKey = hdr.split(' ').join('_').toLowerCase();
+        headers.push(normalisedKey);
       }
     }
     return headers;
   }
 
-  private saveToDb(oldCeshtjet) {
-    oldCeshtjet.forEach((oldC) => {
+  private normalizeKeys(oldCeshtjet) {
+    let oldCeshtjeNormalized = oldCeshtjet.map((oldC) => {
       let tmp = parseInt(oldC["Id"]);
       oldC.oldId = tmp;
       let oldCeshtjeRefactor = {};
       delete oldC["Id"];
       for (const [key, value] of Object.entries(oldC)) {
-        let newKey = key.slice();
-        newKey = newKey.split(' ').join('_');
+        let newKey = key.split(' ').join('_').toLowerCase();
         oldCeshtjeRefactor[newKey] = value;
       }
-      oldCeshtjeRefactor;
-    }, oldCeshtjet);
-    oldCeshtjet = this.convertDates(oldCeshtjet);
-    console.log(oldCeshtjet);
-    return oldCeshtjet;
+      return oldCeshtjeRefactor;
+    })
+    return oldCeshtjeNormalized;
   }
 
   convertDates(jsonOld: any) {

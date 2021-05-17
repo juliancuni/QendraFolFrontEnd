@@ -22,6 +22,16 @@ export class OldCeshtjeDbEffects {
             )
         )
     );
+    
+    createOldCeshtjeToDb$ = createEffect(() => this._actions$.pipe(
+        ofType(OldCeshtjetFromDbActions.createOldCeshtjeDb),
+        mergeMap((action) => this._oldCeshtjaService.oldCeshtjetControllerCreate$Response({ body: action.oldCeshtje })
+            .pipe(
+                map(({ body }) => OldCeshtjetFromDbActions.createOldCeshtjeDbSuccess({ oldCeshtje: body })),
+                catchError((error) => of(OldCeshtjetFromDbActions.createOldCeshtjeDbFailure({ error })))
+            )
+        )
+    ));
 
     upsertOldCeshtjeToDb$ = createEffect(() => this._actions$.pipe(
         ofType(OldCeshtjetFromDbActions.upsertOldCeshtjeDb),

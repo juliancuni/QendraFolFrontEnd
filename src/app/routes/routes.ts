@@ -8,12 +8,14 @@ import { LockComponent } from './pages/lock/lock.component';
 import { MaintenanceComponent } from './pages/maintenance/maintenance.component';
 import { Error404Component } from './pages/error404/error404.component';
 import { Error500Component } from './pages/error500/error500.component';
+import { AuthGuard } from '../shared/services/auth.guard';
 
 export const routes: Routes = [
 
     {
         path: '',
         component: LayoutComponent,
+        canActivate: [AuthGuard],
         children: [
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingsService } from '../../../core/settings/settings.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LoginDto } from 'src/app/shared/sdk/models';
+// import { LoginDto } from 'src/app/shared/sdk/models';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store';
 import { Observable } from 'rxjs';
-import * as fromAuthActions from 'src/app/store/actions/auth.actions';
+// import * as fromAuthActions from 'src/app/store/actions/auth.actions';
 import { HttpErrors } from 'src/app/shared/entities/http.errors';
 
 @Component({
@@ -15,7 +15,7 @@ import { HttpErrors } from 'src/app/shared/entities/http.errors';
 })
 export class LoginComponent implements OnInit {
 
-    login$: Observable<LoginDto>;
+    login$: Observable<any>;
     error$: Observable<HttpErrors>
     isAuthenticated$: Observable<boolean>;
     loading$: Observable<boolean>;
@@ -29,24 +29,24 @@ export class LoginComponent implements OnInit {
         });
     }
 
-    login($ev, value: LoginDto) {
+    login($ev, value: any) {
         $ev.preventDefault();
         for (let c in this.valForm.controls) {
             this.valForm.controls[c].markAsTouched();
         }
         if (this.valForm.valid) {
-            this._store.dispatch(fromAuthActions.loginPage({ login: value }));
+            // this._store.dispatch(fromAuthActions.loginPage({ login: value }));
         }
     }
 
     logout() {
-        this._store.dispatch(fromAuthActions.logout());
+        // this._store.dispatch(fromAuthActions.logout());
     }
 
     ngOnInit() {
-        this.loading$ = this._store.select((state) => state.auth.loading);
-        this.isAuthenticated$ = this._store.select((state) => state.auth.isAuthenticated);
-        this.error$ = this._store.select((state) => state.auth.error);
+        // this.loading$ = this._store.select((state) => state.auth.loading);
+        // this.isAuthenticated$ = this._store.select((state) => state.auth.isAuthenticated);
+        // this.error$ = this._store.select((state) => state.auth.error);
     }
 
 }

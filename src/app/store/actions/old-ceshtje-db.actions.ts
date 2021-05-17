@@ -54,6 +54,21 @@ export const loadAllCeshtjeFromDbFailure = createAction(
     "[Old Ceshtje Resolver] Load All Old Ceshtjet Failure",
     props<{ error: any }>()
 )
+/** Create Ceshtje */
+export const createOldCeshtjeDb = createAction(
+    "[Old Ceshtje Component] Upsert Ceshtje",
+    props<{ oldCeshtje: OldCeshtjeDto }>()
+)
+
+export const createOldCeshtjeDbSuccess = createAction(
+    "[Old Ceshtje Component] Upsert Ceshtje Success",
+    props<{ oldCeshtje: any }>()
+)
+
+export const createOldCeshtjeDbFailure = createAction(
+    "[Old Ceshtje Component] Upsert Ceshtje Failure",
+    props<{ error: any }>()
+)
 /** Upsert Ceshtje */
 export const upsertOldCeshtjeDb = createAction(
     "[Old Ceshtje Component] Upsert Ceshtje",

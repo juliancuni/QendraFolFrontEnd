@@ -72,78 +72,76 @@ export class OldCeshtjeComponent implements OnInit, OnDestroy, OnChanges {
   @Output() toggleModal = new EventEmitter<boolean>();
 
   constructor(private _store: Store<AppState>, private fb: FormBuilder, private _oldCeshtjetService: OldCeshtjetService) {
-    // if (this.oldCeshtje) this.display = true;
     this.valForm = fb.group({
       "emri": [this.oldCeshtje?.emri || null],
       "mbiemri": [this.oldCeshtje?.mbiemri || null],
       "data_e_ngjarjes": [new Date()],
       "kategoria": [this.oldCeshtje?.kategoria || null],
-      "sipas_Nenit": [this.oldCeshtje?.sipas_Nenit || null],
+      "sipas_nenit": [this.oldCeshtje?.sipas_nenit || null],
       "policia": [this.oldCeshtje?.policia || null],
       "prokuroria": [this.oldCeshtje?.prokuroria || null],
-      "sipas_Nenit_P": [this.oldCeshtje?.sipas_Nenit_P || null],
-      "masa_e_sigurisë_kërkuar_nga_Prokurori": [this.oldCeshtje?.masa_e_sigurisë_kërkuar_nga_Prokurori || null],
-      "data_Vendimit_Pr": [new Date()],
+      "sipas_nenit_p": [this.oldCeshtje?.sipas_nenit_p || null],
+      "masa_e_sigurisë_kërkuar_nga_prokurori": [this.oldCeshtje?.masa_e_sigurisë_kërkuar_nga_prokurori || null],
+      "data_vendimit_pr": [new Date()],
       "gjykata": [this.oldCeshtje?.gjykata || null],
       "hetimi": [this.oldCeshtje?.hetimi || null],
-      "data_Vedim_Gjk": [new Date()],
+      "data_vedim_gjk": [new Date()],
       "gjygjtari_paraprak": [this.oldCeshtje?.gjygjtari_paraprak || null],
-      "neni_GJP": [this.oldCeshtje?.neni_GJP || null],
-      "data_Gjygjtari_pr": [new Date()],
-      "masa_e_sigurise_Gjykata_Shk1": [this.oldCeshtje?.masa_e_sigurise_Gjykata_Shk1 || null],
-      "data_mases_Gjykates_Shk1": [new Date()],
-      "vendimi_Gjykates_Shk1": [this.oldCeshtje?.vendimi_Gjykates_Shk1 || null],
-      "neni_GJSH1": [this.oldCeshtje?.neni_GJSH1 || null],
-      "data_Vendimit_GJ_SH1": [new Date()],
-      "vendimi_Apelit": [this.oldCeshtje?.vendimi_Apelit || null],
-      "neni_Apeli": [this.oldCeshtje?.neni_Apeli || null],
-      "data_Vendim_Apeli": [new Date()],
-      "masa_e_sigurisë_në_Gjykatën_e_Apelit": [this.oldCeshtje?.masa_e_sigurisë_në_Gjykatën_e_Apelit || null],
-      "data_mas_sig_Apeli": [new Date()],
-      "vendim_Gjykata_Larte": [this.oldCeshtje?.vendim_Gjykata_Larte || null],
-      "data_Gjykata_Larte": [new Date()],
-      "neni_GJL": [this.oldCeshtje?.neni_GJL || null],
-      "masa_e_sigurisë_në_Gjykatën_e_Larte": [this.oldCeshtje?.masa_e_sigurisë_në_Gjykatën_e_Larte || null],
-      "data_mas_sig_Gj_Larte": [new Date()],
+      "neni_gjp": [this.oldCeshtje?.neni_gjp || null],
+      "data_gjygjtari_pr": [new Date()],
+      "masa_e_sigurise_gjykata_shk1": [this.oldCeshtje?.masa_e_sigurise_gjykata_shk1 || null],
+      "data_mases_gjykates_shk1": [new Date()],
+      "vendimi_gjykates_shk1": [this.oldCeshtje?.vendimi_gjykates_shk1 || null],
+      "neni_gjsh1": [this.oldCeshtje?.neni_gjsh1 || null],
+      "data_vendimit_gj_sh1": [new Date()],
+      "vendimi_apelit": [this.oldCeshtje?.vendimi_apelit || null],
+      "neni_apeli": [this.oldCeshtje?.neni_apeli || null],
+      "data_vendim_apeli": [new Date()],
+      "masa_e_sigurisë_në_gjykatën_e_apelit": [this.oldCeshtje?.masa_e_sigurisë_në_gjykatën_e_apelit || null],
+      "data_mas_sig_apeli": [new Date()],
+      "vendim_gjykata_larte": [this.oldCeshtje?.vendim_gjykata_larte || null],
+      "data_gjykata_larte": [new Date()],
+      "neni_gjl": [this.oldCeshtje?.neni_gjl || null],
+      "masa_e_sigurisë_në_gjykatën_e_larte": [this.oldCeshtje?.masa_e_sigurisë_në_gjykatën_e_larte || null],
+      "data_mas_sig_gj_larte": [new Date()],
       "komente": [this.oldCeshtje?.komente || null],
     });
   }
 
 
   ngOnChanges(changes: SimpleChanges): void {
-    // console.log(new Date(this.oldCeshtje?.data_e_ngjarjes))
     this.valForm.patchValue({
       "emri": this.oldCeshtje?.emri,
       "mbiemri": this.oldCeshtje?.mbiemri,
       "data_e_ngjarjes": this.oldCeshtje?.data_e_ngjarjes ? new Date(this.oldCeshtje?.data_e_ngjarjes) : null,
       "kategoria": this.oldCeshtje?.kategoria,
-      "sipas_Nenit": this.oldCeshtje?.sipas_Nenit,
+      "sipas_nenit": this.oldCeshtje?.sipas_nenit,
       "policia": this.oldCeshtje?.policia,
       "prokuroria": this.oldCeshtje?.prokuroria,
-      "sipas_Nenit_P": this.oldCeshtje?.sipas_Nenit_P,
-      "masa_e_sigurisë_kërkuar_nga_Prokurori": this.oldCeshtje?.masa_e_sigurisë_kërkuar_nga_Prokurori,
-      "data_Vendimit_Pr": this.oldCeshtje?.data_Vendimit_Pr ? new Date(this.oldCeshtje?.data_Vendimit_Pr) : null,
+      "sipas_nenit_p": this.oldCeshtje?.sipas_nenit_p,
+      "masa_e_sigurisë_kërkuar_nga_prokurori": this.oldCeshtje?.masa_e_sigurisë_kërkuar_nga_prokurori,
+      "data_vendimit_pr": this.oldCeshtje?.data_vendimit_pr ? new Date(this.oldCeshtje?.data_vendimit_pr) : null,
       "gjykata": this.oldCeshtje?.gjykata,
       "hetimi": this.oldCeshtje?.hetimi,
-      "data_Vedim_Gjk": this.oldCeshtje?.data_Vedim_Gjk ? new Date(this.oldCeshtje?.data_Vedim_Gjk) : null,
+      "data_vedim_gjk": this.oldCeshtje?.data_vedim_gjk ? new Date(this.oldCeshtje?.data_vedim_gjk) : null,
       "gjygjtari_paraprak": this.oldCeshtje?.gjygjtari_paraprak,
-      "neni_GJP": this.oldCeshtje?.neni_GJP,
-      "data_Gjygjtari_pr": this.oldCeshtje?.data_Gjygjtari_pr ? new Date(this.oldCeshtje?.data_Gjygjtari_pr) : null,
-      "masa_e_sigurise_Gjykata_Shk1": this.oldCeshtje?.masa_e_sigurise_Gjykata_Shk1,
-      "data_mases_Gjykates_Shk1": this.oldCeshtje?.data_mases_Gjykates_Shk1 ? new Date(this.oldCeshtje?.data_mases_Gjykates_Shk1) : null,
-      "vendimi_Gjykates_Shk1": this.oldCeshtje?.vendimi_Gjykates_Shk1,
-      "neni_GJSH1": this.oldCeshtje?.neni_GJSH1,
-      "data_Vendimit_GJ_SH1": this.oldCeshtje?.data_Vendimit_GJ_SH1 ? new Date(this.oldCeshtje?.data_Vendimit_GJ_SH1) : null,
-      "vendimi_Apelit": this.oldCeshtje?.vendimi_Apelit,
-      "neni_Apeli": this.oldCeshtje?.neni_Apeli,
-      "data_Vendim_Apeli": this.oldCeshtje?.data_Vendim_Apeli ? new Date(this.oldCeshtje?.data_Vendim_Apeli) : null,
-      "masa_e_sigurisë_në_Gjykatën_e_Apelit": this.oldCeshtje?.masa_e_sigurisë_në_Gjykatën_e_Apelit,
-      "data_mas_sig_Apeli": this.oldCeshtje?.data_mas_sig_Apeli ? new Date(this.oldCeshtje?.data_mas_sig_Apeli) : null,
-      "vendim_Gjykata_Larte": this.oldCeshtje?.vendim_Gjykata_Larte,
-      "data_Gjykata_Larte": this.oldCeshtje?.data_Gjykata_Larte ? new Date(this.oldCeshtje?.data_Gjykata_Larte) : null,
-      "neni_GJL": this.oldCeshtje?.neni_GJL,
-      "masa_e_sigurisë_në_Gjykatën_e_Larte": this.oldCeshtje?.masa_e_sigurisë_në_Gjykatën_e_Larte,
-      "data_mas_sig_Gj_Larte": this.oldCeshtje?.data_mas_sig_Gj_Larte ? new Date(this.oldCeshtje?.data_mas_sig_Gj_Larte) : null,
+      "neni_gjp": this.oldCeshtje?.neni_gjp,
+      "data_gjygjtari_pr": this.oldCeshtje?.data_gjygjtari_pr ? new Date(this.oldCeshtje?.data_gjygjtari_pr) : null,
+      "masa_e_sigurise_gjykata_shk1": this.oldCeshtje?.masa_e_sigurise_gjykata_shk1,
+      "data_mases_gjykates_shk1": this.oldCeshtje?.data_mases_gjykates_shk1 ? new Date(this.oldCeshtje?.data_mases_gjykates_shk1) : null,
+      "vendimi_gjykates_shk1": this.oldCeshtje?.vendimi_gjykates_shk1,
+      "neni_gjsh1": this.oldCeshtje?.neni_gjsh1,
+      "data_vendimit_gj_sh1": this.oldCeshtje?.data_vendimit_gj_sh1 ? new Date(this.oldCeshtje?.data_vendimit_gj_sh1) : null,
+      "vendimi_apelit": this.oldCeshtje?.vendimi_apelit,
+      "neni_apeli": this.oldCeshtje?.neni_apeli,
+      "data_vendim_apeli": this.oldCeshtje?.data_vendim_apeli ? new Date(this.oldCeshtje?.data_vendim_apeli) : null,
+      "masa_e_sigurisë_në_gjykatën_e_apelit": this.oldCeshtje?.masa_e_sigurisë_në_gjykatën_e_apelit,
+      "data_mas_sig_apeli": this.oldCeshtje?.data_mas_sig_apeli ? new Date(this.oldCeshtje?.data_mas_sig_apeli) : null,
+      "vendim_gjykata_larte": this.oldCeshtje?.vendim_gjykata_larte,
+      "data_gjykata_larte": this.oldCeshtje?.data_gjykata_larte ? new Date(this.oldCeshtje?.data_gjykata_larte) : null,
+      "neni_gjl": this.oldCeshtje?.neni_gjl,
+      "masa_e_sigurisë_në_gjykatën_e_larte": this.oldCeshtje?.masa_e_sigurisë_në_gjykatën_e_larte,
+      "data_mas_sig_gj_larte": this.oldCeshtje?.data_mas_sig_gj_larte ? new Date(this.oldCeshtje?.data_mas_sig_gj_larte) : null,
       "komente": this.oldCeshtje?.komente,
     })
   }
@@ -163,8 +161,12 @@ export class OldCeshtjeComponent implements OnInit, OnDestroy, OnChanges {
       id: oldCeshtjeUpdated.id,
       changes: oldCeshtjeUpdated
     };
-    console.log(oldCeshtjeUpdated)
-    this._store.dispatch(OldCeshtjeDbActions.upsertOldCeshtjeDb({ oldCeshtje: oldCeshtjeUpdated }));
+    if(this.method === 'create') {
+      this._store.dispatch(OldCeshtjeDbActions.createOldCeshtjeDb({ oldCeshtje: oldCeshtjeUpdated }));
+    }
+    if(this.method === 'update') {
+      this._store.dispatch(OldCeshtjeDbActions.upsertOldCeshtjeDb({ oldCeshtje: oldCeshtjeUpdated }));
+    }
 
     this.show = false;
   }

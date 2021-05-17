@@ -5,36 +5,24 @@
             (drop)="fromDrop($event)" (dragover)="dragOver($event)" (dragleave)="dragLeave($event)"
             accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
             <br>
-            {{ (fileName$ | async) || "Drag and Drop XCLX (Excel) File." }}
+            {{ fileName || "Drag and Drop XCLX (Excel) File." }}
             <br><br>
         </div>
         <p class="text-bold">...Or Browse File System</p>
         <input id="input-file" type="file" class="file-input" (change)="fromInput($event)"
             accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" #fileUpload>
-        <table class="table-responsive">
-            <tr>
-                <td>
-                    <div class="file-upload">
-                        <button pButton pRipple type="button" icon="pi pi-paperclip" class="p-button-rounded"
-                            (click)="fileUpload.click()" *ngIf="!(fileName$ | async)"></button>
-                        <button pButton pRipple type="button" icon="pi pi-trash"
-                            class="p-button-rounded p-button-danger" (click)="clearFile()"
-                            *ngIf="(fileName$ | async)"></button>
-                        {{(fileName$ | async)}}
-                    </div>
-                </td>
-                <td>
-                    <div class="ball-clip-rotate-multiple" *ngIf="loading$ | async  ">
-                        <div></div>
-                        <div></div>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <!-- *ngIf="jsonOldCeshtje?.sheet1?.length > 0" -->
+
+        <div class="file-upload">
+            <button pButton pRipple type="button" [icon]="(loading)? 'pi pi-spin pi-spinner' : 'pi pi-paperclip'"
+                class="p-button-rounded" (click)="fileUpload.click()" *ngIf="!fileName"></button>
+            <button pButton pRipple type="button" [icon]="(loading)? 'pi pi-spin pi-spinner' : 'pi pi-trash'"
+                class="p-button-rounded p-button-danger" (click)="clearFile()" *ngIf="fileName"></button>
+            {{fileName}}
+        </div>
+
         <div class="card border-0">
             <div class="card-body text-center">
-                <h2 *ngIf="(jsonOldCeshtje$ | async)?.length > 0">Në tabelën {{fileName$ | async}} u gjendën
+                <h2 *ngIf="(jsonOldCeshtje$ | async)?.length > 0">Në tabelën {{fileName}} u gjendën
                     {{(jsonOldCeshtje$ | async)?.length}} rekorde.</h2>
                 <p-messages></p-messages>
             </div>
@@ -42,12 +30,10 @@
         </div>
     </div>
     <div class="card-footer text-muted">
-        <!-- <div class="card-body text-right"> -->
         <button pButton type="button" label="Load" icon="pi pi-check" class="p-button-sm p-button-raised"
-            *ngIf="report?.nrImportSuccess > 0" (click)="closeUploadDialog()"></button>
+            *ngIf="report?.nrImportedSuccess > 0" (click)="closeUploadDialog()" [disabled]="loading"></button>
         <button pButton type="button" label="Close" icon="pi pi-check"
-            class="p-button-sm p-button-raised p-button-secondary" *ngIf="!report || report?.nrImportSuccess == 0"
-            (click)="closeUploadDialog()"></button>
-        <!-- </div> -->
+            class="p-button-sm p-button-raised p-button-secondary" *ngIf="!report || report?.nrImportedSuccess == 0"
+            (click)="closeUploadDialog()" [disabled]="loading"></button>
     </div>
 </div>
