@@ -1,6 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
 import { APP_INITIALIZER, NgModule } from '@angular/core';
-import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
@@ -11,16 +11,16 @@ import { LayoutModule } from './layout/layout.module';
 import { SharedModule } from './shared/shared.module';
 import { RoutesModule } from './routes/routes.module';
 import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { NgProgressModule } from 'ngx-progressbar';
 import { NgProgressHttpModule } from 'ngx-progressbar/http';
 import { reducers, metaReducers } from './store';
 import { ApiModule } from './shared/sdk/api.module';
-import { extModules } from './build-specifics';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { initializeKeycloak } from './shared/services/kc.initializer';
+import { EntityDataModule } from '@ngrx/data';
+import { entityConfig } from './store/entity-metadata';
 
 // https://github.com/ocombe/ng2-translate/issues/218
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
@@ -49,16 +49,16 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
         }),
         StoreModule.forRoot(reducers, {
             metaReducers, runtimeChecks: {
-                strictStateImmutability: false,
-                strictActionImmutability: false,
-                strictStateSerializability: false,
-                strictActionSerializability: false,
+                strictStateImmutability: true,
+                strictActionImmutability: true,
+                strictStateSerializability: true,
+                strictActionSerializability: true,
             }
         }),
-        extModules,
         EffectsModule.forRoot([]),
         ApiModule.forRoot({ rootUrl: environment.apiUrl }),
-        KeycloakAngularModule
+        KeycloakAngularModule,
+        EntityDataModule.forRoot(entityConfig),
     ],
     providers: [
         {
@@ -67,11 +67,6 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
             multi: true,
             deps: [KeycloakService],
         },
-        // {
-        //     provide: HTTP_INTERCEPTORS,
-        //     useClass: TokenInterceptor,
-        //     multi: true
-        // }
     ],
     bootstrap: [AppComponent]
 })

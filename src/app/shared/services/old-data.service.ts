@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscriber } from 'rxjs';
-import { AppState } from 'src/app/store';
+// import { AppState } from 'src/app/store';
 import * as XLSX from 'xlsx';
 
 @Injectable({
@@ -11,7 +11,9 @@ export class OldDataService {
 
   private jsonOldCeshtje = {};
 
-  constructor(private _store: Store<AppState>) { }
+  constructor(
+    // private _store: Store<AppState>
+  ) { }
 
   excelToJson(file) {
     let headerJson = {};

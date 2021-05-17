@@ -1,19 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { select, Store } from '@ngrx/store';
 import { Table } from 'primeng/table/table';
 import { Observable, Subject } from 'rxjs';
-import { AppState } from 'src/app/store';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-// import { OldCeshtjeComponent } from '../old-ceshtje/old-ceshtje.component';
-// import * as OldCeshtjetFromActions from 'src/app/store/actions/old-ceshtje.actions';
-// import { OldCeshtja } from 'src/app/shared/sdk/models';
 import { takeUntil } from 'rxjs/operators';
 import { UploadComponent } from '../upload/upload.component';
-import * as OldCeshtjetFromDbSelectors from 'src/app/store/selectors/old-ceshtje-db.selectors';
 import { ConfirmationService } from 'primeng/api';
-import * as OldCeshtjetFromDbActions from 'src/app/store/actions/old-ceshtje-db.actions';
 import { map } from 'rxjs/operators';
 import { OldCeshtjeDto } from 'src/app/shared/sdk/models';
+import { OldCeshtjeEntityService } from 'src/app/shared/services/entity-services/old-ceshtje-entity.service';
 
 @Component({
   selector: 'app-old-list',
@@ -36,48 +30,52 @@ export class OldListComponent implements OnInit {
   public dialogMethod: string;
   public loading$: Observable<boolean>;
 
-  constructor(private _store: Store<AppState>, public _dialogService: DialogService, private _confirmationService: ConfirmationService) {
+  constructor(
+    public _dialogService: DialogService,
+    private _confirmationService: ConfirmationService,
+    private _oldCeshtjetService: OldCeshtjeEntityService,
+  ) {
   }
 
   ngOnInit(): void {
+    this.data$ = this._oldCeshtjetService.entities$;
+    this.loading$ = this._oldCeshtjetService.loading$;
     this.cols = [
-      { field: "oldId", header: "Old_Id", selected: true, type: "text", display: "menu" },
+      { field: "oldid", header: "Old_Id", selected: true, type: "text", display: "menu" },
       { field: "emri", header: "Emri", selected: true, type: "text", display: "menu" },
       { field: "mbiemri", header: "Mbiemri", selected: true, type: "text", display: "menu" },
       { field: "data_e_ngjarjes", header: "Data e ngjarjes", selected: true, type: "date", display: "menu" },
       { field: "kategoria", header: "Kategoria", selected: true, type: "text", display: "menu" },
-      { field: "sipas_Nenit", header: "Sipas Nenit", selected: false, type: "text", display: "menu" },
+      { field: "sipas_nenit", header: "Sipas Nenit", selected: false, type: "text", display: "menu" },
       { field: "policia", header: "Policia", selected: false, type: "text", display: "menu" },
       { field: "prokuroria", header: "Prokuroria", selected: false, type: "text", display: "menu" },
-      { field: "sipas_Nenit_P", header: "Sipas Nenit Prokuroria", selected: false, type: "text", display: "menu" },
-      { field: "masa_e_sigurisë_kërkuar_nga_Prokurori", header: "Masa e sigurisë kërkuar nga Prokurori", selected: false, type: "text", display: "menu" },
-      { field: "data_Vendimit_Pr", header: "Data e Vendimit Prokuroria", selected: false, type: "text", display: "menu" },
+      { field: "sipas_nenit_P", header: "Sipas Nenit Prokuroria", selected: false, type: "text", display: "menu" },
+      { field: "masa_e_sigurisë_kërkuar_nga_prokurori", header: "Masa e sigurisë kërkuar nga Prokurori", selected: false, type: "text", display: "menu" },
+      { field: "data_vendimit_pr", header: "Data e Vendimit Prokuroria", selected: false, type: "text", display: "menu" },
       { field: "gjykata", header: "Gjykata", selected: false, type: "text", display: "menu" },
       { field: "hetimi", header: "Hetimi", selected: false, type: "text", display: "menu" },
-      { field: "data_Vedim_Gjk", header: "Data Vedim Gjykata", selected: false, type: "text", display: "menu" },
+      { field: "data_vedim_gjk", header: "Data Vedim Gjykata", selected: false, type: "text", display: "menu" },
       { field: "gjygjtari_paraprak", header: "Gjygjtari paraprak", selected: false, type: "text", display: "menu" },
-      { field: "neni_GJP", header: "Neni Gjygjtari paraprak", selected: false, type: "text", display: "menu" },
-      { field: "data_Gjygjtari_pr", header: "Data Gjygjtari paraprak", selected: false, type: "text", display: "menu" },
-      { field: "masa_e_sigurise_Gjykata_Shk1", header: "Masa e sigurise Gjykata Shk1", selected: false, type: "text", display: "menu" },
-      { field: "data_mases_Gjykates_Shk1", header: "Data mases Gjykates Shk1", selected: false, type: "text", display: "menu" },
-      { field: "vendimi_Gjykates_Shk1", header: "Vendimi Gjykates Shk1", selected: false, type: "text", display: "menu" },
-      { field: "neni_GJSH1", header: "Neni Gjykates Shk1", selected: false, type: "text", display: "menu" },
-      { field: "data_Vendimit_GJ_SH1", header: "Data Vendimit Gjykates SH1", selected: false, type: "text", display: "menu" },
-      { field: "vendimi_Apelit", header: "Vendimi Apelit", selected: false, type: "text", display: "menu" },
-      { field: "neni_Apeli", header: "Neni Apeli", selected: false, type: "text", display: "menu" },
-      { field: "data_Vendim_Apeli", header: "Data Vendim Apeli", selected: false, type: "text", display: "menu" },
-      { field: "masa_e_sigurisë_në_Gjykatën_e_Apelit", header: "Masa e sigurisë në Gjykatën e Apelit", selected: false, type: "text", display: "menu" },
-      { field: "data_mas_sig_Apeli", header: "Data mases sigurise Apeli", selected: false, type: "text", display: "menu" },
-      { field: "vendim_Gjykata_Larte", header: "Vendim Gjykata Larte", selected: false, type: "text", display: "menu" },
-      { field: "data_Gjykata_Larte", header: "Data Gjykata Larte", selected: false, type: "text", display: "menu" },
-      { field: "neni_GJL", header: "Neni Gjykata Larte", selected: false, type: "text", display: "menu" },
-      { field: "masa_e_sigurisë_në_Gjykatën_e_Larte", header: "Masa e sigurisë në Gjykatën e Larte", selected: false, type: "text", display: "menu" },
-      { field: "data_mas_sig_Gj_Larte", header: "Data e mases sigurise Gjykata Larte", selected: false, type: "text", display: "menu" },
+      { field: "neni_gjp", header: "Neni Gjygjtari paraprak", selected: false, type: "text", display: "menu" },
+      { field: "data_gjygjtari_pr", header: "Data Gjygjtari paraprak", selected: false, type: "text", display: "menu" },
+      { field: "masa_e_sigurise_gjykata_shk1", header: "Masa e sigurise Gjykata Shk1", selected: false, type: "text", display: "menu" },
+      { field: "data_mases_gjykates_shk1", header: "Data mases Gjykates Shk1", selected: false, type: "text", display: "menu" },
+      { field: "vendimi_gjykates_shk1", header: "Vendimi Gjykates Shk1", selected: false, type: "text", display: "menu" },
+      { field: "neni_gjsh1", header: "Neni Gjykates Shk1", selected: false, type: "text", display: "menu" },
+      { field: "data_Vendimit_gj_sh1", header: "Data Vendimit Gjykates SH1", selected: false, type: "text", display: "menu" },
+      { field: "vendimi_apelit", header: "Vendimi Apelit", selected: false, type: "text", display: "menu" },
+      { field: "neni_apeli", header: "Neni Apeli", selected: false, type: "text", display: "menu" },
+      { field: "data_vendim_apeli", header: "Data Vendim Apeli", selected: false, type: "text", display: "menu" },
+      { field: "masa_e_sigurisë_në_gjykatën_e_apelit", header: "Masa e sigurisë në Gjykatën e Apelit", selected: false, type: "text", display: "menu" },
+      { field: "data_mas_sig_apeli", header: "Data mases sigurise Apeli", selected: false, type: "text", display: "menu" },
+      { field: "vendim_gjykata_larte", header: "Vendim Gjykata Larte", selected: false, type: "text", display: "menu" },
+      { field: "data_gjykata_larte", header: "Data Gjykata Larte", selected: false, type: "text", display: "menu" },
+      { field: "neni_gjl", header: "Neni Gjykata Larte", selected: false, type: "text", display: "menu" },
+      { field: "masa_e_sigurisë_në_gjykatën_e_larte", header: "Masa e sigurisë në Gjykatën e Larte", selected: false, type: "text", display: "menu" },
+      { field: "data_mas_sig_gj_larte", header: "Data e mases sigurise Gjykata Larte", selected: false, type: "text", display: "menu" },
       { field: "komente", header: "Komente", selected: false, type: "text", display: "menu" },
     ];
     this._selectedColumns = this.cols.filter((col) => col.selected);
-    this.data$ = this._store.pipe(select(OldCeshtjetFromDbSelectors.selectAllOldCeshtjeDb));
-    this.loading$ = this._store.pipe(select((state) => state.oldCeshtjetFromDb.loading));
     this.data$.pipe(
       map((cesthjet) => {
         return cesthjet.forEach((cesthje) => {
@@ -128,7 +126,7 @@ export class OldListComponent implements OnInit {
       header: 'Kujdes!',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this._store.dispatch(OldCeshtjetFromDbActions.deleteOldCeshtjeDb({ id: oldCeshtje.id }))
+        this._oldCeshtjetService.delete(oldCeshtje.id);
       },
       reject: () => {
         // console.log("DELETE REJECTED");

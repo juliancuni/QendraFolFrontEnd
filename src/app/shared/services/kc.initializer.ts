@@ -7,10 +7,10 @@ export function initializeKeycloak(keycloak: KeycloakService) {
             bearerExcludedUrls: ['/assets'],
             loadUserProfileAtStartUp: true,
             enableBearerInterceptor: true,
-            // initOptions: {
-            //     onLoad: 'check-sso',
-            //     silentCheckSsoRedirectUri:
-            //         window.location.origin + '/assets/silent-check-sso.html',
-            // },
+            initOptions: {
+                onLoad: 'login-required',
+                silentCheckSsoRedirectUri:
+                    window.location.origin + '/assets/silent-check-sso.html',
+            },
         });
 }

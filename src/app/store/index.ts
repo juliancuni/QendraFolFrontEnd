@@ -1,20 +1,19 @@
+import { routerReducer } from '@ngrx/router-store';
 import {
   ActionReducer,
   ActionReducerMap,
   MetaReducer
 } from '@ngrx/store';
 import { environment } from '../../environments/environment';
-import * as fromOldCeshtjeFromDb from './reducers/old-ceshtje-db.reducer';
 
 export interface AppState {
-  [fromOldCeshtjeFromDb.featureKey]: fromOldCeshtjeFromDb.OldCeshtjeDbState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
-  [fromOldCeshtjeFromDb.featureKey]: fromOldCeshtjeFromDb.reducer,
+  router: routerReducer
 };
 
-export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [] : [];
+export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [debug] : [];
 
 export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
   return function (state, action) {

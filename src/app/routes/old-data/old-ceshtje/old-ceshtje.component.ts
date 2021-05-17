@@ -1,13 +1,10 @@
 import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Update } from '@ngrx/entity';
-import { Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { OldCeshtjeDto } from 'src/app/shared/sdk/models';
 import { OldCeshtjetService } from 'src/app/shared/sdk/services';
-import { AppState } from 'src/app/store';
-import * as OldCeshtjeDbActions from 'src/app/store/actions/old-ceshtje-db.actions';
+import { OldCeshtjeEntityService } from 'src/app/shared/services/entity-services/old-ceshtje-entity.service';
 
 @Component({
   selector: 'app-old-ceshtje',
@@ -68,10 +65,13 @@ export class OldCeshtjeComponent implements OnInit, OnDestroy, OnChanges {
 
   @Input() show: boolean;
   @Input() oldCeshtje: OldCeshtjeDto;
-  @Input() method: string;
+  @Input() method: 'create' | 'update';
   @Output() toggleModal = new EventEmitter<boolean>();
 
-  constructor(private _store: Store<AppState>, private fb: FormBuilder, private _oldCeshtjetService: OldCeshtjetService) {
+  constructor(
+    private fb: FormBuilder,
+    private _oldCeshtjeService: OldCeshtjeEntityService
+  ) {
     this.valForm = fb.group({
       "emri": [this.oldCeshtje?.emri || null],
       "mbiemri": [this.oldCeshtje?.mbiemri || null],
@@ -161,11 +161,13 @@ export class OldCeshtjeComponent implements OnInit, OnDestroy, OnChanges {
       id: oldCeshtjeUpdated.id,
       changes: oldCeshtjeUpdated
     };
-    if(this.method === 'create') {
-      this._store.dispatch(OldCeshtjeDbActions.createOldCeshtjeDb({ oldCeshtje: oldCeshtjeUpdated }));
+    if (this.method === 'create') {
+      this._oldCeshtjeService.add(this.valForm.value);
+      // this._store.dispatch(OldCeshtjeDbActions.createOldCeshtjeDb({ oldCeshtje: oldCeshtjeUpdated }));
     }
-    if(this.method === 'update') {
-      this._store.dispatch(OldCeshtjeDbActions.upsertOldCeshtjeDb({ oldCeshtje: oldCeshtjeUpdated }));
+    if (this.method === 'update') {
+      this._oldCeshtjeService.update(oldCeshtjeUpdated);
+      // this._store.dispatch(OldCeshtjeDbActions.upsertOldCeshtjeDb({ oldCeshtje: oldCeshtjeUpdated }));
     }
 
     this.show = false;

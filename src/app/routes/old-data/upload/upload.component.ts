@@ -10,7 +10,7 @@ import { OldCeshtjeDto } from 'src/app/shared/sdk/models';
 import { OldCeshtjetService } from 'src/app/shared/sdk/services';
 import { StrictHttpResponse } from 'src/app/shared/sdk/strict-http-response';
 import { OldDataService } from 'src/app/shared/services/old-data.service';
-import { AppState } from 'src/app/store';
+// import { AppState } from 'src/app/store';
 // import * as OldCeshtjeActions from 'src/app/store/actions/old-ceshtje.actions';
 // import * as OldCeshtjetFromDbActions from 'src/app/store/actions/old-ceshtje-db.actions';
 

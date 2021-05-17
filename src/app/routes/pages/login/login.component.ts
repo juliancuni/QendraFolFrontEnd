@@ -3,7 +3,7 @@ import { SettingsService } from '../../../core/settings/settings.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 // import { LoginDto } from 'src/app/shared/sdk/models';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store';
+// import { AppState } from 'src/app/store';
 import { Observable } from 'rxjs';
 // import * as fromAuthActions from 'src/app/store/actions/auth.actions';
 import { HttpErrors } from 'src/app/shared/entities/http.errors';
@@ -21,7 +21,11 @@ export class LoginComponent implements OnInit {
     loading$: Observable<boolean>;
     valForm: FormGroup;
 
-    constructor(public settings: SettingsService, fb: FormBuilder, private _store: Store<AppState>) {
+    constructor(
+        public settings: SettingsService,
+        fb: FormBuilder, 
+        // private _store: Store<AppState>
+    ) {
 
         this.valForm = fb.group({
             'username': [null, Validators.required],
