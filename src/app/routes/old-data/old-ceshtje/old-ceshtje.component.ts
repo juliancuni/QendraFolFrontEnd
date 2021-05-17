@@ -4,8 +4,8 @@ import { Update } from '@ngrx/entity';
 import { Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { OldCeshtja } from 'src/app/shared/sdk/models';
-import { OldCeshtjaService } from 'src/app/shared/sdk/services';
+import { OldCeshtjeDto } from 'src/app/shared/sdk/models';
+import { OldCeshtjetService } from 'src/app/shared/sdk/services';
 import { AppState } from 'src/app/store';
 import * as OldCeshtjeDbActions from 'src/app/store/actions/old-ceshtje-db.actions';
 
@@ -53,7 +53,7 @@ export class OldCeshtjeComponent implements OnInit, OnDestroy, OnChanges {
     { field: "komente", header: "Komente", selected: false, type: "text", display: "menu", textArea: true },
   ]
 
-  oldCeshtje$: Observable<OldCeshtja>;
+  oldCeshtje$: Observable<OldCeshtjeDto>;
   valForm: FormGroup;
   notifier = new Subject();
   nenet = ["Neni 135", "Neni 244", "Neni 244/a", "Neni 245", "Neni 245/1", "Neni 248", "Neni 256", "Neni 257", "Neni 257/a", "Neni 258", "Neni 259", "Neni 259/a ", "Neni 260", "Neni 283", "Neni 283/a", "Neni 283/b", "Neni 283/1", "Neni 283/2", "Neni 283/3", "Neni 284", "Neni 284/a", "Neni 284/ç", "Neni 284/c,", "Neni 285/a", "Neni 285/b", "Neni 286", "Neni 312", "Neni 313", "Neni 319", "Neni 319/a", "Neni 319/b", "Neni 319/c", "Neni 319/ç", "Neni 319/d", "Neni 319/dh", "Neni 319/e", "Neni 328", "Neni 333", "Neni 333/a", "Neni 334"];
@@ -67,11 +67,11 @@ export class OldCeshtjeComponent implements OnInit, OnDestroy, OnChanges {
   vendim_Gjykata_Larte = ["Pranim rekursi", "Mospranim rekursi & lë në fuqi vend.Gj.Ap", "prish vend GJ.A dhe le ne fuqi vend GJ.1", "prish vendimin e Gjyk.Ap. dhe kthen aktet", "prish vendimin e Gjyk.Ap. dhe pushon çështjen", "shqyrton në Kolegje të Bashkuara"];
 
   @Input() show: boolean;
-  @Input() oldCeshtje: OldCeshtja;
+  @Input() oldCeshtje: OldCeshtjeDto;
   @Input() method: string;
   @Output() toggleModal = new EventEmitter<boolean>();
 
-  constructor(private _store: Store<AppState>, private fb: FormBuilder, private _oldCeshtjaService: OldCeshtjaService) {
+  constructor(private _store: Store<AppState>, private fb: FormBuilder, private _oldCeshtjetService: OldCeshtjetService) {
     // if (this.oldCeshtje) this.display = true;
     this.valForm = fb.group({
       "emri": [this.oldCeshtje?.emri || null],
@@ -155,11 +155,11 @@ export class OldCeshtjeComponent implements OnInit, OnDestroy, OnChanges {
     for (let c in this.valForm.controls) {
       this.valForm.controls[c].markAsTouched();
     }
-    const oldCeshtjeUpdated: OldCeshtja = {
+    const oldCeshtjeUpdated: OldCeshtjeDto = {
       ...this.oldCeshtje,
       ...this.valForm.value
     }
-    const update: Update<OldCeshtja> = {
+    const update: Update<OldCeshtjeDto> = {
       id: oldCeshtjeUpdated.id,
       changes: oldCeshtjeUpdated
     };

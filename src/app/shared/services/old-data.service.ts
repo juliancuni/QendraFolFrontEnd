@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, of, Subscriber, throwError } from 'rxjs';
+import { Observable, Subscriber } from 'rxjs';
 import { AppState } from 'src/app/store';
-// import * as OldCeshtjetActions from 'src/app/store/actions/old-ceshtje.actions';
 import * as XLSX from 'xlsx';
-import { OldCeshtja } from '../sdk/models';
-// import { OldCeshtja } from '../sdk/models';
 
 @Injectable({
   providedIn: 'root'
@@ -31,14 +28,12 @@ export class OldDataService {
           const ws: XLSX.WorkSheet = wb.Sheets[wsname];
           const data = XLSX.utils.sheet_to_json(ws, { raw: false });
           this.jsonOldCeshtje[`sheet${i + 1}`] = data;
-          // observer.next(this.jsonOldCeshtje)
           const headers = this.get_header_row(ws);
           headerJson[`header${i + 1}`] = headers;
         }
         this.jsonOldCeshtje['headers'] = headerJson["header1"];
         this.jsonOldCeshtje["sheet1"] = this.saveToDb([...this.jsonOldCeshtje["sheet1"]]);
         observer.next(this.jsonOldCeshtje)
-        // observer.next({ excelFileName: this.jsonOldCeshtje['filename'], oldCeshtjet: this.jsonOldCeshtje["sheet1"] })
         observer.complete();
       },
         reader.onerror = (error): void => {

@@ -13,7 +13,6 @@ import * as OldCeshtjetFromDbSelectors from 'src/app/store/selectors/old-ceshtje
 import { ConfirmationService } from 'primeng/api';
 import * as OldCeshtjetFromDbActions from 'src/app/store/actions/old-ceshtje-db.actions';
 import { map } from 'rxjs/operators';
-import { OldCeshtja } from 'src/app/shared/sdk/models';
 
 @Component({
   selector: 'app-old-list',

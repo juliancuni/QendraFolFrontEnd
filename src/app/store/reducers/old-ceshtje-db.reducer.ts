@@ -1,11 +1,12 @@
 import { createEntityAdapter, EntityState } from "@ngrx/entity";
 import { createReducer, on } from "@ngrx/store";
-import { BulkCreateReport, OldCeshtja } from "src/app/shared/sdk/models";
+import { BulkCreateReport } from "src/app/shared/entities/bulk.report";
+import { OldCeshtjeDto } from "src/app/shared/sdk/models";
 import * as OldCeshtjetFromDbActions from "../actions/old-ceshtje-db.actions";
 
 export const featureKey = 'oldCeshtjetFromDb';
 
-export interface OldCeshtjeDbState extends EntityState<OldCeshtja> {
+export interface OldCeshtjeDbState extends EntityState<OldCeshtjeDto> {
     allOldCeshtjetDbLoaded: boolean,
     error: {},
     fileName: string,
@@ -14,7 +15,7 @@ export interface OldCeshtjeDbState extends EntityState<OldCeshtja> {
     loading: boolean,
 }
 
-export const adapter = createEntityAdapter<OldCeshtja>();
+export const adapter = createEntityAdapter<OldCeshtjeDto>();
 
 export const initialOldCeshtjeDbState = adapter.getInitialState({
     allOldCeshtjetDbLoaded: false,
@@ -44,7 +45,7 @@ export const reducer = createReducer(
 
     on(OldCeshtjetFromDbActions.upsertOldCeshtjeDbSuccess, (state, action) => adapter.upsertOne(action.oldCeshtje, state)),
 
-    on(OldCeshtjetFromDbActions.deleteOldCeshtjeDb, (state, action) => adapter.removeOne(action.oldCeshtje.id, state)),
+    on(OldCeshtjetFromDbActions.deleteOldCeshtjeDb, (state, action) => adapter.removeOne(action.id, state)),
 
 
 

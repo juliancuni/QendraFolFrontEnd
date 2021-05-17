@@ -3,8 +3,7 @@ import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { OldCeshtja } from 'src/app/shared/sdk/models';
+import { OldCeshtjeDto } from 'src/app/shared/sdk/models';
 import { AppState } from 'src/app/store';
 import { selectAllOldCeshtjeDb } from 'src/app/store/selectors/old-ceshtje-db.selectors';
 
@@ -18,7 +17,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  dataSource = new MatTableDataSource<OldCeshtja>();
+  dataSource = new MatTableDataSource<OldCeshtjeDto>();
 
   toppings = new FormControl();
   cols = ['id', 'emri', 'mbiemri'];

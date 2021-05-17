@@ -5,7 +5,8 @@ import { MessageService } from 'primeng/api';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Observable, Subject } from 'rxjs';
 import { first, map, take, takeUntil } from 'rxjs/operators';
-import { BulkCreateReport, OldCeshtja } from 'src/app/shared/sdk/models';
+import { BulkCreateReport } from 'src/app/shared/entities/bulk.report';
+import { OldCeshtjeDto } from 'src/app/shared/sdk/models';
 import { AppState } from 'src/app/store';
 // import * as OldCeshtjeActions from 'src/app/store/actions/old-ceshtje.actions';
 import * as OldCeshtjetFromDbActions from 'src/app/store/actions/old-ceshtje-db.actions';
@@ -19,7 +20,7 @@ export class UploadComponent implements OnInit, OnDestroy {
 
   fileName$: Observable<string>;
   loading$: Observable<boolean>;
-  jsonOldCeshtje$: Observable<OldCeshtja[]>
+  jsonOldCeshtje$: Observable<OldCeshtjeDto[]>
   bulkCreateReport$: Observable<BulkCreateReport>;
   report: BulkCreateReport;
   public fileOver = false;

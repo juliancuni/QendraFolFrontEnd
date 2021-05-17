@@ -1,5 +1,6 @@
 import { createAction, props } from "@ngrx/store";
-import { BulkCreateReport, OldCeshtja } from "src/app/shared/sdk/models";
+import { BulkCreateReport } from "src/app/shared/entities/bulk.report";
+import {  OldCeshtjeDto } from "src/app/shared/sdk/models";
 
 /** Upload Bulk XCLSX */
 export const convertXclsxFile = createAction(
@@ -14,7 +15,7 @@ export const convertXclsxFileError = createAction(
 
 export const uploadJsonConvertedToDb = createAction(
     '[Old Ceshtje Db Effect] Upload',
-    props<{ bulkJson: OldCeshtja[], fileName: string, jsonOld: any }>()
+    props<{ bulkJson: OldCeshtjeDto[], fileName: string, jsonOld: any }>()
 )
 
 export const uploadJsonConvertedToDbSuccess = createAction(
@@ -46,7 +47,7 @@ export const loadAllCeshtjeFromDbList = createAction(
 
 export const loadAllCeshtjeFromDbSuccess = createAction(
     "[Old Ceshtje Resolver] Load All Old Ceshtjet Success",
-    props<{ oldCeshtjetFromDB: OldCeshtja[] }>()
+    props<{ oldCeshtjetFromDB: any }>()
 );
 
 export const loadAllCeshtjeFromDbFailure = createAction(
@@ -56,12 +57,12 @@ export const loadAllCeshtjeFromDbFailure = createAction(
 /** Upsert Ceshtje */
 export const upsertOldCeshtjeDb = createAction(
     "[Old Ceshtje Component] Upsert Ceshtje",
-    props<{ oldCeshtje: OldCeshtja }>()
+    props<{ oldCeshtje: OldCeshtjeDto }>()
 )
 
 export const upsertOldCeshtjeDbSuccess = createAction(
     "[Old Ceshtje Component] Upsert Ceshtje Success",
-    props<{ oldCeshtje: OldCeshtja }>()
+    props<{ oldCeshtje: any }>()
 )
 
 export const upsertOldCeshtjeDbFailure = createAction(
@@ -71,7 +72,7 @@ export const upsertOldCeshtjeDbFailure = createAction(
 /** Delete Ceshtje */
 export const deleteOldCeshtjeDb = createAction(
     "[Old Ceshtje Component] Delete Ceshtje",
-    props<{ oldCeshtje: OldCeshtja }>()
+    props<{ id: string }>()
 )
 
 export const deleteOldCeshtjeDbSuccess = createAction(

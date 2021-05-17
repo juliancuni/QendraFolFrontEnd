@@ -4,12 +4,8 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
-import { AccountService } from './services/account.service';
-import { BulkCreateReportService } from './services/bulk-create-report.service';
-import { FileUploadService } from './services/file-upload.service';
-import { OldCeshtjaService } from './services/old-ceshtja.service';
-import { RoleService } from './services/role.service';
-import { UsersService } from './services/users.service';
+import { OldCeshtjetService } from './services/old-ceshtjet.service';
+import { ApiService } from './services/api.service';
 
 /**
  * Module that provides all services and configuration.
@@ -19,12 +15,8 @@ import { UsersService } from './services/users.service';
   exports: [],
   declarations: [],
   providers: [
-    AccountService,
-    BulkCreateReportService,
-    FileUploadService,
-    OldCeshtjaService,
-    RoleService,
-    UsersService,
+    OldCeshtjetService,
+    ApiService,
     ApiConfiguration
   ],
 })
