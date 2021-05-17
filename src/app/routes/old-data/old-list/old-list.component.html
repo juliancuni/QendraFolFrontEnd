@@ -1,16 +1,18 @@
 <ng-container *ngIf="data$ | async as oldData">
     <p-table #dt1 [columns]="selectedColumns" [value]="oldData" dataKey="id" selectionMode="single"
-        styleClass="p-datatable-responsive-demo p-datatable-sm" [loading]="loading$ | async"
-        [(selection)]="selectedCeshtje" [scrollable]="true" [rows]="100" scrollHeight="600px" [virtualScroll]="true"
-        [virtualRowHeight]="34" [globalFilterFields]="['oldid', 'emri','mbiemri','kategoria', 'policia', 'komente']">
+        styleClass="p-datatable-responsive-demo p-datatable-gridlines p-datatable-sm" [loading]="loading$ | async"
+        [(selection)]="selectedCeshtje" [scrollable]="true" [paginator]="true" [rows]="10"
+        [showCurrentPageReport]="true" currentPageReportTemplate="{first} deri ne {last} nga {totalRecords} rekorde"
+        [rowsPerPageOptions]="[10,25,50]"
+        [globalFilterFields]="['oldid', 'emri','mbiemri','kategoria', 'policia', 'komente']">
         <ng-template pTemplate="caption">
             <div class="p-d-flex">
-                <button pButton label="Fshi Kerkimin" class="p-button-outlined" icon="pi pi-filter-slash"
+                <button pButton label="Fshi Filtrat" class="p-button-outlined" icon="pi pi-filter-slash"
                     (click)="clear(dt1)"></button>
                 <span class="p-input-icon-left p-ml-auto">
                     <i class="pi pi-search"></i>
                     <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')"
-                        placeholder="Kerko ne tabele" />
+                        placeholder="Filtro tabelën" />
                 </span>
                 <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
                     selectedItemsLabel="{0} Kolona të zgjedhura" [style]="{minWidth: '200px'}"
@@ -20,7 +22,7 @@
                     (click)="addNewOldCeshtje()"></button>
                 <button pButton label="Upload From XLSX" class="p-button-outlined" icon="pi pi-upload"
                     (click)="showImportXLSX()"></button>
-                {{oldData.length}} Rekorde
+                {{oldData.length}} Total Rekorde
             </div>
         </ng-template>
         <ng-template pTemplate="header" let-columns>
