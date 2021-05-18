@@ -74,12 +74,18 @@ export class UploadComponent implements OnInit, OnDestroy {
       this.fileName = res.filename;
       this._oldCeshtjetService.oldCeshtjetControllerBulkInsert$Response({ body: res.sheet1 }).subscribe((res: any) => {
         if (res.body) {
-          let report = JSON.parse(res.body);
+          let report: BulkCreateReport = JSON.parse(res.body);
           if (report.nrImportedFailure > 0) {
             this._messageService.add({ severity: 'warn', summary: report.nrImportedFailure + ' Rekorde', detail: 'Nuk u regjistruan. Keto ceshtje egzistojne ne DB' })
           }
           if (report.nrImportedSuccess > 0) {
             this._messageService.add({ severity: 'success', summary: report.nrImportedSuccess + ' Rekorde', detail: 'U regjistruan me sukses ne DB.' })
+          }
+          if (report.nrUpdatedFailure > 0) {
+            this._messageService.add({ severity: 'warn', summary: report.nrUpdatedFailure + ' Rekorde egzistojne', detail: ' Por nuk u perditesuan.' })
+          }
+          if (report.nrUpdatedSuccess > 0) {
+            this._messageService.add({ severity: 'success', summary: report.nrUpdatedSuccess + ' Rekorde', detail: 'U perditesuan me sukses ne DB.' })
           }
         }
       }, (err) => {

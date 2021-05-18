@@ -3,6 +3,9 @@ export interface BulkCreateReport {
     nrImportedSuccess?: number;
     nrImportedFailure?: number;
     importFailedOldIds?: number[];
+    nrUpdatedSuccess?: number;
+    nrUpdatedFailure?: number;
+    updateFailedoldids?: number[];
     username?: string;
     created_at?: Date;
 }
