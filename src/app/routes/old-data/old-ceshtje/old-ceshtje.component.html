@@ -24,177 +24,165 @@
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input3">Data e ngjarjes</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <p-calendar inputId="input3" formControlName="data_e_ngjarjes" [showIcon]="true"></p-calendar>
+                        <p-calendar inputId="input3" [style]="{'display':'flex'}" formControlName="data_e_ngjarjes" [showIcon]="true"></p-calendar>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input4">Kategoria</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <p-dropdown inputId="input4" placeholder="Kategoria" formControlName="kategoria" [showClear]="true" [options]="kategoria"></p-dropdown>
+                        <p-dropdown inputId="input4" [style]="{'display':'flex'}" placeholder="Kategoria" formControlName="kategoria" [showClear]="true" [options]="kategoria"></p-dropdown>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input5">Ngjarja sipas Policisë</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <textarea id="input5" class="form-control" row="4" formControlName="policia"></textarea>
+                        <textarea pInputTextarea autoResize="autoResize" id="input5" class="form-control" row="4" formControlName="policia"></textarea>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input6">Sipas Nenit</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <!-- <p-multiSelect [style]="{'width':'300px'}" [options]="nenet" formControlName="sipas_nenit" defaultLabel="Sipas Nenit"></p-multiSelect> -->
-                        <mat-form-field appearance="fill">
-                            <mat-label>Toppings</mat-label>
-                            <mat-select formControlName="sipas_nenit" multiple>
-                              <mat-select-trigger>
-                                {{nenet.values ? nenet.values[0] : ''}}
-                                <span *ngIf="nenet.values?.length > 1" class="example-additional-selection">
-                                  (+{{nenet.values.length - 1}} {{nenet.values?.length === 2 ? 'other' : 'others'}})
-                                </span>
-                              </mat-select-trigger>
-                              <mat-option *ngFor="let neni of nenet" [value]="neni">{{neni}}</mat-option>
-                            </mat-select>
-                          </mat-form-field>
+                        <p-multiSelect inputId="input6" [style]="{'display':'flex'}" [options]="nenet" formControlName="sipas_nenit" defaultLabel="Sipas Nenit" [filter]="false"></p-multiSelect>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input7">Prokuroria</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <p-dropdown inputId="input7" placeholder="Prokuroria" formControlName="prokuroria" [showClear]="true" [options]="prokuroria"></p-dropdown>
+                        <p-dropdown inputId="input7" [style]="{'display':'flex'}" placeholder="Prokuroria" formControlName="prokuroria" [showClear]="true" [options]="prokuroria"></p-dropdown>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input8">Masa e sigurisë kërkuar nga Prokurori</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <p-dropdown inputId="input8" placeholder="Masa e sigurisë kërkuar nga Prokurori" formControlName="masa_e_sigurisë_kërkuar_nga_prokurori" [showClear]="true" [options]="masa_e_sigurise"></p-dropdown>
+                        <p-dropdown inputId="input8" [style]="{'display':'flex'}" placeholder="Masa e sigurisë kërkuar nga Prokurori" formControlName="masa_e_sigurisë_kërkuar_nga_prokurori" [showClear]="true" [options]="masa_e_sigurise"></p-dropdown>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input9">Hetimi</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <p-dropdown inputId="input9" placeholder="Hetimi" formControlName="hetimi" [showClear]="true" [options]="hetimi"></p-dropdown>
+                        <p-dropdown inputId="input9" [style]="{'display':'flex'}" placeholder="Hetimi" formControlName="hetimi" [showClear]="true" [options]="hetimi"></p-dropdown>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input10">Data vendimit të Prokurorisë</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <p-calendar inputId="input10" formControlName="data_vendimit_pr" [showIcon]="true"></p-calendar>
+                        <p-calendar inputId="input10" [style]="{'display':'flex'}" formControlName="data_vendimit_pr" [showIcon]="true"></p-calendar>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input11">Gjyqtari paraprak</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <p-dropdown inputId="input11" placeholder="Gjyqtari paraprak" formControlName="gjygjtari_paraprak" [showClear]="true" [options]="gjygjtari_paraprak">
+                        <p-dropdown inputId="input11" [style]="{'display':'flex'}" placeholder="Gjyqtari paraprak" formControlName="gjygjtari_paraprak" [showClear]="true" [options]="gjygjtari_paraprak">
                         </p-dropdown>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input12">Neni gjyqtari paraprak</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <p-dropdown inputId="input12" placeholder="Neni Gjyqtari paraprak" formControlName="neni_gjp" [showClear]="true" [options]="nenet"></p-dropdown>
+                        <p-multiSelect inputId="input12" [style]="{'display':'flex'}" [options]="nenet" formControlName="neni_gjp" defaultLabel="Neni gjyqtari paraprak" [filter]="false"></p-multiSelect>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input13">Data e vendimit gjyqtarit paraprak</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <p-calendar inputId="input13" formControlName="data_gjygjtari_pr" [showIcon]="true"></p-calendar>
+                        <p-calendar inputId="input13" [style]="{'display':'flex'}" formControlName="data_gjygjtari_pr" [showIcon]="true"></p-calendar>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input14">Masa e sigurise Gjykata Shk1</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <p-dropdown inputId="input14" placeholder="Masa e sigurise Gjykata Shk1" formControlName="masa_e_sigurise_gjykata_shk1" [showClear]="true" [options]="masa_e_sigurise"></p-dropdown>
+                        <p-dropdown inputId="input14" [style]="{'display':'flex'}" placeholder="Masa e sigurise Gjykata Shk1" formControlName="masa_e_sigurise_gjykata_shk1" [showClear]="true" [options]="masa_e_sigurise"></p-dropdown>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input15">Data mases Gjykates Shk1</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <p-calendar inputId="input15" formControlName="data_mases_gjykates_shk1" [showIcon]="true"></p-calendar>
+                        <p-calendar inputId="input15" [style]="{'display':'flex'}" formControlName="data_mases_gjykates_shk1" [showIcon]="true"></p-calendar>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input16">Vendimi Gjykates Shk1</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <p-dropdown inputId="input16" placeholder="Vendimi Gjykates Shk1" formControlName="vendimi_gjykates_shk1" [showClear]="true" [options]="vendimi_Gjykates_Shk1"></p-dropdown>
+                        <p-dropdown inputId="input16" [style]="{'display':'flex'}" placeholder="Vendimi Gjykates Shk1" formControlName="vendimi_gjykates_shk1" [showClear]="true" [options]="vendimi_Gjykates_Shk1"></p-dropdown>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input17">Neni_GJSH1</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <p-dropdown inputId="input17" placeholder="Neni_GJSH1" formControlName="neni_gjsh1" [showClear]="true" [options]="nenet"></p-dropdown>
+                        <p-multiSelect inputId="input17" [style]="{'display':'flex'}" [options]="nenet" formControlName="neni_gjsh1" defaultLabel="Neni_GJSH1" [filter]="false"></p-multiSelect>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input18">Data Vendimit GJ SH1</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <p-calendar inputId="input18" formControlName="data_vendimit_gj_sh1" [showIcon]="true"></p-calendar>
+                        <p-calendar inputId="input18" [style]="{'display':'flex'}" formControlName="data_vendimit_gj_sh1" [showIcon]="true"></p-calendar>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input19">Masa e sigurisë në Gjykatën e Apelit</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <p-dropdown inputId="input19" placeholder="Masa e sigurisë në Gjykatën e Apelit" formControlName="masa_e_sigurisë_në_gjykatën_e_apelit" [showClear]="true" [options]="masa_e_sigurise"></p-dropdown>
+                        <p-dropdown inputId="input19" [style]="{'display':'flex'}" placeholder="Masa e sigurisë në Gjykatën e Apelit" formControlName="masa_e_sigurisë_në_gjykatën_e_apelit" [showClear]="true" [options]="masa_e_sigurise"></p-dropdown>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input20">Data mas sig Apeli</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <p-calendar inputId="input20" formControlName="data_mas_sig_apeli" [showIcon]="true"></p-calendar>
+                        <p-calendar inputId="input20" [style]="{'display':'flex'}" formControlName="data_mas_sig_apeli" [showIcon]="true"></p-calendar>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input21">Vendimi Apelit</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <p-dropdown inputId="input21" placeholder="Vendimi Apelit" formControlName="vendimi_apelit" [showClear]="true" [options]="vendimi_Apelit"></p-dropdown>
+                        <p-dropdown inputId="input21" [style]="{'display':'flex'}" placeholder="Vendimi Apelit" formControlName="vendimi_apelit" [showClear]="true" [options]="vendimi_Apelit"></p-dropdown>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input22">Neni_Apeli</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <p-dropdown inputId="input22" placeholder="Neni_Apeli" formControlName="neni_apeli" [showClear]="true" [options]="nenet"></p-dropdown>
+                        <p-multiSelect inputId="input22" [style]="{'display':'flex'}" [options]="nenet" formControlName="neni_apeli" defaultLabel="Neni_Apeli" [filter]="false"></p-multiSelect>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input23">Data Vendim Apeli</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <p-calendar inputId="input23" formControlName="data_vendim_apeli" [showIcon]="true"></p-calendar>
+                        <p-calendar inputId="input23" [style]="{'display':'flex'}" formControlName="data_vendim_apeli" [showIcon]="true"></p-calendar>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input24">Vendim Gjykata Larte</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <p-dropdown inputId="input24" placeholder="Vendim Gjykata Larte" formControlName="vendim_gjykata_larte" [showClear]="true" [options]="vendim_Gjykata_Larte"></p-dropdown>
+                        <p-dropdown inputId="input24" [style]="{'display':'flex'}" placeholder="Vendim Gjykata Larte" formControlName="vendim_gjykata_larte" [showClear]="true" [options]="vendim_Gjykata_Larte"></p-dropdown>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input25">Neni_GJL</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <p-dropdown inputId="input25" placeholder="Neni_GJL" formControlName="neni_gjl" [showClear]="true" [options]="nenet"></p-dropdown>
+                        <p-multiSelect inputId="input25" [style]="{'display':'flex'}" [options]="nenet" formControlName="neni_gjl" defaultLabel="Neni_GJL" [filter]="false"></p-multiSelect>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input26">Data Gjykata Larte</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <p-calendar inputId="input26" formControlName="data_gjykata_larte" [showIcon]="true"></p-calendar>
+                        <p-calendar inputId="input26" [style]="{'display':'flex'}" formControlName="data_gjykata_larte" [showIcon]="true"></p-calendar>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input27">Masa e
                         sigurisë në Gjykatën e Larte</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <p-dropdown inputId="input27" placeholder="Masa e sigurisë në Gjykatën e Larte" formControlName="masa_e_sigurisë_në_gjykatën_e_larte" [showClear]="true" [options]="masa_e_sigurise"></p-dropdown>
+                        <p-dropdown inputId="input27" [style]="{'display':'flex'}" placeholder="Masa e sigurisë në Gjykatën e Larte" formControlName="masa_e_sigurisë_në_gjykatën_e_larte" [showClear]="true" [options]="masa_e_sigurise"></p-dropdown>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input28">Data mas sig Gj Larte</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <p-calendar inputId="input28" formControlName="data_mas_sig_gj_larte" [showIcon]="true"></p-calendar>
+                        <p-calendar inputId="input28" [style]="{'display':'flex'}" formControlName="data_mas_sig_gj_larte" [showIcon]="true"></p-calendar>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input29">Komente</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <textarea id="input29" class="form-control" row="4" formControlName="komente"></textarea>
+                        <textarea pInputTextarea autoResize="autoResize" id="input29" class="form-control" row="4" formControlName="komente"></textarea>
                     </div>
                 </div>
             </form>
