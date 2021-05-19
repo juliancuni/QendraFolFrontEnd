@@ -42,7 +42,19 @@
                 <div class="form-group row">
                     <label class="text-bold col-xl-4 col-md-4 col-4 col-form-label text-right" for="input6">Sipas Nenit</label>
                     <div class="col-xl-8 col-md-8 col-8">
-                        <p-dropdown inputId="input6" placeholder="Sipas Nenit" formControlName="sipas_nenit" [showClear]="true" [options]="nenet"></p-dropdown>
+                        <!-- <p-multiSelect [style]="{'width':'300px'}" [options]="nenet" formControlName="sipas_nenit" defaultLabel="Sipas Nenit"></p-multiSelect> -->
+                        <mat-form-field appearance="fill">
+                            <mat-label>Toppings</mat-label>
+                            <mat-select formControlName="sipas_nenit" multiple>
+                              <mat-select-trigger>
+                                {{nenet.values ? nenet.values[0] : ''}}
+                                <span *ngIf="nenet.values?.length > 1" class="example-additional-selection">
+                                  (+{{nenet.values.length - 1}} {{nenet.values?.length === 2 ? 'other' : 'others'}})
+                                </span>
+                              </mat-select-trigger>
+                              <mat-option *ngFor="let neni of nenet" [value]="neni">{{neni}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
                     </div>
                 </div>
                 <div class="form-group row">

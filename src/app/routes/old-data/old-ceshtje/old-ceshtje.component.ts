@@ -75,7 +75,7 @@ export class OldCeshtjeComponent implements OnInit, OnDestroy, OnChanges {
     this.valForm = fb.group({
       "emri": [this.oldCeshtje?.emri || null],
       "mbiemri": [this.oldCeshtje?.mbiemri || null],
-      "data_e_ngjarjes": [new Date()],
+      "data_e_ngjarjes": [new Date() || null],
       "kategoria": [this.oldCeshtje?.kategoria || null],
       "sipas_nenit": [this.oldCeshtje?.sipas_nenit || null],
       "policia": [this.oldCeshtje?.policia || null],
@@ -110,6 +110,7 @@ export class OldCeshtjeComponent implements OnInit, OnDestroy, OnChanges {
 
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.oldCeshtje)
     this.valForm.patchValue({
       "emri": this.oldCeshtje?.emri,
       "mbiemri": this.oldCeshtje?.mbiemri,
@@ -153,16 +154,28 @@ export class OldCeshtjeComponent implements OnInit, OnDestroy, OnChanges {
     for (let c in this.valForm.controls) {
       this.valForm.controls[c].markAsTouched();
     }
+    let value: OldCeshtjeDto = { ...this.valForm.value };
+    value.data_e_ngjarjes = value.data_e_ngjarjes?.toString();
+    value.data_gjygjtari_pr = value.data_gjygjtari_pr?.toString();
+    value.data_gjykata_larte = value.data_gjykata_larte?.toString();
+    value.data_mas_sig_apeli = value.data_mas_sig_apeli?.toString();
+    value.data_mas_sig_gj_larte = value.data_mas_sig_gj_larte?.toString();
+    value.data_mases_gjykates_shk1 = value.data_mases_gjykates_shk1?.toString();
+    value.data_vedim_gjk = value.data_vedim_gjk?.toString();
+    value.data_vendim_apeli = value.data_vendim_apeli?.toString();
+    value.data_vendimit_gj_sh1 = value.data_vendimit_gj_sh1?.toString();
+    value.data_vendimit_pr = value.data_vendimit_pr?.toString();
     const oldCeshtjeUpdated: OldCeshtjeDto = {
       ...this.oldCeshtje,
-      ...this.valForm.value
+      ...value
     }
     const update: Update<OldCeshtjeDto> = {
       id: oldCeshtjeUpdated.id,
       changes: oldCeshtjeUpdated
     };
     if (this.method === 'create') {
-      this._oldCeshtjeService.add(this.valForm.value);
+
+      this._oldCeshtjeService.add(value);
       // this._store.dispatch(OldCeshtjeDbActions.createOldCeshtjeDb({ oldCeshtje: oldCeshtjeUpdated }));
     }
     if (this.method === 'update') {
