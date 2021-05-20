@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: "",
+  apiUrl: '',
   kcConfig: {
     url: 'https://qendrafol.microservices.al/auth',
     realm: 'qendrafol',
