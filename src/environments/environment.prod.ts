@@ -2,7 +2,7 @@ export const environment = {
   production: true,
   apiUrl: '',
   kcConfig: {
-    url: 'https://auth.microservices.al/auth',
+    url: 'https://ids.microservices.al/auth',
     realm: 'qendrafol',
     clientId: 'qendrafol-webapp',
   }
